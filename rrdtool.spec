@@ -2,7 +2,7 @@
 Summary:	RRDtool - round robin database
 Name:		rrdtool
 Version:	1.0.33
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Databases
 Group(pl):	Aplikacje/Bazy danych
@@ -113,5 +113,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/librrd.la
 %{_libdir}/librrd.a
