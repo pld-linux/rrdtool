@@ -146,8 +146,8 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#patch2 -p1
-#patch3 -p1
+%patch2 -p1
+%patch3 -p1
 
 %{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am
 
