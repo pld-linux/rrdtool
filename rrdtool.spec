@@ -31,7 +31,7 @@ autoconf
 make
 
 %install
-make install PREFIX=$RPM_BUILD_ROOT/usr
+%{__make} install PREFIX=$RPM_BUILD_ROOT/usr
 
 %files
 %defattr(644,root,root,755)
