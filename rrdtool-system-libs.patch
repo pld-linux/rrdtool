@@ -1,6 +1,28 @@
-diff -Nur rrdtool-1.0.42.orig/gd1.3/Makefile.am rrdtool-1.0.42/gd1.3/Makefile.am
---- rrdtool-1.0.42.orig/gd1.3/Makefile.am	2003-04-04 23:23:55.000000000 +0200
-+++ rrdtool-1.0.42/gd1.3/Makefile.am	2003-04-17 20:48:34.000000000 +0200
+diff -urN rrdtool-1.0.48.org/configure.ac rrdtool-1.0.48/configure.ac
+--- rrdtool-1.0.48.org/configure.ac	2004-05-10 21:54:23.926860912 +0200
++++ rrdtool-1.0.48/configure.ac	2004-05-10 21:54:50.507819992 +0200
+@@ -366,7 +366,7 @@
+ ]))])])])])])])])])])
+ 
+ 
+-AC_CONFIG_FILES([cgilib-0.4/Makefile				\
++AC_CONFIG_FILES([ \
+           examples/shared-demo.pl			\
+           examples/piped-demo.pl			\
+           examples/stripes.pl				\
+@@ -383,9 +383,6 @@
+           contrib/add_ds/add_ds.pl			\
+ 	  contrib/add_ds/batch.pl			\
+           doc/Makefile					\
+-          gd1.3/Makefile				\
+-          libpng-1.0.9/Makefile				\
+-          zlib-1.1.4/Makefile				\
+           src/Makefile					\
+           tcl/Makefile					\
+           perl-shared/Makefile.PL			\
+diff -urN rrdtool-1.0.48.org/gd1.3/Makefile.am rrdtool-1.0.48/gd1.3/Makefile.am
+--- rrdtool-1.0.48.org/gd1.3/Makefile.am	2004-05-10 21:54:23.833875048 +0200
++++ rrdtool-1.0.48/gd1.3/Makefile.am	2004-05-10 21:54:50.509819688 +0200
 @@ -3,15 +3,14 @@
  noinst_LTLIBRARIES  = librrd_gd.la
  
@@ -21,43 +43,35 @@ diff -Nur rrdtool-1.0.42.orig/gd1.3/Makefile.am rrdtool-1.0.42/gd1.3/Makefile.am
 +librrd_gd_la_LIBADD = -lgd
  
  EXTRA_DIST= README.rrdtool demoin.gif gd.dsp gd.dsw index.html readme.txt \
- 	webgif.c mtables.c mathmake.c giftogd.c
-diff -Nur rrdtool-1.0.42.orig/Makefile.am rrdtool-1.0.42/Makefile.am
---- rrdtool-1.0.42.orig/Makefile.am	2003-04-17 20:46:54.000000000 +0200
-+++ rrdtool-1.0.42/Makefile.am	2003-04-17 20:47:27.000000000 +0200
-@@ -16,7 +16,7 @@
- endif
+ 	webgif.c mtables.c mathmake.c giftogd.c gd.vcproj
+diff -urN rrdtool-1.0.48.org/Makefile.am rrdtool-1.0.48/Makefile.am
+--- rrdtool-1.0.48.org/Makefile.am	2004-05-10 21:54:23.926860912 +0200
++++ rrdtool-1.0.48/Makefile.am	2004-05-10 21:54:50.511819384 +0200
+@@ -3,20 +3,11 @@
+ 
+ # allow to use shipped code with rrdtool or local OS's version
+ # see configure.in or do a ./configure --help
+-if USE_INSTALLED_ZLIB
+ SUBDIRS_1 =
+-else
+-SUBDIRS_1 = zlib-1.1.4
+-endif
+-
+-if USE_INSTALLED_LIBPNG
+ SUBDIRS_2 =
+-else
+-SUBDIRS_2 = libpng-1.0.9
+-endif
  
  # build the following subdirectories
 -SUBDIRS = cgilib-0.4 gd1.3 $(SUBDIRS_1) $(SUBDIRS_2) \
-+SUBDIRS = cgilib-0.4 gd1.3 \
++SUBDIRS = \
            src doc examples contrib tcl
  
  # the following files are not mentioned in any other Makefile
-diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
---- rrdtool-1.0.42.orig/src/Makefile.am	2002-05-07 23:51:19.000000000 +0200
-+++ rrdtool-1.0.42/src/Makefile.am	2003-04-17 20:49:49.000000000 +0200
-@@ -34,7 +34,7 @@
- 
- 
- 
--AM_CPPFLAGS = -I$(CGI_INC_DIR) -I$(GD_INC_DIR) $(PNG_INC) $(ZLIB_INC)
-+AM_CPPFLAGS = -I$(CGI_INC_DIR) -I$(GD_INC_DIR)
- 
- #COMPILE   = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
- #LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
-@@ -75,8 +75,7 @@
- RRD_LIBS =				\
- 	$(CGI_LIB_DIR)/librrd_cgi.la	\
- 	$(GD_LIB_DIR)/librrd_gd.la	\
--	$(PNG_LIB)			\
--	$(ZLIB_LIB)
-+	-lpng -lz
- 
- lib_LTLIBRARIES           = librrd.la
- noinst_LTLIBRARIES        = librrd_private.la
---- rrdtool-1.0.42/perl-shared/Makefile.PL.in.orig	2002-03-21 22:52:35.000000000 +0100
-+++ rrdtool-1.0.42/perl-shared/Makefile.PL.in	2003-04-17 21:07:29.000000000 +0200
+diff -urN rrdtool-1.0.48.org/perl-shared/Makefile.PL.in rrdtool-1.0.48/perl-shared/Makefile.PL.in
+--- rrdtool-1.0.48.org/perl-shared/Makefile.PL.in	2004-05-10 21:54:23.814877936 +0200
++++ rrdtool-1.0.48/perl-shared/Makefile.PL.in	2004-05-10 21:54:50.512819232 +0200
 @@ -4,7 +4,7 @@
  # the contents of the Makefile that is written.
  
@@ -67,7 +81,7 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
  
  WriteMakefile(
      'NAME'         => 'RRDs',
-@@ -13,7 +13,6 @@
+@@ -14,7 +14,6 @@
      'CCFLAGS'      => '-DHAVE_CONFIG_H',
      # where to look for the necessary libraries 
      # Perl will figure out which one is valid
@@ -75,8 +89,70 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
      'dynamic_lib'  => {'OTHERLDFLAGS' => "$librrd -lm"},
      'realclean'    => {FILES => 't/demo?.rrd t/demo?.gif' }
  );
---- rrdtool-1.0.44/tcl/Makefile.am.orig	2002-02-26 11:21:52.000000000 +0100
-+++ rrdtool-1.0.44/tcl/Makefile.am	2003-04-17 21:07:51.000000000 +0200
+diff -urN rrdtool-1.0.48.org/src/Makefile.am rrdtool-1.0.48/src/Makefile.am
+--- rrdtool-1.0.48.org/src/Makefile.am	2004-05-10 21:54:23.886866992 +0200
++++ rrdtool-1.0.48/src/Makefile.am	2004-05-10 21:55:10.680753240 +0200
+@@ -34,7 +34,7 @@
+ 
+ 
+ 
+-AM_CPPFLAGS = -I$(CGI_INC_DIR) -I$(GD_INC_DIR) $(PNG_INC) $(ZLIB_INC)
++AM_CPPFLAGS = -I$(CGI_INC_DIR) -I$(GD_INC_DIR)
+ 
+ #COMPILE   = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
+ #LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
+@@ -73,10 +73,9 @@
+ # files.
+ 
+ RRD_LIBS =				\
+-	$(CGI_LIB_DIR)/librrd_cgi.la	\
+-	$(GD_LIB_DIR)/librrd_gd.la	\
+-	$(PNG_LIB)			\
+-	$(ZLIB_LIB)
++	-lcgic \
++	-lgd \
++	-lpng -lz
+ 
+ lib_LTLIBRARIES           = librrd.la
+ noinst_LTLIBRARIES        = librrd_private.la
+diff -urN rrdtool-1.0.48.org/src/rrd_graph.c rrdtool-1.0.48/src/rrd_graph.c
+--- rrdtool-1.0.48.org/src/rrd_graph.c	2004-05-10 21:54:23.890866384 +0200
++++ rrdtool-1.0.48/src/rrd_graph.c	2004-05-10 22:14:26.099102952 +0200
+@@ -14,13 +14,8 @@
+ #include "rrd_graph.h"
+ #include <gd.h>
+ 
+-#ifdef LATIN2_ENABLE
+-#include <gdlucidan10l2.h>
+-#include <gdlucidab12l2.h>
+-#else
+-#include <gdlucidan10.h>
+-#include <gdlucidab12.h>
+-#endif
++#include <gdfonts.h>
++#include <gdfontl.h>
+ 
+ #include <sys/stat.h>
+ #ifdef WIN32
+@@ -36,13 +31,8 @@
+ #include <locale.h>
+ #endif
+ 
+-#ifdef LATIN2_ENABLE
+-#define SmallFont gdLucidaNormal10l2
+-#define LargeFont gdLucidaBold12l2
+-#else    
+-#define SmallFont gdLucidaNormal10
+-#define LargeFont gdLucidaBold12
+-#endif
++#define SmallFont gdFontSmall
++#define LargeFont gdFontLarge
+ 
+ xlab_t xlab[] = {
+     {0,        TMT_SECOND,30, TMT_MINUTE,5,  TMT_MINUTE,5,         0,"%H:%M"},
+diff -urN rrdtool-1.0.48.org/tcl/Makefile.am rrdtool-1.0.48/tcl/Makefile.am
+--- rrdtool-1.0.48.org/tcl/Makefile.am	2004-05-10 21:54:23.925861064 +0200
++++ rrdtool-1.0.48/tcl/Makefile.am	2004-05-10 21:54:50.519818168 +0200
 @@ -22,7 +22,7 @@
  if COMP_TCL
  
@@ -85,4 +161,4 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
 +	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm -ltcl
  
  tclrrd.o: tclrrd.c
- 	$(CC) $(CFLAGS) $(TCL_SHLIB_CFLAGS) $(INCLUDES) -c $< -DVERSION=\"$(VERSION)\"
+ 	$(CC) $(CFLAGS) $(TCL_SHLIB_CFLAGS) $(INCLUDES) $(AM_CPPFLAGS) -c $< -DVERSION=\"$(VERSION)\"
