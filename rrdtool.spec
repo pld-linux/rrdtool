@@ -78,19 +78,19 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 пристро╖ та надають дружн╕й ╕нтерфейс користувача.
 
 %package devel
-Summary:	RDDTools development
-Summary(pl):	NarzЙdzia programistyczne pakietu RRDtools
+Summary:	RDDtool development
+Summary(pl):	NarzЙdzia programistyczne pakietu RRDtool
 Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo da librrd
-Summary(ru):	RRDtool - база данных с "циклическим обновлением".  Заголовки, необходимые для разработки
+Summary(ru):	RRDtool - Заголовки, необходимые для разработки
 Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-RDDTools development files.
+RDDtool development files.
 
 %description devel -l pl
-NarzЙdzia programistyczne pakietu RRDtools.
+NarzЙdzia programistyczne pakietu RRDtool.
 
 %description devel -l pt_BR
 RRD e' um sistema para armazenar e apresentar series temporais de
@@ -111,19 +111,19 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 RRDtool - библиотечные линки и файлы хедеров.
 
 %package static
-Summary:	RDDTools static library
-Summary(pl):	Statyczne biblioteki RRDtools
+Summary:	RDDtool static library
+Summary(pl):	Statyczne biblioteki RRDtool
 Summary(pt_BR):	Biblioteca estАtica librrd
-Summary(ru):	RRDtool - база данных с "циклическим обновлением". Статические библиотеки
+Summary(ru):	RRDtool - Статические библиотеки
 Summary(uk):	Статичн╕ б╕бл╕отеки RRDtool
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
-RDDTools static library.
+RDDtool static library.
 
 %description static -l pl
-Statyczne biblioteki RRDtools.
+Statyczne biblioteki RRDtool.
 
 %description static -l pt_BR
 RRD e' um sistema para armazenar e apresentar series temporais de
