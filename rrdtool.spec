@@ -2,7 +2,7 @@
 Summary:	RRDtool - round robin database
 Name:		rrdtool
 Version:	1.0.33
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/Databases
 Group(pl):	Aplikacje/Bazy danych
@@ -34,7 +34,7 @@ Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
-Requires:	%{name}
+Requires:	%{name} = %{version}
 
 %description devel
 RDDTools development files.
@@ -49,7 +49,7 @@ Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
-Requires:	%{name}-devel
+Requires:	%{name}-devel = %{version}
 
 %description static
 RDDTools static library.
