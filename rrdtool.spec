@@ -2,12 +2,13 @@
 Summary:	RRDtool - round robin database
 Name:		rrdtool
 Version:	1.0.33
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Databases
 Group(pl):	Aplikacje/Bazy danych
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
+Patch1:		%{name}-perl-install.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -57,7 +58,8 @@ Statyczne biblioteki RRDtools.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
 aclocal
@@ -74,8 +76,13 @@ automake -a -c
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
-%{__make} DESTDIR=$RPM_BUILD_ROOT site-perl-install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	perl_sitearch=%{perl_sitearch}
+
+%{__make} site-perl-install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	perl_sitearch=%{perl_sitearch}
 
 (cd $RPM_BUILD_ROOT%{_examplesdir}/%{name};
 mv -f ../../../examples/* .;
@@ -92,7 +99,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_bindir}/trytime
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_libdir}/perl
+%{perl_sitearch}/*.pm
+%dir %{perl_sitearch}/auto/RRDs
+%{perl_sitearch}/auto/RRDs/RRDs.bs
+%attr(755,root,root) %{perl_sitearch}/auto/RRDs/RRDs.so
 %{_mandir}/man1/*
 
 %files devel
