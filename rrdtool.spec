@@ -5,25 +5,28 @@ Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
 Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
-Version:	1.0.45
-Release:	2
+Version:	1.1.0
+%define	sdate	2003-12-11
+%define	snap	%(echo %{sdate} | tr -d -)
+Release:	0.%{snap}.1
 License:	GPL
 Group:		Applications/Databases
-Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	64086fc7f1ca28c069ee5104f85d7a8c
+#Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
+Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/beta/%{name}-cvs-snap.tar.gz
+# Source0-md5:	4dc833d822140ee4c64d46f9e66b2bd8
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-perl-install.patch
-Patch2:		%{name}-acfix.patch
-Patch3:		%{name}-system-libs.patch
+Patch2:		%{name}-system-libs.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	gd-devel >= 1.3
-BuildRequires:	libpng-devel >= 1.0.9
-BuildRequires:	libtool
+BuildRequires:	autoconf >= 2.52
+BuildRequires:	automake >= 1.7
+BuildRequires:	cgilibc-devel >= 0.4
+BuildRequires:	freetype-devel >= 2.0.5
+BuildRequires:	libart_lgpl-devel >= 2.3.7
+BuildRequires:	libpng-devel >= 2:1.2.0
+BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov
-BuildConflicts:	perl-devel = 1:5.8.2-1
 #BuildRequired:	tcl-devel
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -85,6 +88,11 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением".  Заголовки, необ
 Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	cgilibc-devel >= 0.5
+Requires:	freetype-devel >= 2.0.5
+Requires:	libart_lgpl-devel >= 2.3.7
+Requires:	libpng-devel >= 2:1.2.0
+Requires:	zlib-devel >= 1.1.4
 
 %description devel
 RDDTools development files.
@@ -143,13 +151,12 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{sdate}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
-%{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am
+rm -rf autom4te.cache
 
 %build
 %{__libtoolize}
@@ -159,6 +166,16 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %{__automake}
 %configure \
 	--enable-shared=yes \
+	--with-libart_lgpl \
+	--with-libart_lgpl-include=/usr/include/libart-2.0 \
+	--with-libart_lgpl-lib=art_lgpl_2 \
+	--with-libcgi \
+	--with-libcgi-include=/usr/include/cgilibc \
+	--with-libcgi-lib=cgic \
+	--with-libpng \
+	--with-libfreetype \
+	--with-libfreetype-include=/usr/include/freetype2 \
+	--with-libz \
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor" \
 	--without-tclib
@@ -180,7 +197,6 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .
-mv -f ../../../contrib .
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -190,10 +206,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES CONTRIBUTORS README TODO doc/*.html
+%doc CONTRIBUTORS COPYRIGHT ChangeLog NEWS README THREADS TODO doc/*.html
 %attr(755,root,root) %{_bindir}/rrd*
-%attr(755,root,root) %{_bindir}/trytime
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/librrd*.so.*.*
 %{perl_vendorlib}/RRDp.pm
 %{perl_vendorarch}/*.pm
 %dir %{perl_vendorarch}/auto/RRDs
@@ -203,12 +218,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_libdir}/librrd.so
-%{_libdir}/librrd.la
+%attr(755,root,root) %{_libdir}/librrd*.so
+%{_libdir}/librrd*.la
 %{_includedir}/*
 %{_examplesdir}/%{name}-%{version}
 %{_mandir}/man3/*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/librrd.a
+%{_libdir}/librrd*.a
