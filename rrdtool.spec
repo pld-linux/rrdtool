@@ -12,7 +12,7 @@ Patch1:		%{name}-perl-install.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	perl-devel > 5.6.1
+BuildRequires:	perl-devel >= 5.6.1
 #BuildRequired:	tcl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
