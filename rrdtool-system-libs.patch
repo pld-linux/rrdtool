@@ -84,14 +84,14 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
      'dynamic_lib'  => {'OTHERLDFLAGS' => "$librrd -lm"},
      'realclean'    => {FILES => 't/demo?.rrd t/demo?.gif' }
  );
---- rrdtool-1.0.42/tcl/Makefile.am.orig	2002-02-26 11:21:52.000000000 +0100
-+++ rrdtool-1.0.42/tcl/Makefile.am	2003-04-17 21:07:51.000000000 +0200
+--- rrdtool-1.0.44/tcl/Makefile.am.orig	2002-02-26 11:21:52.000000000 +0100
++++ rrdtool-1.0.44/tcl/Makefile.am	2003-04-17 21:07:51.000000000 +0200
 @@ -21,7 +21,7 @@
  if COMP_TCL
  
- tclrrd$(TCL_SHLIB_SUFFIX): tclrrd.o
--	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd_private -lm
-+	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm
+ $(TCL_LIB_FILE): tclrrd.o
+-	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd_private -lm -ltcl
++	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm -ltcl
  
  tclrrd.o: tclrrd.c
  	$(CC) $(CFLAGS) $(TCL_SHLIB_CFLAGS) $(INCLUDES) -c $< -DVERSION=\"$(VERSION)\"
