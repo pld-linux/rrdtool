@@ -217,7 +217,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	DESTDIR=$RPM_BUILD_ROOT \
 	perl_sitearch=%{perl_vendorarch}
 
-install -m755 -D contrib/php4/modules/rrdtool.so %{buildroot}//usr/lib/php/rrdtool.so
+install -m755 -D contrib/php4/modules/rrdtool.so %{buildroot}/%{_libdir}/php/rrdtool.so
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .
