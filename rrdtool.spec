@@ -5,12 +5,12 @@ Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
 Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
-Version:	1.0.45
-Release:	2
+Version:	1.0.46
+Release:	1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	64086fc7f1ca28c069ee5104f85d7a8c
+# Source0-md5:	718676770c06b25d1471cec1e4f0bbdc
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-perl-install.patch
 Patch2:		%{name}-acfix.patch
@@ -146,8 +146,8 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
+#patch2 -p1
+#patch3 -p1
 
 %{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am
 
