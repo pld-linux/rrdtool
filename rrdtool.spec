@@ -24,7 +24,6 @@ BuildRequires:	libtool
 BuildRequires:	perl-devel >= 5.8.2-2 
 # missing reentr.inc in other version.
 BuildRequires:	gcc-c++ >= 3.3.2
-BuildRequires:	perl-devel >= 5.8.0
 #BuildRequired:	tcl-devel
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
