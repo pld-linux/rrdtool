@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.46
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -161,7 +161,8 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 	--enable-shared=yes \
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor" \
-	--without-tclib
+	--without-tclib \
+	--enable-latin2
 # uncoment this line ONLY IF tcl package is ready.
 #	--with-tclib=%{_prefix}
 
