@@ -77,7 +77,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 пристро╖ та надають дружн╕й ╕нтерфейс користувача.
 
 %package devel
-Summary:	RDDTool development
+Summary:	RRDtool development
 Summary(pl):	NarzЙdzia programistyczne pakietu RRDtool
 Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo da librrd
 Summary(ru):	RRDtool - Заголовки, необходимые для разработки
@@ -86,7 +86,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-RDDTool development files.
+RRDtool development files.
 
 %description devel -l pl
 NarzЙdzia programistyczne pakietu RRDtool.
@@ -110,7 +110,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 RRDtool - библиотечные линки и файлы хедеров.
 
 %package static
-Summary:	RDDTool static library
+Summary:	RRDtool static library
 Summary(pl):	Statyczne biblioteki RRDtool
 Summary(pt_BR):	Biblioteca estАtica librrd
 Summary(ru):	RRDtool - Статические библиотеки
@@ -119,7 +119,7 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
-RDDTool static library.
+RRDtool static library.
 
 %description static -l pl
 Statyczne biblioteki RRDtool.
