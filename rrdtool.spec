@@ -60,7 +60,7 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} imandir=%{_mandir} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} mandir=%{_mandir} imandir=%{_mandir} DESTDIR=$RPM_BUILD_ROOT install
 install -d $RPM_BUILD_ROOT/usr/src/examples/%{name}
 install -d $RPM_BUILD_ROOT/usr/src/examples/%{name}/contrib
 (cd $RPM_BUILD_ROOT/usr/src/examples/%{name};
