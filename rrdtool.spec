@@ -181,7 +181,7 @@ CPPFLAGS="-I%{_includedir}/cgilibc"
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor" \
 	--without-tclib
-# uncoment this line ONLY IF tcl package is ready.
+# uncoment this line ONLY IF Tcl package is ready.
 #	--with-tclib=%{_prefix}
 %{__make} install \
 	DESTDIR="$(pwd)/temp-install"
