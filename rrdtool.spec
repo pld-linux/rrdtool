@@ -2,6 +2,8 @@
 Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
 Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
+Summary(ru):	RRDtool - база данных с "циклическим обновлением"
+Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.34
 Release:	1
@@ -45,10 +47,34 @@ o tempo, e grАficos podem ser apresentados processando-se esses dados.
 RRD pode ser utilizado com wrapper scripts (em shell ou Perl) ou
 atravИs de front-ends.
 
+%description -l ru
+RRD - соращение для "Round Robin Database" (база данных с "циклическим
+обновлением"). RRD - система для сохранения и показа информации за
+определенный промежуток времени (например скорость передачи данных в
+сети, температуру в машинном зале, среднюю загрузку сервера). Она
+сохраняет данные в очень компактной форме, так что данные не будут
+занимать все больше и больше места с течением времени и предоставляет
+разумное графическое представление информации. Может быть использована
+как из простых скриптов (shell, perl, etc) или встроена в программы,
+которые опрашивают сетевые устройства и показывают данные в удобном
+для пользователя виде.
+
+%description -l uk
+Назва RRD - це акрон╕м для Round Robin Database. RRD - це система
+збер╕гання та показу сер╕йних даних (наприклад, полоси каналу,
+температура гермозони, завантаження сервера). RRD збер╕га╓ дан╕ дуже
+компактно ╕ так, що розм╕р бази даних не зб╕льшу╓ться з часом, та
+презенту╓ корисн╕ граф╕ки обробляючи дан╕ з тим, щоб встановити
+потр╕бну щ╕льн╕сть виб╕рки в час╕. RRD можна використовувати як через
+прост╕ wrapper-скрипти, так ╕ через фронтенди, що опитують мережев╕
+пристро╖ та надають дружн╕й ╕нтерфейс користувача.
+
 %package devel
 Summary:	RDDTools development
 Summary(pl):	NarzЙdzia programistyczne pakietu RRDtools
 Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo da librrd
+Summary(ru):	RRDtool - база данных с "циклическим обновлением".  Заголовки, необходимые для разработки
+Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
@@ -64,10 +90,24 @@ dados (i.e. utilizaГЦo de rede, temperaturas, cargas em servidores).
 
 Este pacote contem arquivos de desenvolvimento do RRD.
 
+%description devel -l ru
+RRD - соращение для "Round Robin Database" (база данных с "циклическим
+обновлением"). RRD - система для сохранения и показа информации за
+определенный промежуток времени (например скорость передачи данных в
+сети, температуру в машинном зале, среднюю загрузку сервера).
+
+Этот пакет позволяет создавать программы, которые используют это
+библиотеку непосредственно.
+
+%description devel -l ru
+RRDtool - библиотечные линки и файлы хедеров.
+
 %package static
 Summary:	RDDTools static library
 Summary(pl):	Statyczne biblioteki RRDtools
 Summary(pt_BR):	Biblioteca estАtica librrd
+Summary(ru):	RRDtool - база данных с "циклическим обновлением". Статические библиотеки
+Summary(uk):	Статичн╕ б╕бл╕отеки RRDtool
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
@@ -82,6 +122,17 @@ RRD e' um sistema para armazenar e apresentar series temporais de
 dados (i.e. utilizaГЦo de rede, temperaturas, cargas em servidores).
 
 Este pacote contem a biblioteca estАtica do RRD.
+
+%description static -l ru
+RRD - соращение для "Round Robin Database" (база данных с "циклическим
+обновлением"). RRD - система для сохранения и показа информации за
+определенный промежуток времени (например скорость передачи данных в
+сети, температуру в машинном зале, среднюю загрузку сервера). Этот
+пакет позволяет создавать статически слинкованные программы, которые
+используют это библиотеку непосредственно.
+
+%description static -l uk
+Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
 
 %prep
 %setup -q
