@@ -172,11 +172,13 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	perl_sitearch=%{perl_vendorarch}
 
 # this shoudn't be required...
 %{__make} site-perl-install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	perl_sitearch=%{perl_vendorarch}
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .
