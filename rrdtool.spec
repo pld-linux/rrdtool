@@ -87,8 +87,7 @@ Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo da librrd
 Summary(ru):	RRDtool - Заголовки, необходимые для разработки
 Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
-
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 RRDtool development files.
@@ -121,7 +120,7 @@ Summary(pt_BR):	Biblioteca estАtica librrd
 Summary(ru):	RRDtool - Статические библиотеки
 Summary(uk):	Статичн╕ б╕бл╕отеки RRDtool
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 RRDtool static library.
@@ -155,6 +154,9 @@ Requires:       php-common
 
 %description -n php-rrdtool
 RRDtool module for PHP.
+
+%description -n php-rrdtool -l pl
+ModuЁ RRDtool dla PHP.
 
 %prep
 %setup -q
@@ -261,5 +263,6 @@ fi
 %{_libdir}/librrd.a
 
 %files -n php-rrdtool
+%defattr(644,root,root,755)
 %doc contrib/php4/examples contrib/php4/README
-/usr/lib/php/rrdtool.so
+%{_libdir}/php/rrdtool.so
