@@ -20,6 +20,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gd-devel >= 1.3
 BuildRequires:	libpng-devel >= 1.0.9
+BuildRequires:  libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 5.6.1
 #BuildRequired:	tcl-devel
