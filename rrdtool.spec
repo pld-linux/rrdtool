@@ -10,6 +10,7 @@ Release:	2
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
+# Source0-md5:	5a5307a06cbce5b13f89054317eebb25
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-perl-install.patch
 Patch2:		%{name}-acfix.patch
