@@ -86,6 +86,7 @@ Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
+
 %description devel
 RRDtool development files.
 
@@ -142,6 +143,11 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %description static -l uk
 Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
 
+%package -n php-rrdtool
+Summary:	RRDtool php module
+Summary(pl):	ModuЁ PHP RRDtool
+Requires:	%{name} = %{version}
+
 %prep
 %setup -q
 %patch0 -p1
@@ -165,6 +171,21 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 	--enable-latin2
 # uncoment this line ONLY IF tcl package is ready.
 #	--with-tclib=%{_prefix}
+%define rrdtmpdir %{_tmppath}/%{buildsubdir}-tmpinstall
+%{__make} install \
+	DESTDIR="%{rrdtmpdir}"
+pushd contrib/php4
+./configure \
+	--with-rrdtool="%{rrdtmpdir}%{_prefix}"
+%{__make}
+popd
+%{__rm} -rf %{rrdtmpdir}
+
+# Fix @perl@ and @PERL@
+find examples/ -type f \
+    -exec /usr/bin/perl -pi -e 's|^#! \@perl\@|#!/usr/bin/perl|gi' \{\} \;
+find examples/ -name "*.pl" \
+    -exec perl -pi -e 's|\015||gi' \{\} \;
 
 %{__make}
 
@@ -180,6 +201,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__make} site-perl-install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	perl_sitearch=%{perl_vendorarch}
+
+install -m755 -D contrib/php4/modules/rrdtool.so %{buildroot}%{phpextdir}/rrdtool.so
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .
@@ -215,3 +238,7 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/librrd.a
+
+%files -n php-rrdtool
+%doc contrib/php4/examples contrib/php4/README
+%{phpextdir}/rrdtool.so
