@@ -1,97 +1,88 @@
-diff -Nur rrdtool-1.0.42.orig/gd1.3/Makefile.am rrdtool-1.0.42/gd1.3/Makefile.am
---- rrdtool-1.0.42.orig/gd1.3/Makefile.am	2003-04-04 23:23:55.000000000 +0200
-+++ rrdtool-1.0.42/gd1.3/Makefile.am	2003-04-17 20:48:34.000000000 +0200
-@@ -3,15 +3,14 @@
- noinst_LTLIBRARIES  = librrd_gd.la
+--- rrdtool-2003-12-11/src/Makefile.am.orig	Mon Jul 28 23:59:22 2003
++++ rrdtool-2003-12-11/src/Makefile.am	Thu Dec 11 12:52:39 2003
+@@ -4,33 +4,33 @@
+ #
+ #ACLOCAL_M4	   = $(top_srcdir)/config/aclocal.m4
+ #AUTOHEADER = @AUTOHEADER@ --localdir=$(top_srcdir)/config
+-DEFS += -DMAKE_TIMESTAMP=\""$(shell date)"\"
++AM_CPPFLAGS = -DMAKE_TIMESTAMP=\""$(shell date)"\"
+ if USE_INSTALLED_libcgi
+-CGI_LIB 	   = -lcgi
++CGI_LIB 	   = -l$(installed_libcgi_lib)
+ else
+ CGI_LIB	           = $(top_builddir)/libraries/@CGI_LIB_DIR@/librrd_cgi.la
+ CGI_INCLUDES       = -I$(top_srcdir)/libraries/@CGI_LIB_DIR@
+ endif
+ if USE_INSTALLED_libfreetype
+-FREETYPE_LIB       = -lfreetype
++FREETYPE_LIB       = -l$(installed_libfreetype_lib)
+ else
+ FREETYPE_LIB       = $(top_builddir)/libraries/@FREETYPE_LIB_DIR@/librrd_freetype.la
+ FREETYPE_INCLUDES  = -I$(top_srcdir)/libraries/@FREETYPE_LIB_DIR@/include
+ endif
+ if USE_INSTALLED_libart_lgpl
+-ART_LIB            = -lart_lgpl
++ART_LIB            = -l$(installed_libart_lgpl_lib)
+ else
+ ART_LIB 	   = $(top_builddir)/libraries/@ART_LIB_DIR@/librrd_art.la
+ ART_INCLUDES       = -I$(top_srcdir)/libraries/@ART_LIB_DIR@ -I$(top_builddir)/libraries/@ART_LIB_DIR@
+ endif
+ if USE_INSTALLED_libpng
+-PNG_LIB            = -lpng
++PNG_LIB            = -l$(installed_libpng_lib)
+ else
+ PNG_LIB		   = $(top_builddir)/libraries/@PNG_LIB_DIR@/librrd_png.la
+ PNG_INCLUDES       = -I$(top_srcdir)/libraries/@PNG_LIB_DIR@
+ endif
+ if USE_INSTALLED_libz
+-ZLIB_LIB           = -lz
++ZLIB_LIB           = -l$(installed_libz_lib)
+ else
+ ZLIB_LIB           = $(top_builddir)/libraries/@ZLIB_LIB_DIR@/librrd_z.la
+ ZLIB_INCLUDES      = -I$(top_srcdir)/libraries/@ZLIB_LIB_DIR@
+--- rrdtool-2003-12-11/acinclude.m4.orig	Thu Jan 31 23:44:34 2002
++++ rrdtool-2003-12-11/acinclude.m4	Thu Dec 11 12:47:55 2003
+@@ -6,23 +6,31 @@
+ AC_DEFUN(INCLUDED_LIB,
+ [
+ use_installed_lib$1=
++installed_lib$1_lib=$1
++installed_lib$1_include=
++AC_ARG_WITH([lib$1-lib],[Use installed lib$1 as libNAME],installed_lib$1_lib=$withval)
++AC_ARG_WITH([lib$1-include],[Use installed lib$1 includes here],installed_lib$1_include=$withval)
+ AC_ARG_WITH([lib$1],
+             [AC_HELP_STRING([--with-lib$1],
+                             [Use installed lib$1 (under PREFIX)])],
+             [if test -n "$withval"; then
+                if test "$withval" = yes; then
+                  withval="default path"
++		 if test -n "$installed_lib$1_include"; then
++		   CFLAGS="$CFLAGS -I${installed_lib$1_include}"
++		 fi
+                else
+                  CFLAGS="$CFLAGS -I${withval}/include"
+                  LDFLAGS="$LDFLAGS -L${withval}/lib"
+                fi
+              fi
+-             AC_CHECK_LIB([$1],[$2],
++             AC_CHECK_LIB([$installed_lib$1_lib],[$2],
+                           [AC_MSG_NOTICE([using lib$1 in ${withval}])
+                            use_installed_lib$1=yes],
+                           [AC_MSG_ERROR([lib$1 not found in ${withval}])],
+                           [$3])],
+              [AC_MSG_NOTICE([using included lib$1])])
++AC_SUBST([installed_lib$1_lib])
+ AM_CONDITIONAL([USE_INSTALLED_lib$1],
+                [test "$use_installed_lib$1" = yes])
+ ])
+--- rrdtool-2003-12-11/src/rrd_gfx.h.orig	Sun Oct 26 20:29:56 2003
++++ rrdtool-2003-12-11/src/rrd_gfx.h	Thu Dec 11 13:18:14 2003
+@@ -7,7 +7,7 @@
+ #ifndef  RRD_GFX_H
+ #define RRD_GFX_H
+ #define LIBART_COMPILATION
+-#include <libart.h>
++#include <libart_lgpl/libart.h>
  
- librrd_gd_la_SOURCES = \
--	gd.c		gdfontg.c	gdfontl.c	gdfontmb.c	\
--	gdfonts.c	gdfontt.c	gdlucidab10.c	gdlucidab12.c	\
-+	gdlucidab10.c	gdlucidab12.c	\
- 	gdlucidab14.c	gdlucidan10.c	gdlucidan12.c	gdlucidan14.c \
- 	gdlucidan10l2.c  gdlucidab12l2.c \
--	gd.h           gdfontmb.h     gdlucidab10.h  gdlucidan10.h \
--	gdfontg.h      gdfonts.h      gdlucidab12.h  gdlucidan12.h \
--	gdfontl.h      gdfontt.h      gdlucidab14.h  gdlucidan14.h \
-+	gdlucidab10.h  gdlucidan10.h \
-+	gdlucidab12.h  gdlucidan12.h \
-+	gdlucidab14.h  gdlucidan14.h \
- 	gdlucidan10l2.h  gdlucidab12l2.h
--
-+librrd_gd_la_LIBADD = -lgd
- 
- EXTRA_DIST= README.rrdtool demoin.gif gd.dsp gd.dsw index.html readme.txt \
- 	webgif.c mtables.c mathmake.c giftogd.c
-diff -Nur rrdtool-1.0.42.orig/Makefile.am rrdtool-1.0.42/Makefile.am
---- rrdtool-1.0.42.orig/Makefile.am	2003-04-17 20:46:54.000000000 +0200
-+++ rrdtool-1.0.42/Makefile.am	2003-04-17 20:47:27.000000000 +0200
-@@ -2,7 +2,7 @@
- RSYNC = rsync --rsh=ssh
- 
- # build the following subdirectories
--SUBDIRS = cgilib-0.4 config gd1.3 zlib-1.1.4 libpng-1.0.9 \
-+SUBDIRS = cgilib-0.4 config gd1.3 \
-           src doc examples contrib tcl
- 
- # the following files are not mentioned in any other Makefile
-diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
---- rrdtool-1.0.42.orig/src/Makefile.am	2002-05-07 23:51:19.000000000 +0200
-+++ rrdtool-1.0.42/src/Makefile.am	2003-04-17 20:49:49.000000000 +0200
-@@ -7,16 +7,12 @@
- 
- CGI_INC_DIR       = $(top_srcdir)/@CGI_LIB_DIR@
- GD_INC_DIR        = $(top_srcdir)/@GD_LIB_DIR@
--PNG_INC_DIR       = $(top_srcdir)/@PNG_LIB_DIR@
--ZLIB_INC_DIR      = $(top_srcdir)/@ZLIB_LIB_DIR@
- 
- CGI_LIB_DIR       = $(top_builddir)/@CGI_LIB_DIR@
- GD_LIB_DIR        = $(top_builddir)/@GD_LIB_DIR@
--PNG_LIB_DIR       = $(top_builddir)/@PNG_LIB_DIR@
--ZLIB_LIB_DIR      = $(top_builddir)/@ZLIB_LIB_DIR@
- 
- 
--INCLUDES          = -I$(CGI_INC_DIR) -I$(GD_INC_DIR) -I$(PNG_INC_DIR) -I$(ZLIB_INC_DIR)
-+INCLUDES          = -I$(CGI_INC_DIR) -I$(GD_INC_DIR)
- 
- #COMPILE   = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
- #LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
-@@ -57,8 +53,7 @@
- RRD_LIBS =				\
- 	$(CGI_LIB_DIR)/librrd_cgi.la	\
- 	$(GD_LIB_DIR)/librrd_gd.la	\
--	$(PNG_LIB_DIR)/librrd_png.la	\
--	$(ZLIB_LIB_DIR)/librrd_z.la
-+	-lpng -lz
- 
- lib_LTLIBRARIES           = librrd.la
- noinst_LTLIBRARIES        = librrd_private.la
---- rrdtool-1.0.42/perl-shared/Makefile.PL.in.orig	2002-03-21 22:52:35.000000000 +0100
-+++ rrdtool-1.0.42/perl-shared/Makefile.PL.in	2003-04-17 21:07:29.000000000 +0200
-@@ -4,7 +4,7 @@
- # the contents of the Makefile that is written.
- 
- # Specify the location of the archive containing PIC compiled object files.
--my $librrd = "-L../src/.libs/ -lrrd_private"  ;
-+my $librrd = "-L../src/.libs/ -lrrd"  ;
- 
- WriteMakefile(
-     'NAME'         => 'RRDs',
-@@ -13,7 +13,6 @@
-     'INC'          => '-I@top_srcdir@/src -I@top_srcdir@/gd1.3',
-     # where to look for the necessary libraries 
-     # Perl will figure out which one is valid
--    'depend'	   => {'RRDs.c' => "../src/.libs/librrd_private.a"},
-     'dynamic_lib'  => {'OTHERLDFLAGS' => "$librrd -lm"},
-     'realclean'    => {FILES => 't/demo?.rrd t/demo?.gif' }
- );
---- rrdtool-1.0.44/tcl/Makefile.am.orig	2002-02-26 11:21:52.000000000 +0100
-+++ rrdtool-1.0.44/tcl/Makefile.am	2003-04-17 21:07:51.000000000 +0200
-@@ -21,7 +21,7 @@
- if COMP_TCL
- 
- $(TCL_LIB_FILE): tclrrd.o
--	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd_private -lm -ltcl
-+	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm -ltcl
- 
- tclrrd.o: tclrrd.c
- 	$(CC) $(CFLAGS) $(TCL_SHLIB_CFLAGS) $(INCLUDES) -c $< -DVERSION=\"$(VERSION)\"
+ enum gfx_if_en {IF_PNG=0,IF_SVG,IF_EPS,IF_PDF};
+ enum gfx_en { GFX_LINE=0,GFX_AREA,GFX_TEXT };
