@@ -3,8 +3,8 @@ Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
 Summary(pt_BR):	Round Robin Database, uma ferramenta para construção de gráficos
 Name:		rrdtool
-Version:	1.0.33
-Release:	6
+Version:	1.0.34
+Release:	1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
