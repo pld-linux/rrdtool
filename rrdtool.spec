@@ -176,9 +176,9 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__make} site-perl-install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-(cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .;
-mv -f ../../../contrib .)
+mv -f ../../../contrib .
 
 %clean
 rm -rf $RPM_BUILD_ROOT
