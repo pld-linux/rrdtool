@@ -1,0 +1,18 @@
+--- rrdtool-1.0.33/Makefile.am~	Tue Feb 20 23:14:35 2001
++++ rrdtool-1.0.33/Makefile.am	Wed Apr 11 16:40:09 2001
+@@ -19,10 +19,10 @@
+ # the special call to install-sh is because the -d switch is not portable
+ install-data-local:
+-	./config/mkinstalldirs $(DESTDIR)$(prefix)/lib/perl/auto/RRDs
+-	$(INSTALL) -m 644 perl-piped/RRDp.pm $(DESTDIR)$(prefix)/lib/perl
+-	$(INSTALL) -m 644 perl-shared/RRDs.pm $(DESTDIR)$(prefix)/lib/perl
+-	$(INSTALL) -m 644 perl-shared/blib/arch/auto/RRDs/RRDs.bs $(DESTDIR)$(prefix)/lib/perl/auto/RRDs
+-	$(INSTALL) -m 755 perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ $(DESTDIR)$(prefix)/lib/perl/auto/RRDs
++	./config/mkinstalldirs $(DESTDIR)$(perl_sitearch)/auto/RRDs
++	$(INSTALL) -m 644 perl-piped/RRDp.pm $(DESTDIR)$(perl_sitearch)
++	$(INSTALL) -m 644 perl-shared/RRDs.pm $(DESTDIR)$(perl_sitearch)
++	$(INSTALL) -m 644 perl-shared/blib/arch/auto/RRDs/RRDs.bs $(DESTDIR)$(perl_sitearch)/auto/RRDs
++	$(INSTALL) -m 755 perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ $(DESTDIR)$(perl_sitearch)/auto/RRDs
+ 
+ 
+ # use relaxed rules when building dists
