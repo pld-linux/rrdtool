@@ -15,6 +15,7 @@ Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-perl-install.patch
 Patch2:		%{name}-acfix.patch
 Patch3:		%{name}-system-libs.patch
+Patch4:		%{name}-php-config.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -149,10 +150,11 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 Summary:	RRDtool php module
 Summary(pl):	ModuЁ PHP RRDtool
 Group:		Unknown/Unknown
-Requires:	%{name} = %{version}
+Requires(post,preun):   php-common
+Requires:       php-common
 
 %description -n php-rrdtool
-empty
+RRDtool module for PHP.
 
 %prep
 %setup -q
@@ -160,6 +162,7 @@ empty
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 %{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am
 
@@ -186,7 +189,8 @@ cd contrib/php4
 %{__autoconf}
 %configure \
 	--with-openssl \
-	--with-rrdtool="$(pwd)/../../temp-install%{_prefix}"
+	--with-rrdtool="$(pwd)/../../temp-install%{_prefix}" \
+	--includedir="%{_includedir}/php"
 %{__make}
 cd ../../
 
@@ -222,6 +226,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+
+%post -n php-rrdtool
+%{_sbindir}/php-module-install install rrdtool %{_sysconfdir}/php.ini
+
+%preun -n php-rrdtool
+if [ "$1" = "0" ]; then
+        %{_sbindir}/php-module-install remove rrdtool %{_sysconfdir}/php.ini
+fi
 
 %files
 %defattr(644,root,root,755)
