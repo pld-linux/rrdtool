@@ -5,6 +5,7 @@ Version:	1.0.33
 Release:	5
 License:	GPL
 Group:		Applications/Databases
+Group(de):	Applikationen/Dateibanken
 Group(pl):	Aplikacje/Bazy danych
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
@@ -32,8 +33,12 @@ Summary:	RDDTools development
 Summary(pl):	NarzЙdzia programistyczne pakietu RRDtools
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	Разработка/Библиотеки
+Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -47,8 +52,12 @@ Summary:	RDDTools static library
 Summary(pl):	Statyczne biblioteki RRDtools
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	Разработка/Библиотеки
+Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
