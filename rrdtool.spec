@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.37
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
@@ -188,7 +188,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_libdir}/librrd.so
 %attr(644,root,root) %{_libdir}/librrd.la
+%{_includedir}/*
 %{_examplesdir}/%{name}
+%{_mandir}/man3/*
 
 %files static
 %defattr(644,root,root,755)
