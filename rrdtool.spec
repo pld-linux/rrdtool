@@ -143,7 +143,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 
 %build
 %{__libtoolize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \
