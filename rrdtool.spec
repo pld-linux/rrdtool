@@ -105,7 +105,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 Этот пакет позволяет создавать программы, которые используют это
 библиотеку непосредственно.
 
-%description devel -l ru
+%description devel -l uk
 RRDtool - библиотечные линки и файлы хедеров.
 
 %package static
