@@ -30,11 +30,11 @@ interface on it.
 
 %description -l pl
 RRD jest akronimem Round Robin Database. Jest to system pozwalaj±cy na
-sk³adowanie i wy¶wietlanie czasowych serii danych (np. przepustowo¶æ 
+sk³adowanie i wy¶wietlanie czasowych serii danych (np. przepustowo¶æ
 sieci, temperatura w pomieszczeniu, obci±¿enie servera). Sk³aduje dane
-w "skondensowanej" postaci, która nie rozrasta siê z biegiem czasu oraz
-pozwala na produkowanie wykresów z u¿ytecznymi danymi. Mo¿e byæ u¿ywane 
-poprzez prosty skrypcik (shell lub perl), frontendy czy inne 
+w "skondensowanej" postaci, która nie rozrasta siê z biegiem czasu
+oraz pozwala na produkowanie wykresów z u¿ytecznymi danymi. Mo¿e byæ
+u¿ywane poprzez prosty skrypcik (shell lub perl), frontendy czy inne
 interfejsy u¿ytkownika.
 
 %description -l pt_BR
@@ -55,10 +55,10 @@ Requires:	%{name} = %{version}
 %description devel
 RDDTools development files.
 
-%description -l pl devel
+%description devel -l pl
 Narzêdzia programistyczne pakietu RRDtools.
 
-%description -l pt_BR devel
+%description devel -l pt_BR
 RRD e' um sistema para armazenar e apresentar series temporais de
 dados (i.e. utilização de rede, temperaturas, cargas em servidores).
 
@@ -74,10 +74,10 @@ Requires:	%{name}-devel = %{version}
 %description static
 RDDTools static library.
 
-%description -l pl static
+%description static -l pl
 Statyczne biblioteki RRDtools.
 
-%description -l pt_BR static
+%description static -l pt_BR
 RRD e' um sistema para armazenar e apresentar series temporais de
 dados (i.e. utilização de rede, temperaturas, cargas em servidores).
 
@@ -96,7 +96,7 @@ automake -a -c
 %configure \
 	--enable-shared=yes \
 	--without-tclib
-# uncoment this line ONLY IF tcl package is ready. 
+# uncoment this line ONLY IF tcl package is ready.
 #	--with-tclib=%{_prefix}
 %{__make}
 
