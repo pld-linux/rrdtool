@@ -25,42 +25,33 @@ diff -Nur rrdtool-1.0.42.orig/gd1.3/Makefile.am rrdtool-1.0.42/gd1.3/Makefile.am
 diff -Nur rrdtool-1.0.42.orig/Makefile.am rrdtool-1.0.42/Makefile.am
 --- rrdtool-1.0.42.orig/Makefile.am	2003-04-17 20:46:54.000000000 +0200
 +++ rrdtool-1.0.42/Makefile.am	2003-04-17 20:47:27.000000000 +0200
-@@ -2,7 +2,7 @@
- RSYNC = rsync --rsh=ssh
+@@ -16,7 +16,7 @@
+ endif
  
  # build the following subdirectories
--SUBDIRS = cgilib-0.4 config gd1.3 zlib-1.1.4 libpng-1.0.9 \
-+SUBDIRS = cgilib-0.4 config gd1.3 \
+-SUBDIRS = cgilib-0.4 gd1.3 $(SUBDIRS_1) $(SUBDIRS_2) \
++SUBDIRS = cgilib-0.4 gd1.3 \
            src doc examples contrib tcl
  
  # the following files are not mentioned in any other Makefile
 diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
 --- rrdtool-1.0.42.orig/src/Makefile.am	2002-05-07 23:51:19.000000000 +0200
 +++ rrdtool-1.0.42/src/Makefile.am	2003-04-17 20:49:49.000000000 +0200
-@@ -7,16 +7,12 @@
- 
- CGI_INC_DIR       = $(top_srcdir)/@CGI_LIB_DIR@
- GD_INC_DIR        = $(top_srcdir)/@GD_LIB_DIR@
--PNG_INC_DIR       = $(top_srcdir)/@PNG_LIB_DIR@
--ZLIB_INC_DIR      = $(top_srcdir)/@ZLIB_LIB_DIR@
- 
- CGI_LIB_DIR       = $(top_builddir)/@CGI_LIB_DIR@
- GD_LIB_DIR        = $(top_builddir)/@GD_LIB_DIR@
--PNG_LIB_DIR       = $(top_builddir)/@PNG_LIB_DIR@
--ZLIB_LIB_DIR      = $(top_builddir)/@ZLIB_LIB_DIR@
+@@ -34,7 +34,7 @@
  
  
--INCLUDES          = -I$(CGI_INC_DIR) -I$(GD_INC_DIR) -I$(PNG_INC_DIR) -I$(ZLIB_INC_DIR)
-+INCLUDES          = -I$(CGI_INC_DIR) -I$(GD_INC_DIR)
+ 
+-AM_CPPFLAGS = -I$(CGI_INC_DIR) -I$(GD_INC_DIR) $(PNG_INC) $(ZLIB_INC)
++AM_CPPFLAGS = -I$(CGI_INC_DIR) -I$(GD_INC_DIR)
  
  #COMPILE   = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
  #LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CFLAGS_EXTRA)
-@@ -57,8 +53,7 @@
+@@ -75,8 +75,7 @@
  RRD_LIBS =				\
  	$(CGI_LIB_DIR)/librrd_cgi.la	\
  	$(GD_LIB_DIR)/librrd_gd.la	\
--	$(PNG_LIB_DIR)/librrd_png.la	\
--	$(ZLIB_LIB_DIR)/librrd_z.la
+-	$(PNG_LIB)			\
+-	$(ZLIB_LIB)
 +	-lpng -lz
  
  lib_LTLIBRARIES           = librrd.la
@@ -71,7 +62,7 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
  # the contents of the Makefile that is written.
  
  # Specify the location of the archive containing PIC compiled object files.
--my $librrd = "-L../src/.libs/ -lrrd_private"  ;
+-my $librrd = "-L../src/.libs/ @RRD_PRIVATE_LINK@"  ;
 +my $librrd = "-L../src/.libs/ -lrrd"  ;
  
  WriteMakefile(
@@ -86,12 +77,12 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
  );
 --- rrdtool-1.0.44/tcl/Makefile.am.orig	2002-02-26 11:21:52.000000000 +0100
 +++ rrdtool-1.0.44/tcl/Makefile.am	2003-04-17 21:07:51.000000000 +0200
-@@ -21,7 +21,7 @@
+@@ -22,7 +22,7 @@
  if COMP_TCL
  
  $(TCL_LIB_FILE): tclrrd.o
--	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd_private -lm -ltcl
-+	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm -ltcl
+-        $(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ @RRD_PRIVATE_LINK@ -lm $(TCL_LIB_SPEC)
++        $(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm -ltcl
  
  tclrrd.o: tclrrd.c
  	$(CC) $(CFLAGS) $(TCL_SHLIB_CFLAGS) $(INCLUDES) -c $< -DVERSION=\"$(VERSION)\"
