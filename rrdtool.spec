@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.49
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -148,7 +148,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %package -n php-rrdtool
 Summary:	RRDtool php module
 Summary(pl):	ModuЁ PHP RRDtool
-Group:		Unknown/Unknown
+Group:		Applications/Databases
 Requires(post,preun):	php-common
 Requires:	php-common
 
