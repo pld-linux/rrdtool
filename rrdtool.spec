@@ -9,6 +9,8 @@ Group(pl):	Aplikacje/Bazy danych
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
+BuildRequired:	autoconf
+BuildRequired:	automake
 #BuildRequired:	tcl-devel
 %requires_eq	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -59,8 +61,8 @@ Statyczne biblioteki RRDtools.
 
 %build
 aclocal
-automake -a -c
 autoconf
+automake -a -c
 %configure \
 	--enable-shared=yes \
 	--without-tclib
@@ -70,12 +72,12 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
+
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 %{__make} DESTDIR=$RPM_BUILD_ROOT site-perl-install
 
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
-
-(cd $RPM_BUILD_ROOT%{_prefix}/src/examples/%{name};
+(cd $RPM_BUILD_ROOT%{_examplesdir}/%{name};
 mv -f ../../../examples/* .;
 mv -f ../../../contrib .)
 
