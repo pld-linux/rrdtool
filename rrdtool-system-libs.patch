@@ -68,10 +68,10 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
  WriteMakefile(
      'NAME'         => 'RRDs',
 @@ -13,7 +13,6 @@
-     'INC'          => '-I@top_srcdir@/src -I@top_srcdir@/gd1.3',
+     'CCFLAGS'      => '-DHAVE_CONFIG_H',
      # where to look for the necessary libraries 
      # Perl will figure out which one is valid
--    'depend'	   => {'RRDs.c' => "../src/.libs/librrd_private.a"},
+-    'depend'	   => {'RRDs.c' => "@top_srcdir@/src/.libs/librrd_private.a"},
      'dynamic_lib'  => {'OTHERLDFLAGS' => "$librrd -lm"},
      'realclean'    => {FILES => 't/demo?.rrd t/demo?.gif' }
  );
@@ -81,8 +81,8 @@ diff -Nur rrdtool-1.0.42.orig/src/Makefile.am rrdtool-1.0.42/src/Makefile.am
  if COMP_TCL
  
  $(TCL_LIB_FILE): tclrrd.o
--        $(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ @RRD_PRIVATE_LINK@ -lm $(TCL_LIB_SPEC)
-+        $(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm -ltcl
+-	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ @RRD_PRIVATE_LINK@ -lm $(TCL_LIB_SPEC)
++	$(TCL_SHLIB_LD) $(LIBDIRS) $< -o $@ -lrrd -lm -ltcl
  
  tclrrd.o: tclrrd.c
  	$(CC) $(CFLAGS) $(TCL_SHLIB_CFLAGS) $(INCLUDES) -c $< -DVERSION=\"$(VERSION)\"
