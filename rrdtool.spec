@@ -21,8 +21,8 @@ BuildRequires:	automake
 BuildRequires:	gd-devel >= 1.3
 BuildRequires:	libpng-devel >= 1.0.9
 BuildRequires:	libtool
-# (5.8.0 is sufficient in fact, only 5.8.2-1 was broken)
-BuildRequires:	perl-devel >= 5.8.2-2
+BuildRequires:	perl-devel >= 5.8.0
+BuildConflicts:	perl-devel = 5.8.2-1
 #BuildRequired:	tcl-devel
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
