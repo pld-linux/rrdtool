@@ -80,7 +80,7 @@ cp -Rp ../../../contrib .)
 %attr(755,root,root) %{_libdir}/librrd.so.0.0.0
 
 %dir %{_libdir}/perl
-%attr(644,root,root) %{_mandir}/man/man1/*
+%attr(644,root,root) %{_mandir}/man1/*
 
 %files static
 %attr(644,root,root) %{_libdir}/librrd.a
