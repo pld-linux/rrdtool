@@ -265,5 +265,5 @@ fi
 
 %files -n php-rrdtool
 %defattr(644,root,root,755)
-%doc contrib/php4/examples contrib/php4/README
+%doc contrib/php4/examples contrib/php4/USAGE
 %{_libdir}/php/rrdtool.so
