@@ -5,12 +5,12 @@ Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
 Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
-Version:	1.0.44
+Version:	1.0.45
 Release:	1
 License:	GPL
 Group:		Applications/Databases
-Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	c3ab38d97e74478c40a703902abf9b23
+Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
+# Source0-md5:	64086fc7f1ca28c069ee5104f85d7a8c
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-perl-install.patch
 Patch2:		%{name}-acfix.patch
@@ -177,7 +177,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	DESTDIR=$RPM_BUILD_ROOT
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-mv -f ../../../examples/* .;
+mv -f ../../../examples/* .
 mv -f ../../../contrib .
 
 %clean
@@ -188,6 +188,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc CHANGES CONTRIBUTORS README TODO doc/*.html
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_bindir}/trytime
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
