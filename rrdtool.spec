@@ -22,6 +22,7 @@ BuildRequires:	gd-devel >= 1.3
 BuildRequires:	libpng-devel >= 1.0.9
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 5.6.1
+BuildRequires:	gcc-c++ >= 3.3.2
 #BuildRequired:	tcl-devel
 BuildRequires:	zlib-devel >= 1.1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
