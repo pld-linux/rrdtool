@@ -178,6 +178,7 @@ rm -rf cgilib* libpng* zlib* gd*
 CPPFLAGS="-I%{_includedir}/cgilibc"
 %configure \
 	--enable-shared=yes \
+	--enable-latin2 \
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor" \
 	--without-tclib
