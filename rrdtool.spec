@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.40
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
@@ -148,27 +148,27 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %{__automake}
 %configure \
 	--enable-shared=yes \
+	--with-perl=%{__perl} \
+	--with-perl-options="INSTALLDIRS=vendor" \
 	--without-tclib
 # uncoment this line ONLY IF tcl package is ready.
 #	--with-tclib=%{_prefix}
 
 %{__perl} -pi -e 's/--localdir=/-B /g' Makefile */Makefile */*/Makefile
-
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	perl_sitearch=%{perl_sitearch}
+	DESTDIR=$RPM_BUILD_ROOT
 
+# this shoudn't be required...
 %{__make} site-perl-install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	perl_sitearch=%{perl_sitearch}
+	DESTDIR=$RPM_BUILD_ROOT
 
-(cd $RPM_BUILD_ROOT%{_examplesdir}/%{name};
+(cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .;
 mv -f ../../../contrib .)
 
@@ -183,11 +183,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_bindir}/trytime
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{perl_sitelib}/RRDp.pm
-%{perl_sitearch}/*.pm
-%dir %{perl_sitearch}/auto/RRDs
-%{perl_sitearch}/auto/RRDs/RRDs.bs
-%attr(755,root,root) %{perl_sitearch}/auto/RRDs/RRDs.so
+%{perl_vendorlib}/RRDp.pm
+%{perl_vendorarch}/*.pm
+%dir %{perl_vendorarch}/auto/RRDs
+%{perl_vendorarch}/auto/RRDs/RRDs.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
 %{_mandir}/man1/*
 
 %files devel
@@ -195,7 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_libdir}/librrd.so
 %{_libdir}/librrd.la
 %{_includedir}/*
-%{_examplesdir}/%{name}
+%{_examplesdir}/%{name}-%{version}
 %{_mandir}/man3/*
 
 %files static
