@@ -8,8 +8,8 @@
 -	$(INSTALL) -m 644 perl-piped/RRDp.pm $(DESTDIR)$(prefix)/lib/perl
 -	$(INSTALL) -m 644 perl-shared/RRDs.pm $(DESTDIR)$(prefix)/lib/perl
 -	$(INSTALL) -m 644 perl-shared/blib/arch/auto/RRDs/RRDs.bs $(DESTDIR)$(prefix)/lib/perl/auto/RRDs
--	[ -f perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ ] && $(INSTALL) -m 755 perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ $(DESTDIR)$(prefix)/lib/perl/auto/RRDs
--	[ -f perl-shared/blib/arch/auto/RRDs/RRDs.bundle ] && $(INSTALL) -m 755 perl-shared/blib/arch/auto/RRDs/RRDs.bundle $(DESTDIR)$(prefix)/lib/perl/auto/RRDs
+-	test -f perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@  && $(INSTALL) -m 755 perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ $(DESTDIR)$(prefix)/lib/perl/auto/RRDs || true
+-	test -f perl-shared/blib/arch/auto/RRDs/RRDs.bundle  && $(INSTALL) -m 755 perl-shared/blib/arch/auto/RRDs/RRDs.bundle $(DESTDIR)$(prefix)/lib/perl/auto/RRDs || true
 +	$(top_srcdir)/config/mkinstalldirs $(DESTDIR)$(perl_sitearch)/auto/RRDs
 +	$(INSTALL) -m 644 perl-piped/RRDp.pm $(DESTDIR)$(perl_sitearch)
 +	$(INSTALL) -m 644 perl-shared/RRDs.pm $(DESTDIR)$(perl_sitearch)
