@@ -1,3 +1,4 @@
+%include        /usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Name:		rrdtool
 Version:	1.0.28
