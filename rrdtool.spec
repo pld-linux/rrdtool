@@ -8,7 +8,7 @@ Source0: 	http://www.caida.org/Tools/RRDtool/pub/%{name}-%{version}.tar.gz
 #Patch0: 	/rrdtool-perl-location.patch
 Url: 		http://www.caida.org/Tools/RRDtool/
 Vendor: 	Tobi Oetiker <oetiker@ee.ethz.ch>
-Buildroot: 	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 RRD is the Acronym for Round Robin Database. RRD is a system to store and 
