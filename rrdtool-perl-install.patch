@@ -11,11 +11,11 @@
 -	test -f $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@  && $(INSTALL) -m 755 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ $(DESTDIR)$(prefix)/lib/perl/auto/RRDs || true
 -	test -f $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bundle  && $(INSTALL) -m 755 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bundle $(DESTDIR)$(prefix)/lib/perl/auto/RRDs || true
 +	$(top_srcdir)/config/mkinstalldirs $(DESTDIR)$(perl_sitearch)/auto/RRDs
-+	$(INSTALL) -m 644 $(top_srcdir)/perl-piped/RRDp.pm $(DESTDIR)$(prefix)$(perl_sitearch)
-+	$(INSTALL) -m 644 $(top_srcdir)/perl-shared/RRDs.pm $(DESTDIR)$(prefix)$(perl_sitearch)
-+	$(INSTALL) -m 644 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bs $(DESTDIR)$(prefix)$(perl_sitearch)/auto/RRDs
-+	test -f $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@  && $(INSTALL) -m 755 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ $(DESTDIR)$(prefix)$(perl_sitearch)/auto/RRDs || true
-+	test -f $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bundle  && $(INSTALL) -m 755 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bundle $(DESTDIR)$(prefix)$(perl_sitearch)/auto/RRDs || true
++	$(INSTALL) -m 644 $(top_srcdir)/perl-piped/RRDp.pm $(DESTDIR)$(perl_sitearch)
++	$(INSTALL) -m 644 $(top_srcdir)/perl-shared/RRDs.pm $(DESTDIR)$(perl_sitearch)
++	$(INSTALL) -m 644 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bs $(DESTDIR)$(perl_sitearch)/auto/RRDs
++	test -f $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@  && $(INSTALL) -m 755 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.@SO_EXT@ $(DESTDIR)$(perl_sitearch)/auto/RRDs || true
++	test -f $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bundle  && $(INSTALL) -m 755 $(top_builddir)/perl-shared/blib/arch/auto/RRDs/RRDs.bundle $(DESTDIR)$(perl_sitearch)/auto/RRDs || true
  
  
  # use relaxed rules when building dists
