@@ -6,19 +6,23 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.42
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-perl-install.patch
 Patch2:		%{name}-acfix.patch
+Patch3:		%{name}-system-libs.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gd-devel >= 1.3
+BuildRequires:	libpng-devel >= 1.0.9
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 5.6.1
 #BuildRequired:	tcl-devel
+BuildRequires:	zlib-devel >= 1.1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -140,6 +144,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -173,11 +178,11 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .;
 mv -f ../../../contrib .)
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
