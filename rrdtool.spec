@@ -23,6 +23,7 @@ BuildRequires:	gd-devel >= 1.3
 BuildRequires:	libpng-devel >= 1.0.9
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 1:5.8.0
+BuildRequires:	php-devel
 BuildRequires:	rpm-perlprov
 BuildConflicts:	perl-devel = 1:5.8.2-1
 #BuildRequired:	tcl-devel
