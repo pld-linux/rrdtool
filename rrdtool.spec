@@ -1,5 +1,6 @@
 %include        /usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
+Summary(pt_BR):	Round Robin Database, uma ferramenta para construção de gráficos
 Name:		rrdtool
 Version:	1.0.33
 Release:	5
@@ -28,9 +29,18 @@ can be used either via simple wrapper scripts (from shell or Perl) or
 via frontends that poll network devices and put a friendly user
 interface on it.
 
+%description -l pt_BR
+RRD e' um sistema para armazenar e apresentar series temporais de
+dados (i.e. utilização de rede, temperaturas, cargas em servidores).
+Os dados são armazenados em uma forma compacta que não se expande com
+o tempo, e gráficos podem ser apresentados processando-se esses dados.
+RRD pode ser utilizado com wrapper scripts (em shell ou Perl) ou
+através de front-ends.
+
 %package devel
 Summary:	RDDTools development
 Summary(pl):	Narzêdzia programistyczne pakietu RRDtools
+Summary(pt_BR):	Bibliotecas e arquivos de inclusão da librrd
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(es):	Desarrollo/Bibliotecas
@@ -47,9 +57,16 @@ RDDTools development files.
 %description -l pl devel
 Narzêdzia programistyczne pakietu RRDtools.
 
+%description -l pt_BR devel
+RRD e' um sistema para armazenar e apresentar series temporais de
+dados (i.e. utilização de rede, temperaturas, cargas em servidores).
+
+Este pacote contem arquivos de desenvolvimento do RRD.
+
 %package static
 Summary:	RDDTools static library
 Summary(pl):	Statyczne biblioteki RRDtools
+Summary(pt_BR):	Biblioteca estática librrd
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(es):	Desarrollo/Bibliotecas
@@ -65,6 +82,12 @@ RDDTools static library.
 
 %description -l pl static
 Statyczne biblioteki RRDtools.
+
+%description -l pt_BR static
+RRD e' um sistema para armazenar e apresentar series temporais de
+dados (i.e. utilização de rede, temperaturas, cargas em servidores).
+
+Este pacote contem a biblioteca estática do RRD.
 
 %prep
 %setup -q
