@@ -1,4 +1,4 @@
-%include        /usr/lib/rpm/macros.perl
+%include	/usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
 Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
@@ -149,8 +149,8 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 Summary:	RRDtool php module
 Summary(pl):	ModuЁ PHP RRDtool
 Group:		Unknown/Unknown
-Requires(post,preun):   php-common
-Requires:       php-common
+Requires(post,preun):	php-common
+Requires:	php-common
 
 %description -n php-rrdtool
 RRDtool module for PHP.
@@ -198,9 +198,9 @@ cd ../../
 
 # Fix @perl@ and @PERL@
 find examples/ -type f \
-    -exec /usr/bin/perl -pi -e 's|^#! \@perl\@|#!/usr/bin/perl|gi' "{}" ";"
+	-exec /usr/bin/perl -pi -e 's|^#! \@perl\@|#!/usr/bin/perl|gi' "{}" ";"
 find examples/ -name "*.pl" \
-    -exec perl -pi -e 's|\015||gi' "{}" ";"
+	-exec perl -pi -e 's|\015||gi' "{}" ";"
 
 %{__make}
 
@@ -226,15 +226,15 @@ mv -f ../../../contrib .
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %post -n php-rrdtool
 %{_sbindir}/php-module-install install rrdtool %{_sysconfdir}/php.ini
 
 %preun -n php-rrdtool
 if [ "$1" = "0" ]; then
-        %{_sbindir}/php-module-install remove rrdtool %{_sysconfdir}/php.ini
+	%{_sbindir}/php-module-install remove rrdtool %{_sysconfdir}/php.ini
 fi
 
 %files
