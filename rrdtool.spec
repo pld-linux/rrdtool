@@ -1,13 +1,15 @@
 Summary: 	RRDtool - round robin database
 Name: 		rrdtool
-Version: 	1.0.13
+Version: 	1.0.28
 Release: 	1
 Copyright: 	GPL
 Group: 		Applications/Databases
-Source0: 	http://www.caida.org/tools/utilities/rrdtool/pub/%{name}-%{version}.tar.gz
+#Source0: 	http://www.caida.org/tools/utilities/rrdtool/pub/%{name}-%{version}.tar.gz
+Source:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 #Patch0: 	/rrdtool-perl-location.patch
-Url: 		http://www.caida.org/tools/utilites/rrdtool/
-Vendor: 	Tobi Oetiker <oetiker@ee.ethz.ch>
+#Url: 		http://www.caida.org/tools/utilites/rrdtool/
+URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
+#Vendor: 	Tobi Oetiker <oetiker@ee.ethz.ch>
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
