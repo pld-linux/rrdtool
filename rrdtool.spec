@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.48
-Release:	1
+Release:	1.1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -18,6 +18,7 @@ Patch3:		%{name}-system-libs.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	cgilibc-devel
 BuildRequires:	gd-devel >= 1.3
 BuildRequires:	libpng-devel >= 1.0.9
 BuildRequires:	libtool
@@ -162,34 +163,36 @@ empty
 %{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am
 
 %build
+rm -rf cgilib* libpng* zlib* gd*
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader} -I config
 %{__automake}
+CPPFLAGS="-I%{_includedir}/cgilibc"
 %configure \
 	--enable-shared=yes \
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor" \
-	--without-tclib \
-	--enable-latin2
+	--without-tclib
 # uncoment this line ONLY IF tcl package is ready.
 #	--with-tclib=%{_prefix}
-%define rrdtmpdir %{_tmppath}/%{buildsubdir}-tmpinstall
 %{__make} install \
-	DESTDIR="%{rrdtmpdir}"
+	DESTDIR="$(pwd)/temp-install"
 cd contrib/php4
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
 %configure \
-	--with-rrdtool="%{rrdtmpdir}%{_prefix}"
+	--with-rrdtool="$(pwd)/../../temp-install"
 %{__make}
 cd ../../
-%{__rm} -rf %{rrdtmpdir}
 
 # Fix @perl@ and @PERL@
 find examples/ -type f \
-    -exec /usr/bin/perl -pi -e 's|^#! \@perl\@|#!/usr/bin/perl|gi' \{\} \;
+    -exec /usr/bin/perl -pi -e 's|^#! \@perl\@|#!/usr/bin/perl|gi' "{}" ";"
 find examples/ -name "*.pl" \
-    -exec perl -pi -e 's|\015||gi' \{\} \;
+    -exec perl -pi -e 's|\015||gi' "{}" ";"
 
 %{__make}
 
