@@ -9,8 +9,8 @@ Group(pl):	Aplikacje/Bazy danych
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
-BuildRequired:	autoconf
-BuildRequired:	automake
+BuildRequires:	autoconf
+BuildRequires:	automake
 #BuildRequired:	tcl-devel
 %requires_eq	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
