@@ -11,6 +11,7 @@ Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{versio
 Patch0:		%{name}-makefile.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 #BuildRequired:	tcl-devel
+Requires:	perl >= 5.005
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
