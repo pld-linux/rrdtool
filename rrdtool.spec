@@ -13,7 +13,6 @@ URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 BuildRequires:	autoconf
 BuildRequires:	automake
 #BuildRequired:	tcl-devel
-%requires_eq	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
