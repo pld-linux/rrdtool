@@ -1,9 +1,10 @@
 %include        /usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
+Summary(pl):	RRDtool - baza danych typu round-robin
 Summary(pt_BR):	Round Robin Database, uma ferramenta para construção de gráficos
 Name:		rrdtool
 Version:	1.0.33
-Release:	5
+Release:	6
 License:	GPL
 Group:		Applications/Databases
 Group(de):	Applikationen/Dateibanken
@@ -28,6 +29,15 @@ graphs by processing the data to enforce a certain data density. It
 can be used either via simple wrapper scripts (from shell or Perl) or
 via frontends that poll network devices and put a friendly user
 interface on it.
+
+%description -l pl
+RRD jest akronimem Round Robin Database. Jest to system pozwalaj±cy na
+sk³adowanie i wy¶wietlanie czasowych serii danych (np. przepustowo¶æ 
+sieci, temperatura w pomieszczeniu, obci±¿enie servera). Sk³aduje dane
+w "skondensowanej" postaci, która nie rozrasta siê z biegiem czasu oraz
+pozwala na produkowanie wykresów z u¿ytecznymi danymi. Mo¿e byæ u¿ywane 
+poprzez prosty skrypcik (shell lub perl), frontendy czy inne 
+interfejsy u¿ytkownika.
 
 %description -l pt_BR
 RRD e' um sistema para armazenar e apresentar series temporais de
