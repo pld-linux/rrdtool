@@ -146,7 +146,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
 
 %package -n php-rrdtool
-Summary:	RRDtool php module
+Summary:	RRDtool PHP module
 Summary(pl):	ModuЁ PHP RRDtool
 Group:		Applications/Databases
 Requires(post,preun):	php-common
