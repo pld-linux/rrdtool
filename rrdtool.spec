@@ -185,7 +185,8 @@ cd contrib/php4
 %{__aclocal}
 %{__autoconf}
 %configure \
-	--with-rrdtool="$(pwd)/../../temp-install"
+	--with-openssl \
+	--with-rrdtool="$(pwd)/../../temp-install%{_prefix}"
 %{__make}
 cd ../../
 
