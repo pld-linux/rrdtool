@@ -161,6 +161,7 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 #	--with-tclib=%{_prefix}
 
 %{__perl} -pi -e 's/--localdir=/-B /g' Makefile */Makefile */*/Makefile
+%{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am */*/Makefile.am
 %{__make}
 
 %install
