@@ -1,17 +1,16 @@
 %include        /usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Name:		rrdtool
-Version:	1.0.28
+Version:	1.0.32
 Release:	1
 License:	GPL
 Group:		Applications/Databases
 Group(pl):	Aplikacje/Bazy danych
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
-#Patch0:	/%{name}-perl-location.patch
 Patch0:		%{name}-makefile.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 #BuildRequired:	tcl-devel
-Requires:	perl >= 5.005
+%requires_eq	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -60,7 +59,7 @@ Statyczne biblioteki RRDtools.
 
 %build
 aclocal
-automake
+automake -a -c
 autoconf
 %configure \
 	--enable-shared=yes \
