@@ -24,22 +24,34 @@ via frontends that poll network devices and put a friendly user
 interface on it.
 
 %package devel
-Summary:	RDDTools development.
-Summary(pl):	Na¿êdzia programistyczne pakietu RRDtools
+Summary:	RDDTools development
+Summary(pl):	Narzêdzia programistyczne pakietu RRDtools
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name}
+
 %description devel
+RDDTools development files.
+
 %description -l pl devel
+Narzêdzia programistyczne pakietu RRDtools.
 
 %package static
-Summary:	RDDTools static library.
-Summary(pl):	Statycznie linkowana biblioteka RRDtools.
+Summary:	RDDTools static library
+Summary(pl):	Statyczne biblioteki RRDtools
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name}-devel
+
 %description static
+RDDTools static library.
+
 %description -l pl static
+Statyczne biblioteki RRDtools.
 
 %prep
 %setup -q
@@ -61,13 +73,13 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 %{__make} DESTDIR=$RPM_BUILD_ROOT site-perl-install
 
-install -d $RPM_BUILD_ROOT/usr/src/examples/%{name}
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 
-(cd $RPM_BUILD_ROOT/usr/src/examples/%{name};
-mv ../../../examples/* .;
-mv ../../../contrib .)
+(cd $RPM_BUILD_ROOT%{_prefix}/src/examples/%{name};
+mv -f ../../../examples/* .;
+mv -f ../../../contrib .)
 
-%post -p /sbin/ldconfig
+%post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %clean
@@ -77,14 +89,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_bindir}/trytime
-%attr(755,root,root) %{_libdir}/librrd.so.0.0.0
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_libdir}/perl
 %{_mandir}/man1/*
 
 %files devel
+%defattr(644,root,root,755)
 %attr(644,root,root) %{_libdir}/librrd.so
+%attr(644,root,root) %{_libdir}/librrd.la
 %{_examplesdir}/%{name}
 
 %files static
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/librrd.la
 %{_libdir}/librrd.a
