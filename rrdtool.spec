@@ -1,4 +1,4 @@
-%include        /usr/lib/rpm/macros.perl
+%include	/usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
 Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
@@ -20,7 +20,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gd-devel >= 1.3
 BuildRequires:	libpng-devel >= 1.0.9
-BuildRequires:  libtiff-devel
+BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 5.6.1
 #BuildRequired:	tcl-devel
@@ -77,19 +77,19 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 пристро╖ та надають дружн╕й ╕нтерфейс користувача.
 
 %package devel
-Summary:	RDDTools development
-Summary(pl):	NarzЙdzia programistyczne pakietu RRDtools
+Summary:	RDDTool development
+Summary(pl):	NarzЙdzia programistyczne pakietu RRDtool
 Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo da librrd
-Summary(ru):	RRDtool - база данных с "циклическим обновлением".  Заголовки, необходимые для разработки
+Summary(ru):	RRDtool - Заголовки, необходимые для разработки
 Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-RDDTools development files.
+RDDTool development files.
 
 %description devel -l pl
-NarzЙdzia programistyczne pakietu RRDtools.
+NarzЙdzia programistyczne pakietu RRDtool.
 
 %description devel -l pt_BR
 RRD e' um sistema para armazenar e apresentar series temporais de
@@ -110,19 +110,19 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 RRDtool - библиотечные линки и файлы хедеров.
 
 %package static
-Summary:	RDDTools static library
-Summary(pl):	Statyczne biblioteki RRDtools
+Summary:	RDDTool static library
+Summary(pl):	Statyczne biblioteki RRDtool
 Summary(pt_BR):	Biblioteca estАtica librrd
-Summary(ru):	RRDtool - база данных с "циклическим обновлением". Статические библиотеки
+Summary(ru):	RRDtool - Статические библиотеки
 Summary(uk):	Статичн╕ б╕бл╕отеки RRDtool
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
-RDDTools static library.
+RDDTool static library.
 
 %description static -l pl
-Statyczne biblioteki RRDtools.
+Statyczne biblioteki RRDtool.
 
 %description static -l pt_BR
 RRD e' um sistema para armazenar e apresentar series temporais de
@@ -184,8 +184,8 @@ mv -f ../../../contrib .
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
