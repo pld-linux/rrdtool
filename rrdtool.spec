@@ -28,7 +28,7 @@ put a friendly user interface on it.
 aclocal
 autoconf
 %configure
-make
+%{__make}
 
 %install
 %{__make} install PREFIX=$RPM_BUILD_ROOT/usr
