@@ -5,8 +5,8 @@ Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
 Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
-Version:	1.0.37
-Release:	2
+Version:	1.0.39
+Release:	1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
@@ -178,6 +178,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_bindir}/trytime
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
+%{perl_sitelib}/RRDp.pm
 %{perl_sitearch}/*.pm
 %dir %{perl_sitearch}/auto/RRDs
 %{perl_sitearch}/auto/RRDs/RRDs.bs
