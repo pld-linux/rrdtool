@@ -44,7 +44,7 @@ interface on it.
 %description -l pl
 RRD jest akronimem Round Robin Database. Jest to system pozwalaj±cy na
 sk³adowanie i wy¶wietlanie czasowych serii danych (np. przepustowo¶æ
-sieci, temperatura w pomieszczeniu, obci±¿enie servera). Sk³aduje dane
+sieci, temperatura w pomieszczeniu, obci±¿enie serwera). Sk³aduje dane
 w "skondensowanej" postaci, która nie rozrasta siê z biegiem czasu
 oraz pozwala na produkowanie wykresów z u¿ytecznymi danymi. Mo¿e byæ
 u¿ywane poprzez prosty skrypcik (shell lub perl), frontendy czy inne
