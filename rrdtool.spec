@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.45
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -21,7 +21,8 @@ BuildRequires:	automake
 BuildRequires:	gd-devel >= 1.3
 BuildRequires:	libpng-devel >= 1.0.9
 BuildRequires:	libtool
-BuildRequires:	perl-devel >= 5.6.1
+BuildRequires:	perl-devel >= 5.8.2-2 
+# missing reentr.inc in other version.
 BuildRequires:	gcc-c++ >= 3.3.2
 BuildRequires:	perl-devel >= 5.8.0
 #BuildRequired:	tcl-devel
