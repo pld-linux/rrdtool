@@ -7,13 +7,10 @@ Group:		Applications/Databases
 Group(pl):	Aplikacje/Bazy danych
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 #Patch0:	/%{name}-perl-location.patch
-#Url:		http://www.caida.org/tools/utilites/rrdtool/
+Patch0:		%{name}-makefile.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
-#Vendor:	Tobi Oetiker <oetiker@ee.ethz.ch>
 #BuildRequired:	tcl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define	_prefix	/usr
 
 %description
 RRD is the Acronym for Round Robin Database. RRD is a system to store
@@ -45,13 +42,13 @@ Requires:	%{name}-devel
 
 %prep
 %setup -q
-#%patch0 -p1
-#mv contrib/log2rrd/log2rrd.pl contrib/log2rrd/log2rrd.pl.in
+%patch -p1
 
 %build
 aclocal
+automake
 autoconf
-%configure --prefix=%{_prefix} \
+%configure \
 	--enable-shared=yes \
 	--without-tclib
 # uncoment this line ONLY IF tcl package is ready. 
@@ -60,32 +57,33 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} mandir=%{_mandir} imandir=%{_mandir} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} DESTDIR=$RPM_BUILD_ROOT site-perl-install
+
 install -d $RPM_BUILD_ROOT/usr/src/examples/%{name}
-install -d $RPM_BUILD_ROOT/usr/src/examples/%{name}/contrib
+
 (cd $RPM_BUILD_ROOT/usr/src/examples/%{name};
-cp -Rp ../../../examples/* .;
-cp -Rp ../../../contrib .)
+mv ../../../examples/* .;
+mv ../../../contrib .)
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc doc/*.txt
-%doc doc/*.html
-%doc doc/*.pod
-
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_bindir}/trytime
-
-%attr(644,root,root) %{_libdir}/librrd.so
 %attr(755,root,root) %{_libdir}/librrd.so.0.0.0
-
-%dir %{_libdir}/perl
-%attr(644,root,root) %{_mandir}/man1/*
-
-%files static
-%attr(644,root,root) %{_libdir}/librrd.a
-%attr(755,root,root) %{_libdir}/librrd.la
+%{_libdir}/perl
+%{_mandir}/man1/*
 
 %files devel
-%attr(644,root,root) %{_libdir}/librrd.so.0
-%dir %{_examplesdir}/%{name}
+%attr(644,root,root) %{_libdir}/librrd.so
+%{_examplesdir}/%{name}
+
+%files static
+%attr(755,root,root) %{_libdir}/librrd.la
+%{_libdir}/librrd.a
