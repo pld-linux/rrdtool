@@ -146,7 +146,11 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %package -n php-rrdtool
 Summary:	RRDtool php module
 Summary(pl):	ModuЁ PHP RRDtool
+Group:		Unknown/Unknown
 Requires:	%{name} = %{version}
+
+%description -n php-rrdtool
+empty
 
 %prep
 %setup -q
@@ -174,11 +178,11 @@ Requires:	%{name} = %{version}
 %define rrdtmpdir %{_tmppath}/%{buildsubdir}-tmpinstall
 %{__make} install \
 	DESTDIR="%{rrdtmpdir}"
-pushd contrib/php4
-./configure \
+cd contrib/php4
+%configure \
 	--with-rrdtool="%{rrdtmpdir}%{_prefix}"
 %{__make}
-popd
+cd ../../
 %{__rm} -rf %{rrdtmpdir}
 
 # Fix @perl@ and @PERL@
@@ -202,7 +206,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	DESTDIR=$RPM_BUILD_ROOT \
 	perl_sitearch=%{perl_vendorarch}
 
-install -m755 -D contrib/php4/modules/rrdtool.so %{buildroot}%{phpextdir}/rrdtool.so
+install -m755 -D contrib/php4/modules/rrdtool.so %{buildroot}//usr/lib/php/rrdtool.so
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .
@@ -241,4 +245,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n php-rrdtool
 %doc contrib/php4/examples contrib/php4/README
-%{phpextdir}/rrdtool.so
+/usr/lib/php/rrdtool.so
