@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.49
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -15,6 +15,7 @@ Patch0:		%{name}-perl-install.patch
 Patch1:		%{name}-acfix.patch
 Patch2:		%{name}-system-libs.patch
 Patch3:		%{name}-php-config.patch
+Patch4:		%{name}-libdir.patch
 URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -163,6 +164,7 @@ ModuЁ RRDtool dla PHP.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p0
+%patch4 -p0
 
 %{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am
 
