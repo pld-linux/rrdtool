@@ -7,8 +7,6 @@ Version:	1.0.33
 Release:	6
 License:	GPL
 Group:		Applications/Databases
-Group(de):	Applikationen/Dateibanken
-Group(pl):	Aplikacje/Bazy danych
 Source0:	http://ee-staff.ethz.ch/~oetiker/webtools/rrdtools/pub/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-perl-install.patch
@@ -52,13 +50,6 @@ Summary:	RDDTools development
 Summary(pl):	NarzЙdzia programistyczne pakietu RRDtools
 Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo da librrd
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -78,13 +69,6 @@ Summary:	RDDTools static library
 Summary(pl):	Statyczne biblioteki RRDtools
 Summary(pt_BR):	Biblioteca estАtica librrd
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
