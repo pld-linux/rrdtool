@@ -1,3 +1,7 @@
+# TODO:
+# - separate perl-rrdtool binding
+# - readd php-rrdtool - separate spec? is this separate source OK?
+#   http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/contrib/php4-rrdtool-1.03.tar.gz
 %include	/usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
@@ -5,30 +9,30 @@ Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
 Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
-Version:	1.0.49
-Release:	4
+Version:	1.2.0
+Release:	0.1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	fbe492dbf3d68abb1d86c2322e7ed44a
-Patch0:		%{name}-perl-install.patch
-Patch1:		%{name}-acfix.patch
-Patch2:		%{name}-system-libs.patch
-Patch3:		%{name}-php-config.patch
-Patch4:		%{name}-libdir.patch
-URL:		http://ee-staff.ethz.ch/~oetiker/webtools/rrdtol/
-BuildRequires:	autoconf
+# Source0-md5:	f945b4fa52a41fb548bba42883b69a9c
+Patch0:		%{name}-cgic.patch
+URL:		http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/
+BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	cgilibc-devel
-BuildRequires:	gd-devel >= 1.3
-BuildRequires:	libpng-devel >= 1.0.9
+BuildRequires:	cgilibc-devel >= 0.5
+BuildRequires:	freetype-devel >= 2.1.7
+BuildRequires:	libart_lgpl-devel >= 2.3.17
+BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 1:5.8.0
-BuildRequires:	php-devel
+BuildRequires:	pkgconfig
 BuildRequires:	rpm-perlprov
-BuildConflicts:	perl-devel = 1:5.8.2-1
 #BuildRequired:	tcl-devel
-BuildRequires:	zlib-devel >= 1.1.4
+BuildRequires:	zlib-devel >= 1.2.1
+Requires:	cgilibc >= 0.5
+Requires:	libart_lgpl >= 2.3.17
+Requires:	libpng >= 1.2.8
+Requires:	zlib >= 1.2.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -88,6 +92,11 @@ Summary(ru):	RRDtool - Заголовки, необходимые для разработки
 Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	cgilibc-devel >= 0.5
+Requires:	freetype-devel >= 2.1.7
+Requires:	libart_lgpl-devel >= 2.3.17
+Requires:	libpng-devel >= 2:1.2.8
+Requires:	zlib-devel >= 1.2.1
 
 %description devel
 RRDtool development files.
@@ -145,31 +154,11 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %description static -l uk
 Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
 
-%package -n php-rrdtool
-Summary:	RRDtool PHP module
-Summary(pl):	ModuЁ PHP RRDtool
-Group:		Applications/Databases
-Requires(post,preun):	php-common
-Requires:	php-common(apache-modules-api) = %{apache_modules_api}
-
-%description -n php-rrdtool
-RRDtool module for PHP.
-
-%description -n php-rrdtool -l pl
-ModuЁ RRDtool dla PHP.
-
 %prep
 %setup -q
-%patch0 -p0
-%patch1 -p1
-%patch2 -p1
-%patch3 -p0
-%patch4 -p0
-
-%{__perl} -pi -e 's/--localdir=/-B /g' Makefile.am */Makefile.am
+%patch0 -p1
 
 %build
-rm -rf cgilib* libpng* zlib* gd*
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -180,28 +169,9 @@ CPPFLAGS="-I%{_includedir}/cgilibc"
 	--enable-shared=yes \
 	--enable-latin2 \
 	--with-perl=%{__perl} \
-	--with-perl-options="INSTALLDIRS=vendor" \
-	--without-tclib
+	--with-perl-options="INSTALLDIRS=vendor"
 # uncoment this line ONLY IF Tcl package is ready.
-#	--with-tclib=%{_prefix}
-%{__make} install \
-	DESTDIR="$(pwd)/temp-install"
-cd contrib/php4
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%configure \
-	--with-openssl \
-	--with-rrdtool="$(pwd)/../../temp-install%{_prefix}" \
-	--includedir="%{_includedir}/php"
-%{__make}
-cd ../../
-
-# Fix @perl@ and @PERL@
-find examples/ -type f \
-	-exec /usr/bin/perl -pi -e 's|^#! \@perl\@|#!/usr/bin/perl|gi' "{}" ";"
-find examples/ -name "*.pl" \
-	-exec perl -pi -e 's|\015||gi' "{}" ";"
+#	--with-tcllib=%{_libdir}
 
 %{__make}
 
@@ -211,18 +181,10 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	perl_sitearch=%{perl_vendorarch}
+	perl_sitearch=%{perl_vendorarch} \
+	examplesdir=%{_examplesdir}/%{name}-%{version}
 
-# this shoudn't be required...
-%{__make} site-perl-install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	perl_sitearch=%{perl_vendorarch}
-
-install -m755 -D contrib/php4/modules/rrdtool.so $RPM_BUILD_ROOT%{_libdir}/php/rrdtool.so
-
-cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-mv -f ../../../examples/* .
-mv -f ../../../contrib .
+rm -rf $RPM_BUILD_ROOT%{_prefix}/{doc,html}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -230,40 +192,34 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%post -n php-rrdtool
-%{_sbindir}/php-module-install install rrdtool %{_sysconfdir}/php.ini
-
-%preun -n php-rrdtool
-if [ "$1" = "0" ]; then
-	%{_sbindir}/php-module-install remove rrdtool %{_sysconfdir}/php.ini
-fi
-
 %files
 %defattr(644,root,root,755)
-%doc CHANGES CONTRIBUTORS README TODO doc/*.html
+%doc CHANGES CONTRIBUTORS NEWS README THREADS TODO doc/*.html
 %attr(755,root,root) %{_bindir}/rrd*
-%attr(755,root,root) %{_bindir}/trytime
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/librrd.so.*.*.*
+%attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
+%{_mandir}/man1/*
+
+# perl binding
+#%files -n perl-rrdtool
 %{perl_vendorlib}/RRDp.pm
-%{perl_vendorarch}/*.pm
+%{perl_vendorarch}/RRDs.pm
 %dir %{perl_vendorarch}/auto/RRDs
 %{perl_vendorarch}/auto/RRDs/RRDs.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
-%{_mandir}/man1/*
+%{_mandir}/man3/RRDp.3*
+%{_mandir}/man3/RRDs.3*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_libdir}/librrd.so
+%attr(644,root,root) %{_libdir}/librrd_th.so
 %{_libdir}/librrd.la
-%{_includedir}/*
+%{_libdir}/librrd_th.la
+%{_includedir}/rrd.h
 %{_examplesdir}/%{name}-%{version}
-%{_mandir}/man3/*
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/librrd.a
-
-%files -n php-rrdtool
-%defattr(644,root,root,755)
-%doc contrib/php4/examples contrib/php4/USAGE
-%{_libdir}/php/rrdtool.so
+%{_libdir}/librrd_th.a
