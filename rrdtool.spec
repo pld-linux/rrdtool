@@ -1,6 +1,6 @@
 # TODO:
-# - readd php-rrdtool - separate spec? is this separate source OK?
-#   http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/contrib/php4-rrdtool-1.03.tar.gz
+# - readd php-rrdtool - separate spec?
+#   (but not ready yet - php4-rrdtool-1.03.tar.gz is outdated)
 %include	/usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
