@@ -1,5 +1,4 @@
 # TODO:
-# - separate perl-rrdtool binding
 # - readd php-rrdtool - separate spec? is this separate source OK?
 #   http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/contrib/php4-rrdtool-1.03.tar.gz
 %include	/usr/lib/rpm/macros.perl
@@ -154,6 +153,21 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 %description static -l uk
 Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
 
+%package -n perl-rrdtool
+Summary:	Access RRDtool from Perl
+Summary(pl):	DostЙp do RRDtoola z poziomu Perla
+Group:		Development/Languages/Perl
+Requires:	%{name} = %{version}-%{release}
+
+%description -n perl-rrdtool
+Perl modules to access RRDtool: RRDs to access RRDtool as shared
+module and RRDp to access RRDtool via a set of pipes.
+
+%description -n perl-rrdtool -l pl
+ModuЁy Perla pozwalaj╠ce na dostЙp do RRDtoola: RRDs do dostЙpu do
+RRDtoola jako moduЁu dzielonego oraz RRDp do dostЙpu poprzez zestaw
+potokСw.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -198,17 +212,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
 %attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
+%{_datadir}/rrdtool
 %{_mandir}/man1/*
-
-# perl binding
-#%files -n perl-rrdtool
-%{perl_vendorlib}/RRDp.pm
-%{perl_vendorarch}/RRDs.pm
-%dir %{perl_vendorarch}/auto/RRDs
-%{perl_vendorarch}/auto/RRDs/RRDs.bs
-%attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
-%{_mandir}/man3/RRDp.3*
-%{_mandir}/man3/RRDs.3*
 
 %files devel
 %defattr(644,root,root,755)
@@ -223,3 +228,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/librrd.a
 %{_libdir}/librrd_th.a
+
+%files -n perl-rrdtool
+%defattr(644,root,root,755)
+%{perl_vendorlib}/RRDp.pm
+%{perl_vendorarch}/RRDs.pm
+%dir %{perl_vendorarch}/auto/RRDs
+%{perl_vendorarch}/auto/RRDs/RRDs.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
+%{_mandir}/man3/RRDp.3*
+%{_mandir}/man3/RRDs.3*
