@@ -6,7 +6,7 @@ Summary(ru):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
 Name:		rrdtool
 Version:	1.0.49
-Release:	2
+Release:	5
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -44,7 +44,7 @@ interface on it.
 %description -l pl
 RRD jest akronimem Round Robin Database. Jest to system pozwalaj╠cy na
 skЁadowanie i wy╤wietlanie czasowych serii danych (np. przepustowo╤Ф
-sieci, temperatura w pomieszczeniu, obci╠©enie servera). SkЁaduje dane
+sieci, temperatura w pomieszczeniu, obci╠©enie serwera). SkЁaduje dane
 w "skondensowanej" postaci, ktСra nie rozrasta siЙ z biegiem czasu
 oraz pozwala na produkowanie wykresСw z u©ytecznymi danymi. Mo©e byФ
 u©ywane poprzez prosty skrypcik (shell lub perl), frontendy czy inne
@@ -146,11 +146,11 @@ RRD - соращение для "Round Robin Database" (база данных с "циклическим
 Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
 
 %package -n php-rrdtool
-Summary:	RRDtool php module
+Summary:	RRDtool PHP module
 Summary(pl):	ModuЁ PHP RRDtool
-Group:		Unknown/Unknown
+Group:		Applications/Databases
 Requires(post,preun):	php-common
-Requires:	php-common
+Requires:	php-common(apache-modules-api) = %{apache_modules_api}
 
 %description -n php-rrdtool
 RRDtool module for PHP.
@@ -178,10 +178,11 @@ rm -rf cgilib* libpng* zlib* gd*
 CPPFLAGS="-I%{_includedir}/cgilibc"
 %configure \
 	--enable-shared=yes \
+	--enable-latin2 \
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor" \
 	--without-tclib
-# uncoment this line ONLY IF tcl package is ready.
+# uncoment this line ONLY IF Tcl package is ready.
 #	--with-tclib=%{_prefix}
 %{__make} install \
 	DESTDIR="$(pwd)/temp-install"
@@ -217,7 +218,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	DESTDIR=$RPM_BUILD_ROOT \
 	perl_sitearch=%{perl_vendorarch}
 
-install -m755 -D contrib/php4/modules/rrdtool.so %{buildroot}//usr/lib/php/rrdtool.so
+install -m755 -D contrib/php4/modules/rrdtool.so $RPM_BUILD_ROOT%{_libdir}/php/rrdtool.so
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv -f ../../../examples/* .
@@ -264,5 +265,5 @@ fi
 
 %files -n php-rrdtool
 %defattr(644,root,root,755)
-%doc contrib/php4/examples contrib/php4/README
+%doc contrib/php4/examples contrib/php4/USAGE
 %{_libdir}/php/rrdtool.so
