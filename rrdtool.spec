@@ -25,8 +25,10 @@ BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
+BuildRequires:	python
+BuildRequires:	python-devel
 BuildRequires:	rpm-perlprov
-#BuildRequired:	tcl-devel
+BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel >= 1.2.1
 Requires:	cgilibc >= 0.5
 Requires:	libart_lgpl >= 2.3.17
@@ -173,6 +175,7 @@ Summary:	Python interface to RRDtool
 Summary(pl):	Pythonowy interfejs do RRDtoola
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
+%pyrequires_eq	python-libs
 
 %description -n python-rrdtool
 Python interface to RRDtool, the graphing and logging utility.
@@ -186,6 +189,7 @@ Summary:	Tcl extension to access the RRD library
 Summary(pl):	Rozszerzenie Tcl-a pozwalaj±ce na dostêp do biblioteki Tcl
 Group:		Development/Languages/Tcl
 Requires:	%{name} = %{version}-%{release}
+Requires:	tcl
 
 %description -n tcl-rrdtool
 Tcl extension to access the RRD library.
@@ -269,4 +273,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n tcl-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/tclrrd%{version}.so
-%{_libdir}/tclrrd%{version}
+/usr/lib/tclrrd%{version}
