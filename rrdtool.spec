@@ -8,12 +8,12 @@ Summary(pt_BR):	Round Robin Database, uma ferramenta para construção de gráficos
 Summary(ru):	RRDtool - ÂÁÚÁ ÄÁÎÎÙÈ Ó "ÃÉËÌÉÞÅÓËÉÍ ÏÂÎÏ×ÌÅÎÉÅÍ"
 Summary(uk):	RRDtool - ÃÅ ÓÉÓÔÅÍÁ ÚÂÅÒ¦ÇÁÎÎÑ ÔÁ ÐÏËÁÚÕ ÓÅÒ¦ÊÎÉÈ ÄÁÎÉÈ
 Name:		rrdtool
-Version:	1.2.9
+Version:	1.2.10
 Release:	0.1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	6e358356336317974665b3f4b97ec790
+# Source0-md5:	ebf90d351126a225e87dbb88da7635f9
 Patch0:		%{name}-cgic.patch
 URL:		http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/
 BuildRequires:	autoconf >= 2.59
@@ -168,6 +168,31 @@ Modu³y Perla pozwalaj±ce na dostêp do RRDtoola: RRDs do dostêpu do
 RRDtoola jako modu³u dzielonego oraz RRDp do dostêpu poprzez zestaw
 potoków.
 
+%package -n python-rrdtool
+Summary:	Python interface to RRDtool
+Summary(pl):	Pythonowy interfejs do RRDtoola
+Group:		Development/Languages/Python
+Requires:	%{name} = %{version}-%{release}
+
+%description -n python-rrdtool
+Python interface to RRDtool, the graphing and logging utility.
+
+%description -n python-rrdtool -l pl
+Interfejs Pythona do RRDtoola - narzêdzia do tworzenia wykresów i
+logowania.
+
+%package -n tcl-rrdtool
+Summary:	Tcl extension to access the RRD library
+Summary(pl):	Rozszerzenie Tcl-a pozwalaj±ce na dostêp do biblioteki Tcl
+Group:		Development/Languages/Tcl
+Requires:	%{name} = %{version}-%{release}
+
+%description -n tcl-rrdtool
+Tcl extension to access the RRD library.
+
+%description -n tcl-rrdtool -l pl
+Rozszerzenie Tcl-a pozwalaj±ce na dostêp do biblioteki Tcl.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -180,12 +205,9 @@ potoków.
 %{__automake}
 CPPFLAGS="-I%{_includedir}/cgilibc"
 %configure \
-	--enable-shared=yes \
 	--enable-latin2 \
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor"
-# uncoment this line ONLY IF Tcl package is ready.
-#	--with-tcllib=%{_libdir}
 
 %{__make}
 
@@ -196,6 +218,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	perl_sitearch=%{perl_vendorarch} \
+	pythondir=%{py_sitedir} \
 	examplesdir=%{_examplesdir}/%{name}-%{version}
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/{doc,html}
@@ -238,3 +261,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
 %{_mandir}/man3/RRDp.3*
 %{_mandir}/man3/RRDs.3*
+
+%files -n python-rrdtool
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py_sitedir}/rrdtoolmodule.so
+
+%files -n tcl-rrdtool
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/tclrrd%{version}.so
+%{_libdir}/tclrrd%{version}
