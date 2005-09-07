@@ -1,6 +1,3 @@
-# TODO:
-# - readd php-rrdtool - separate spec?
-#   (but not ready yet - php4-rrdtool-1.03.tar.gz is outdated)
 %include	/usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
