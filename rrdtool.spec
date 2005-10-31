@@ -25,6 +25,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-devel
 BuildRequires:	rpm-perlprov
+BuildRequires:	rpm-pythonprov
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel >= 1.2.1
 Requires:	cgilibc >= 0.5
