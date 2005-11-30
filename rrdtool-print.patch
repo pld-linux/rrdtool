@@ -1,0 +1,10 @@
+--- rrdtool-1.2.11/src/rrd_graph_helper.c.oorig	2005-07-25 16:13:13.000000000 +0200
++++ rrdtool-1.2.11/src/rrd_graph_helper.c	2005-11-04 19:43:46.000000000 +0100
+@@ -699,6 +699,7 @@
+ 		if (rrd_parse_xport(argv[i],&eaten,gdp,im)) return;
+ 		break;
+ 	    case GF_PRINT:	/* vname:CF:format -or- vname:format */
++		im->prt_c++;
+ 	    case GF_GPRINT:	/* vname:CF:format -or- vname:format */
+ 		if (rrd_parse_print(argv[i],&eaten,gdp,im)) return;
+ 		break;
