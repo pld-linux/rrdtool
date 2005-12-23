@@ -5,22 +5,16 @@ Summary(pt_BR):	Round Robin Database, uma ferramenta para construção de gráficos
 Summary(ru):	RRDtool - ÂÁÚÁ ÄÁÎÎÙÈ Ó "ÃÉËÌÉÞÅÓËÉÍ ÏÂÎÏ×ÌÅÎÉÅÍ"
 Summary(uk):	RRDtool - ÃÅ ÓÉÓÔÅÍÁ ÚÂÅÒ¦ÇÁÎÎÑ ÔÁ ÐÏËÁÚÕ ÓÅÒ¦ÊÎÉÈ ÄÁÎÉÈ
 Name:		rrdtool
-Version:	1.2.11
-Release:	2
+Version:	1.2.12
+Release:	1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	d61c5755cb77207f9ad3584b26e8bf08
-Patch0:		%{name}-cgic.patch
-Patch1:		%{name}-print.patch
+# Source0-md5:	7b544c38a818cbebcf06fe39b9f52d0d
 URL:		http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/
-BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake
-BuildRequires:	cgilibc-devel >= 0.5
 BuildRequires:	freetype-devel >= 2.1.7
 BuildRequires:	libart_lgpl-devel >= 2.3.17
 BuildRequires:	libpng-devel >= 2:1.2.8
-BuildRequires:	libtool
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
 BuildRequires:	python
@@ -29,7 +23,6 @@ BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel >= 1.2.1
-Requires:	cgilibc >= 0.5
 Requires:	libart_lgpl >= 2.3.17
 Requires:	libpng >= 1.2.8
 Requires:	zlib >= 1.2.1
@@ -198,16 +191,8 @@ Rozszerzenie Tcl-a pozwalaj±ce na dostêp do biblioteki Tcl.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader} -I config
-%{__automake}
-CPPFLAGS="-I%{_includedir}/cgilibc"
 %configure \
 	--enable-latin2 \
 	--with-perl=%{__perl} \
