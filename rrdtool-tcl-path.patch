@@ -1,0 +1,11 @@
+--- configure.ac~	2005-12-18 20:30:46.000000000 +0000
++++ configure.ac	2006-05-19 00:21:35.165121000 +0000
+@@ -487,7 +487,7 @@
+         AC_MSG_WARN([tclConfig.sh not found - Tcl interface won't be built])
+   else
+ 	. $tcl_config
+-	TCL_PACKAGE_DIR="$TCL_PACKAGE_PATH/tclrrd$VERSION"
++	TCL_PACKAGE_DIR="/usr/lib/tclrrd$VERSION"
+   fi
+ fi
+ 

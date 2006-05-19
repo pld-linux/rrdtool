@@ -11,7 +11,10 @@ License:	GPL
 Group:		Applications/Databases
 Source0:	http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	7b544c38a818cbebcf06fe39b9f52d0d
+Patch0:		%{name}-tcl-path.patch
 URL:		http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.1.7
 BuildRequires:	libart_lgpl-devel >= 2.3.17
 BuildRequires:	libpng-devel >= 2:1.2.8
@@ -191,8 +194,12 @@ Rozszerzenie Tcl-a pozwalaj±ce na dostêp do biblioteki Tcl.
 
 %prep
 %setup -q
+%patch0
 
 %build
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure \
 	--enable-latin2 \
 	--with-perl=%{__perl} \
