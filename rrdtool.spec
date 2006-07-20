@@ -1,4 +1,5 @@
 %include	/usr/lib/rpm/macros.perl
+%define	pdir	RRDp
 Summary:	RRDtool - round robin database
 Summary(pl):	RRDtool - baza danych typu round-robin
 Summary(pt_BR):	Round Robin Database, uma ferramenta para construção de gráficos
@@ -218,6 +219,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	examplesdir=%{_examplesdir}/%{name}-%{version}
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/{doc,html}
+rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/ntmake.pl
+rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -265,4 +268,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n tcl-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/tclrrd%{version}.so
-/usr/lib/tclrrd%{version}
+%{_prefix}/lib/tclrrd%{version}
