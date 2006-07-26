@@ -239,8 +239,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_libdir}/librrd.so
-%attr(644,root,root) %{_libdir}/librrd_th.so
+%{_libdir}/librrd.so
+%{_libdir}/librrd_th.so
 %{_libdir}/librrd.la
 %{_libdir}/librrd_th.la
 %{_includedir}/rrd.h
