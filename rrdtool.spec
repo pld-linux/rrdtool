@@ -1,10 +1,10 @@
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	RRDp
 Summary:	RRDtool - round robin database
-Summary(pl.UTF-8):   RRDtool - baza danych typu round-robin
-Summary(pt_BR.UTF-8):   Round Robin Database, uma ferramenta para construção de gráficos
-Summary(ru.UTF-8):   RRDtool - база данных с "циклическим обновлением"
-Summary(uk.UTF-8):   RRDtool - це система зберігання та показу серійних даних
+Summary(pl.UTF-8):	RRDtool - baza danych typu round-robin
+Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de gráficos
+Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
+Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.2.18
 Release:	1
@@ -83,10 +83,10 @@ RRD - соращение для "Round Robin Database" (база данных с
 
 %package devel
 Summary:	RRDtool development
-Summary(pl.UTF-8):   Narzędzia programistyczne pakietu RRDtool
-Summary(pt_BR.UTF-8):   Bibliotecas e arquivos de inclusão da librrd
-Summary(ru.UTF-8):   RRDtool - Заголовки, необходимые для разработки
-Summary(uk.UTF-8):   RRDtool - бібліотечні лінки та файли хедерів
+Summary(pl.UTF-8):	Narzędzia programistyczne pakietu RRDtool
+Summary(pt_BR.UTF-8):	Bibliotecas e arquivos de inclusão da librrd
+Summary(ru.UTF-8):	RRDtool - Заголовки, необходимые для разработки
+Summary(uk.UTF-8):	RRDtool - бібліотечні лінки та файли хедерів
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	cgilibc-devel >= 0.5
@@ -121,10 +121,10 @@ RRDtool - библиотечные линки и файлы хедеров.
 
 %package static
 Summary:	RRDtool static library
-Summary(pl.UTF-8):   Statyczne biblioteki RRDtool
-Summary(pt_BR.UTF-8):   Biblioteca estática librrd
-Summary(ru.UTF-8):   RRDtool - Статические библиотеки
-Summary(uk.UTF-8):   Статичні бібліотеки RRDtool
+Summary(pl.UTF-8):	Statyczne biblioteki RRDtool
+Summary(pt_BR.UTF-8):	Biblioteca estática librrd
+Summary(ru.UTF-8):	RRDtool - Статические библиотеки
+Summary(uk.UTF-8):	Статичні бібліотеки RRDtool
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -153,7 +153,7 @@ RRD - соращение для "Round Robin Database" (база данных с
 
 %package -n perl-rrdtool
 Summary:	Access RRDtool from Perl
-Summary(pl.UTF-8):   Dostęp do RRDtoola z poziomu Perla
+Summary(pl.UTF-8):	Dostęp do RRDtoola z poziomu Perla
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
 
@@ -168,7 +168,7 @@ potoków.
 
 %package -n python-rrdtool
 Summary:	Python interface to RRDtool
-Summary(pl.UTF-8):   Pythonowy interfejs do RRDtoola
+Summary(pl.UTF-8):	Pythonowy interfejs do RRDtoola
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -182,7 +182,7 @@ logowania.
 
 %package -n tcl-rrdtool
 Summary:	Tcl extension to access the RRD library
-Summary(pl.UTF-8):   Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl
+Summary(pl.UTF-8):	Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl
 Group:		Development/Languages/Tcl
 Requires:	%{name} = %{version}-%{release}
 Requires:	tcl
