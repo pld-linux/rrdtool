@@ -1,10 +1,10 @@
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	RRDp
 Summary:	RRDtool - round robin database
-Summary(pl):	RRDtool - baza danych typu round-robin
-Summary(pt_BR):	Round Robin Database, uma ferramenta para construГЦo de grАficos
-Summary(ru):	RRDtool - база данных с "циклическим обновлением"
-Summary(uk):	RRDtool - це система збер╕гання та показу сер╕йних даних
+Summary(pl.UTF-8):   RRDtool - baza danych typu round-robin
+Summary(pt_BR.UTF-8):   Round Robin Database, uma ferramenta para construц╖цёo de grц║ficos
+Summary(ru.UTF-8):   RRDtool - п╠п╟п╥п╟ п╢п╟п╫п╫я▀я┘ я│ "я├п╦п╨п╩п╦я┤п╣я│п╨п╦п╪ п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣п╪"
+Summary(uk.UTF-8):   RRDtool - я├п╣ я│п╦я│я┌п╣п╪п╟ п╥п╠п╣я─я√пЁп╟п╫п╫я▐ я┌п╟ п©п╬п╨п╟п╥я┐ я│п╣я─я√п╧п╫п╦я┘ п╢п╟п╫п╦я┘
 Name:		rrdtool
 Version:	1.2.18
 Release:	1
@@ -42,51 +42,51 @@ can be used either via simple wrapper scripts (from shell or Perl) or
 via frontends that poll network devices and put a friendly user
 interface on it.
 
-%description -l pl
-RRD jest akronimem Round Robin Database. Jest to system pozwalaj╠cy na
-skЁadowanie i wy╤wietlanie czasowych serii danych (np. przepustowo╤Ф
-sieci, temperatura w pomieszczeniu, obci╠©enie serwera). SkЁaduje dane
-w "skondensowanej" postaci, ktСra nie rozrasta siЙ z biegiem czasu
-oraz pozwala na produkowanie wykresСw z u©ytecznymi danymi. Mo©e byФ
-u©ywane poprzez prosty skrypcik (shell lub perl), frontendy czy inne
-interfejsy u©ytkownika.
+%description -l pl.UTF-8
+RRD jest akronimem Round Robin Database. Jest to system pozwalajд┘cy na
+skе┌adowanie i wyе⌡wietlanie czasowych serii danych (np. przepustowoе⌡д┤
+sieci, temperatura w pomieszczeniu, obciд┘е╪enie serwera). Skе┌aduje dane
+w "skondensowanej" postaci, ktцЁra nie rozrasta siд≥ z biegiem czasu
+oraz pozwala na produkowanie wykresцЁw z uе╪ytecznymi danymi. Moе╪e byд┤
+uе╪ywane poprzez prosty skrypcik (shell lub perl), frontendy czy inne
+interfejsy uе╪ytkownika.
 
-%description -l pt_BR
+%description -l pt_BR.UTF-8
 RRD e' um sistema para armazenar e apresentar series temporais de
-dados (i.e. utilizaГЦo de rede, temperaturas, cargas em servidores).
-Os dados sЦo armazenados em uma forma compacta que nЦo se expande com
-o tempo, e grАficos podem ser apresentados processando-se esses dados.
+dados (i.e. utilizaц╖цёo de rede, temperaturas, cargas em servidores).
+Os dados sцёo armazenados em uma forma compacta que nцёo se expande com
+o tempo, e grц║ficos podem ser apresentados processando-se esses dados.
 RRD pode ser utilizado com wrapper scripts (em shell ou Perl) ou
-atravИs de front-ends.
+atravц╘s de front-ends.
 
-%description -l ru
-RRD - соращение для "Round Robin Database" (база данных с "циклическим
-обновлением"). RRD - система для сохранения и показа информации за
-определенный промежуток времени (например скорость передачи данных в
-сети, температуру в машинном зале, среднюю загрузку сервера). Она
-сохраняет данные в очень компактной форме, так что данные не будут
-занимать все больше и больше места с течением времени и предоставляет
-разумное графическое представление информации. Может быть использована
-как из простых скриптов (shell, perl, etc) или встроена в программы,
-которые опрашивают сетевые устройства и показывают данные в удобном
-для пользователя виде.
+%description -l ru.UTF-8
+RRD - я│п╬я─п╟я┴п╣п╫п╦п╣ п╢п╩я▐ "Round Robin Database" (п╠п╟п╥п╟ п╢п╟п╫п╫я▀я┘ я│ "я├п╦п╨п╩п╦я┤п╣я│п╨п╦п╪
+п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣п╪"). RRD - я│п╦я│я┌п╣п╪п╟ п╢п╩я▐ я│п╬я┘я─п╟п╫п╣п╫п╦я▐ п╦ п©п╬п╨п╟п╥п╟ п╦п╫я└п╬я─п╪п╟я├п╦п╦ п╥п╟
+п╬п©я─п╣п╢п╣п╩п╣п╫п╫я▀п╧ п©я─п╬п╪п╣п╤я┐я┌п╬п╨ п╡я─п╣п╪п╣п╫п╦ (п╫п╟п©я─п╦п╪п╣я─ я│п╨п╬я─п╬я│я┌я▄ п©п╣я─п╣п╢п╟я┤п╦ п╢п╟п╫п╫я▀я┘ п╡
+я│п╣я┌п╦, я┌п╣п╪п©п╣я─п╟я┌я┐я─я┐ п╡ п╪п╟я┬п╦п╫п╫п╬п╪ п╥п╟п╩п╣, я│я─п╣п╢п╫я▌я▌ п╥п╟пЁя─я┐п╥п╨я┐ я│п╣я─п╡п╣я─п╟). п·п╫п╟
+я│п╬я┘я─п╟п╫я▐п╣я┌ п╢п╟п╫п╫я▀п╣ п╡ п╬я┤п╣п╫я▄ п╨п╬п╪п©п╟п╨я┌п╫п╬п╧ я└п╬я─п╪п╣, я┌п╟п╨ я┤я┌п╬ п╢п╟п╫п╫я▀п╣ п╫п╣ п╠я┐п╢я┐я┌
+п╥п╟п╫п╦п╪п╟я┌я▄ п╡я│п╣ п╠п╬п╩я▄я┬п╣ п╦ п╠п╬п╩я▄я┬п╣ п╪п╣я│я┌п╟ я│ я┌п╣я┤п╣п╫п╦п╣п╪ п╡я─п╣п╪п╣п╫п╦ п╦ п©я─п╣п╢п╬я│я┌п╟п╡п╩я▐п╣я┌
+я─п╟п╥я┐п╪п╫п╬п╣ пЁя─п╟я└п╦я┤п╣я│п╨п╬п╣ п©я─п╣п╢я│я┌п╟п╡п╩п╣п╫п╦п╣ п╦п╫я└п╬я─п╪п╟я├п╦п╦. п°п╬п╤п╣я┌ п╠я▀я┌я▄ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╟
+п╨п╟п╨ п╦п╥ п©я─п╬я│я┌я▀я┘ я│п╨я─п╦п©я┌п╬п╡ (shell, perl, etc) п╦п╩п╦ п╡я│я┌я─п╬п╣п╫п╟ п╡ п©я─п╬пЁя─п╟п╪п╪я▀,
+п╨п╬я┌п╬я─я▀п╣ п╬п©я─п╟я┬п╦п╡п╟я▌я┌ я│п╣я┌п╣п╡я▀п╣ я┐я│я┌я─п╬п╧я│я┌п╡п╟ п╦ п©п╬п╨п╟п╥я▀п╡п╟я▌я┌ п╢п╟п╫п╫я▀п╣ п╡ я┐п╢п╬п╠п╫п╬п╪
+п╢п╩я▐ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐ п╡п╦п╢п╣.
 
-%description -l uk
-Назва RRD - це акрон╕м для Round Robin Database. RRD - це система
-збер╕гання та показу сер╕йних даних (наприклад, полоси каналу,
-температура гермозони, завантаження сервера). RRD збер╕га╓ дан╕ дуже
-компактно ╕ так, що розм╕р бази даних не зб╕льшу╓ться з часом, та
-презенту╓ корисн╕ граф╕ки обробляючи дан╕ з тим, щоб встановити
-потр╕бну щ╕льн╕сть виб╕рки в час╕. RRD можна використовувати як через
-прост╕ wrapper-скрипти, так ╕ через фронтенди, що опитують мережев╕
-пристро╖ та надають дружн╕й ╕нтерфейс користувача.
+%description -l uk.UTF-8
+п²п╟п╥п╡п╟ RRD - я├п╣ п╟п╨я─п╬п╫я√п╪ п╢п╩я▐ Round Robin Database. RRD - я├п╣ я│п╦я│я┌п╣п╪п╟
+п╥п╠п╣я─я√пЁп╟п╫п╫я▐ я┌п╟ п©п╬п╨п╟п╥я┐ я│п╣я─я√п╧п╫п╦я┘ п╢п╟п╫п╦я┘ (п╫п╟п©я─п╦п╨п╩п╟п╢, п©п╬п╩п╬я│п╦ п╨п╟п╫п╟п╩я┐,
+я┌п╣п╪п©п╣я─п╟я┌я┐я─п╟ пЁп╣я─п╪п╬п╥п╬п╫п╦, п╥п╟п╡п╟п╫я┌п╟п╤п╣п╫п╫я▐ я│п╣я─п╡п╣я─п╟). RRD п╥п╠п╣я─я√пЁп╟я■ п╢п╟п╫я√ п╢я┐п╤п╣
+п╨п╬п╪п©п╟п╨я┌п╫п╬ я√ я┌п╟п╨, я┴п╬ я─п╬п╥п╪я√я─ п╠п╟п╥п╦ п╢п╟п╫п╦я┘ п╫п╣ п╥п╠я√п╩я▄я┬я┐я■я┌я▄я│я▐ п╥ я┤п╟я│п╬п╪, я┌п╟
+п©я─п╣п╥п╣п╫я┌я┐я■ п╨п╬я─п╦я│п╫я√ пЁя─п╟я└я√п╨п╦ п╬п╠я─п╬п╠п╩я▐я▌я┤п╦ п╢п╟п╫я√ п╥ я┌п╦п╪, я┴п╬п╠ п╡я│я┌п╟п╫п╬п╡п╦я┌п╦
+п©п╬я┌я─я√п╠п╫я┐ я┴я√п╩я▄п╫я√я│я┌я▄ п╡п╦п╠я√я─п╨п╦ п╡ я┤п╟я│я√. RRD п╪п╬п╤п╫п╟ п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦ я▐п╨ я┤п╣я─п╣п╥
+п©я─п╬я│я┌я√ wrapper-я│п╨я─п╦п©я┌п╦, я┌п╟п╨ я√ я┤п╣я─п╣п╥ я└я─п╬п╫я┌п╣п╫п╢п╦, я┴п╬ п╬п©п╦я┌я┐я▌я┌я▄ п╪п╣я─п╣п╤п╣п╡я√
+п©я─п╦я│я┌я─п╬я≈ я┌п╟ п╫п╟п╢п╟я▌я┌я▄ п╢я─я┐п╤п╫я√п╧ я√п╫я┌п╣я─я└п╣п╧я│ п╨п╬я─п╦я│я┌я┐п╡п╟я┤п╟.
 
 %package devel
 Summary:	RRDtool development
-Summary(pl):	NarzЙdzia programistyczne pakietu RRDtool
-Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo da librrd
-Summary(ru):	RRDtool - Заголовки, необходимые для разработки
-Summary(uk):	RRDtool - б╕бл╕отечн╕ л╕нки та файли хедер╕в
+Summary(pl.UTF-8):   Narzд≥dzia programistyczne pakietu RRDtool
+Summary(pt_BR.UTF-8):   Bibliotecas e arquivos de inclusцёo da librrd
+Summary(ru.UTF-8):   RRDtool - п≈п╟пЁп╬п╩п╬п╡п╨п╦, п╫п╣п╬п╠я┘п╬п╢п╦п╪я▀п╣ п╢п╩я▐ я─п╟п╥я─п╟п╠п╬я┌п╨п╦
+Summary(uk.UTF-8):   RRDtool - п╠я√п╠п╩я√п╬я┌п╣я┤п╫я√ п╩я√п╫п╨п╦ я┌п╟ я└п╟п╧п╩п╦ я┘п╣п╢п╣я─я√п╡
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	cgilibc-devel >= 0.5
@@ -98,62 +98,62 @@ Requires:	zlib-devel >= 1.2.1
 %description devel
 RRDtool development files.
 
-%description devel -l pl
-NarzЙdzia programistyczne pakietu RRDtool.
+%description devel -l pl.UTF-8
+Narzд≥dzia programistyczne pakietu RRDtool.
 
-%description devel -l pt_BR
+%description devel -l pt_BR.UTF-8
 RRD e' um sistema para armazenar e apresentar series temporais de
-dados (i.e. utilizaГЦo de rede, temperaturas, cargas em servidores).
+dados (i.e. utilizaц╖цёo de rede, temperaturas, cargas em servidores).
 
 Este pacote contem arquivos de desenvolvimento do RRD.
 
-%description devel -l ru
-RRD - соращение для "Round Robin Database" (база данных с "циклическим
-обновлением"). RRD - система для сохранения и показа информации за
-определенный промежуток времени (например скорость передачи данных в
-сети, температуру в машинном зале, среднюю загрузку сервера).
+%description devel -l ru.UTF-8
+RRD - я│п╬я─п╟я┴п╣п╫п╦п╣ п╢п╩я▐ "Round Robin Database" (п╠п╟п╥п╟ п╢п╟п╫п╫я▀я┘ я│ "я├п╦п╨п╩п╦я┤п╣я│п╨п╦п╪
+п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣п╪"). RRD - я│п╦я│я┌п╣п╪п╟ п╢п╩я▐ я│п╬я┘я─п╟п╫п╣п╫п╦я▐ п╦ п©п╬п╨п╟п╥п╟ п╦п╫я└п╬я─п╪п╟я├п╦п╦ п╥п╟
+п╬п©я─п╣п╢п╣п╩п╣п╫п╫я▀п╧ п©я─п╬п╪п╣п╤я┐я┌п╬п╨ п╡я─п╣п╪п╣п╫п╦ (п╫п╟п©я─п╦п╪п╣я─ я│п╨п╬я─п╬я│я┌я▄ п©п╣я─п╣п╢п╟я┤п╦ п╢п╟п╫п╫я▀я┘ п╡
+я│п╣я┌п╦, я┌п╣п╪п©п╣я─п╟я┌я┐я─я┐ п╡ п╪п╟я┬п╦п╫п╫п╬п╪ п╥п╟п╩п╣, я│я─п╣п╢п╫я▌я▌ п╥п╟пЁя─я┐п╥п╨я┐ я│п╣я─п╡п╣я─п╟).
 
-Этот пакет позволяет создавать программы, которые используют это
-библиотеку непосредственно.
+п╜я┌п╬я┌ п©п╟п╨п╣я┌ п©п╬п╥п╡п╬п╩я▐п╣я┌ я│п╬п╥п╢п╟п╡п╟я┌я▄ п©я─п╬пЁя─п╟п╪п╪я▀, п╨п╬я┌п╬я─я▀п╣ п╦я│п©п╬п╩я▄п╥я┐я▌я┌ я█я┌п╬
+п╠п╦п╠п╩п╦п╬я┌п╣п╨я┐ п╫п╣п©п╬я│я─п╣п╢я│я┌п╡п╣п╫п╫п╬.
 
-%description devel -l uk
-RRDtool - библиотечные линки и файлы хедеров.
+%description devel -l uk.UTF-8
+RRDtool - п╠п╦п╠п╩п╦п╬я┌п╣я┤п╫я▀п╣ п╩п╦п╫п╨п╦ п╦ я└п╟п╧п╩я▀ я┘п╣п╢п╣я─п╬п╡.
 
 %package static
 Summary:	RRDtool static library
-Summary(pl):	Statyczne biblioteki RRDtool
-Summary(pt_BR):	Biblioteca estАtica librrd
-Summary(ru):	RRDtool - Статические библиотеки
-Summary(uk):	Статичн╕ б╕бл╕отеки RRDtool
+Summary(pl.UTF-8):   Statyczne biblioteki RRDtool
+Summary(pt_BR.UTF-8):   Biblioteca estц║tica librrd
+Summary(ru.UTF-8):   RRDtool - п║я┌п╟я┌п╦я┤п╣я│п╨п╦п╣ п╠п╦п╠п╩п╦п╬я┌п╣п╨п╦
+Summary(uk.UTF-8):   п║я┌п╟я┌п╦я┤п╫я√ п╠я√п╠п╩я√п╬я┌п╣п╨п╦ RRDtool
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 RRDtool static library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki RRDtool.
 
-%description static -l pt_BR
+%description static -l pt_BR.UTF-8
 RRD e' um sistema para armazenar e apresentar series temporais de
-dados (i.e. utilizaГЦo de rede, temperaturas, cargas em servidores).
+dados (i.e. utilizaц╖цёo de rede, temperaturas, cargas em servidores).
 
-Este pacote contem a biblioteca estАtica do RRD.
+Este pacote contem a biblioteca estц║tica do RRD.
 
-%description static -l ru
-RRD - соращение для "Round Robin Database" (база данных с "циклическим
-обновлением"). RRD - система для сохранения и показа информации за
-определенный промежуток времени (например скорость передачи данных в
-сети, температуру в машинном зале, среднюю загрузку сервера). Этот
-пакет позволяет создавать статически слинкованные программы, которые
-используют это библиотеку непосредственно.
+%description static -l ru.UTF-8
+RRD - я│п╬я─п╟я┴п╣п╫п╦п╣ п╢п╩я▐ "Round Robin Database" (п╠п╟п╥п╟ п╢п╟п╫п╫я▀я┘ я│ "я├п╦п╨п╩п╦я┤п╣я│п╨п╦п╪
+п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣п╪"). RRD - я│п╦я│я┌п╣п╪п╟ п╢п╩я▐ я│п╬я┘я─п╟п╫п╣п╫п╦я▐ п╦ п©п╬п╨п╟п╥п╟ п╦п╫я└п╬я─п╪п╟я├п╦п╦ п╥п╟
+п╬п©я─п╣п╢п╣п╩п╣п╫п╫я▀п╧ п©я─п╬п╪п╣п╤я┐я┌п╬п╨ п╡я─п╣п╪п╣п╫п╦ (п╫п╟п©я─п╦п╪п╣я─ я│п╨п╬я─п╬я│я┌я▄ п©п╣я─п╣п╢п╟я┤п╦ п╢п╟п╫п╫я▀я┘ п╡
+я│п╣я┌п╦, я┌п╣п╪п©п╣я─п╟я┌я┐я─я┐ п╡ п╪п╟я┬п╦п╫п╫п╬п╪ п╥п╟п╩п╣, я│я─п╣п╢п╫я▌я▌ п╥п╟пЁя─я┐п╥п╨я┐ я│п╣я─п╡п╣я─п╟). п╜я┌п╬я┌
+п©п╟п╨п╣я┌ п©п╬п╥п╡п╬п╩я▐п╣я┌ я│п╬п╥п╢п╟п╡п╟я┌я▄ я│я┌п╟я┌п╦я┤п╣я│п╨п╦ я│п╩п╦п╫п╨п╬п╡п╟п╫п╫я▀п╣ п©я─п╬пЁя─п╟п╪п╪я▀, п╨п╬я┌п╬я─я▀п╣
+п╦я│п©п╬п╩я▄п╥я┐я▌я┌ я█я┌п╬ п╠п╦п╠п╩п╦п╬я┌п╣п╨я┐ п╫п╣п©п╬я│я─п╣п╢я│я┌п╡п╣п╫п╫п╬.
 
-%description static -l uk
-Статичн╕ б╕бл╕отеки для розробки програм, що використовують RRDtool.
+%description static -l uk.UTF-8
+п║я┌п╟я┌п╦я┤п╫я√ п╠я√п╠п╩я√п╬я┌п╣п╨п╦ п╢п╩я▐ я─п╬п╥я─п╬п╠п╨п╦ п©я─п╬пЁя─п╟п╪, я┴п╬ п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐я▌я┌я▄ RRDtool.
 
 %package -n perl-rrdtool
 Summary:	Access RRDtool from Perl
-Summary(pl):	DostЙp do RRDtoola z poziomu Perla
+Summary(pl.UTF-8):   Dostд≥p do RRDtoola z poziomu Perla
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
 
@@ -161,14 +161,14 @@ Requires:	%{name} = %{version}-%{release}
 Perl modules to access RRDtool: RRDs to access RRDtool as shared
 module and RRDp to access RRDtool via a set of pipes.
 
-%description -n perl-rrdtool -l pl
-ModuЁy Perla pozwalaj╠ce na dostЙp do RRDtoola: RRDs do dostЙpu do
-RRDtoola jako moduЁu dzielonego oraz RRDp do dostЙpu poprzez zestaw
-potokСw.
+%description -n perl-rrdtool -l pl.UTF-8
+Moduе┌y Perla pozwalajд┘ce na dostд≥p do RRDtoola: RRDs do dostд≥pu do
+RRDtoola jako moduе┌u dzielonego oraz RRDp do dostд≥pu poprzez zestaw
+potokцЁw.
 
 %package -n python-rrdtool
 Summary:	Python interface to RRDtool
-Summary(pl):	Pythonowy interfejs do RRDtoola
+Summary(pl.UTF-8):   Pythonowy interfejs do RRDtoola
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -176,13 +176,13 @@ Requires:	%{name} = %{version}-%{release}
 %description -n python-rrdtool
 Python interface to RRDtool, the graphing and logging utility.
 
-%description -n python-rrdtool -l pl
-Interfejs Pythona do RRDtoola - narzЙdzia do tworzenia wykresСw i
+%description -n python-rrdtool -l pl.UTF-8
+Interfejs Pythona do RRDtoola - narzд≥dzia do tworzenia wykresцЁw i
 logowania.
 
 %package -n tcl-rrdtool
 Summary:	Tcl extension to access the RRD library
-Summary(pl):	Rozszerzenie Tcl-a pozwalaj╠ce na dostЙp do biblioteki Tcl
+Summary(pl.UTF-8):   Rozszerzenie Tcl-a pozwalajд┘ce na dostд≥p do biblioteki Tcl
 Group:		Development/Languages/Tcl
 Requires:	%{name} = %{version}-%{release}
 Requires:	tcl
@@ -190,8 +190,8 @@ Requires:	tcl
 %description -n tcl-rrdtool
 Tcl extension to access the RRD library.
 
-%description -n tcl-rrdtool -l pl
-Rozszerzenie Tcl-a pozwalaj╠ce na dostЙp do biblioteki Tcl.
+%description -n tcl-rrdtool -l pl.UTF-8
+Rozszerzenie Tcl-a pozwalajд┘ce na dostд≥p do biblioteki Tcl.
 
 %prep
 %setup -q
