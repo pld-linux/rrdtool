@@ -21,8 +21,8 @@ BuildRequires:	libart_lgpl-devel >= 2.3.17
 BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
-BuildRequires:	python
-BuildRequires:	python-devel
+BuildRequires:	python >= 1:2.5
+BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	tcl-devel
@@ -206,7 +206,10 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor"
 
-%{__make}
+# empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
+# (tried to install without DESTDIR on plain make)
+%{__make} \
+	RUBY_MAKE_OPTIONS=
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -239,8 +242,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/librrd.so
-%{_libdir}/librrd_th.so
+%attr(755,root,root) %{_libdir}/librrd.so
+%attr(755,root,root) %{_libdir}/librrd_th.so
 %{_libdir}/librrd.la
 %{_libdir}/librrd_th.la
 %{_includedir}/rrd.h
@@ -264,6 +267,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/rrdtoolmodule.so
+%{py_sitedir}/py_rrdtool-*.egg-info
 
 %files -n tcl-rrdtool
 %defattr(644,root,root,755)
