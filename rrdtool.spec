@@ -6,12 +6,12 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.2.23
+Version:	1.2.26
 Release:	1
 License:	GPL
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	dafa161bc9c61e57636a6085c87c1fe8
+# Source0-md5:	b2c179e2d2ec2a92969648c4ebd382dc
 Patch0:		%{name}-tcl-path.patch
 URL:		http://oss.oetiker.ch/rrdtool/	
 BuildRequires:	autoconf
