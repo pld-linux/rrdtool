@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	python	# without python
+#
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	RRDp
 Summary:	RRDtool - round robin database
@@ -21,8 +25,10 @@ BuildRequires:	libart_lgpl-devel >= 2.3.17
 BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
+%if %{with python}
 BuildRequires:	python >= 1:2.5
 BuildRequires:	python-devel >= 1:2.5
+%endif
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	tcl-devel
@@ -166,6 +172,7 @@ Moduły Perla pozwalające na dostęp do RRDtoola: RRDs do dostępu do
 RRDtoola jako modułu dzielonego oraz RRDp do dostępu poprzez zestaw
 potoków.
 
+%if %{with python}
 %package -n python-rrdtool
 Summary:	Python interface to RRDtool
 Summary(pl.UTF-8):	Pythonowy interfejs do RRDtoola
@@ -179,6 +186,7 @@ Python interface to RRDtool, the graphing and logging utility.
 %description -n python-rrdtool -l pl.UTF-8
 Interfejs Pythona do RRDtoola - narzędzia do tworzenia wykresów i
 logowania.
+%endif
 
 %package -n tcl-rrdtool
 Summary:	Tcl extension to access the RRD library
@@ -264,10 +272,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/RRDp.3*
 %{_mandir}/man3/RRDs.3*
 
+%if %{with python}
 %files -n python-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/rrdtoolmodule.so
 %{py_sitedir}/py_rrdtool-*.egg-info
+%endif
 
 %files -n tcl-rrdtool
 %defattr(644,root,root,755)
