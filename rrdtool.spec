@@ -172,7 +172,6 @@ Moduły Perla pozwalające na dostęp do RRDtoola: RRDs do dostępu do
 RRDtoola jako modułu dzielonego oraz RRDp do dostępu poprzez zestaw
 potoków.
 
-%if %{with python}
 %package -n python-rrdtool
 Summary:	Python interface to RRDtool
 Summary(pl.UTF-8):	Pythonowy interfejs do RRDtoola
@@ -186,7 +185,6 @@ Python interface to RRDtool, the graphing and logging utility.
 %description -n python-rrdtool -l pl.UTF-8
 Interfejs Pythona do RRDtoola - narzędzia do tworzenia wykresów i
 logowania.
-%endif
 
 %package -n tcl-rrdtool
 Summary:	Tcl extension to access the RRD library
