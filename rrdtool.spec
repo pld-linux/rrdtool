@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	python	# without python
+%bcond_without	python	# Python binding
 #
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	RRDp
@@ -12,7 +12,7 @@ Summary(uk.UTF-8):	RRDtool - це система зберігання та по�
 Name:		rrdtool
 Version:	1.2.26
 Release:	1
-License:	GPL
+License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	b2c179e2d2ec2a92969648c4ebd382dc
