@@ -18,11 +18,12 @@ Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	841ca303c88f7184cf0aaab07e52dec4
 Patch0:		%{name}-tcl-path.patch
 URL:		http://oss.oetiker.ch/rrdtool/	
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.1.7
 BuildRequires:	libart_lgpl-devel >= 2.3.17
 BuildRequires:	libpng-devel >= 2:1.2.8
+BuildRequires:	libtool
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
 %if %{with python}
@@ -204,8 +205,10 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %patch0 -p1
 
 %build
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	--enable-latin2 \
@@ -242,9 +245,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGES CONTRIBUTORS NEWS README THREADS TODO doc/*.html
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/librrd.so.2
 %attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/librrd_th.so.2
 %{_datadir}/rrdtool
-%{_mandir}/man1/*
+%{_mandir}/man1/bin_dec_hex.1*
+%{_mandir}/man1/cdeftutorial.1*
+%{_mandir}/man1/rpntutorial.1*
+%{_mandir}/man1/rrd*.1*
 
 %files devel
 %defattr(644,root,root,755)
