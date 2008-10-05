@@ -1,0 +1,1 @@
+- added perl_sitearch=%{perl_vendorarch} to make install
