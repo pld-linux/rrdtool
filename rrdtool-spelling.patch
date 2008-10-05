@@ -1,3 +1,6 @@
+Spelling fix 'faild' -> 'failed'
+
+Signed-Off-By: Elan Ruusamäe <glen@pld-linux.org>
 --- rrdtool-1.2.27/src/rrd_thread_safe.c~	2008-02-17 12:26:32.000000000 +0200
 +++ rrdtool-1.2.27/src/rrd_thread_safe.c	2008-10-05 13:32:35.079179542 +0300
 @@ -52,7 +52,7 @@
