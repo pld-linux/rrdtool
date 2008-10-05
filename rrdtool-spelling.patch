@@ -1,0 +1,36 @@
+Spelling fix 'faild' -> 'failed'
+
+Signed-Off-By: Elan Ruusamäe <glen@pld-linux.org>
+--- rrdtool-1.2.27/src/rrd_thread_safe.c~	2008-02-17 12:26:32.000000000 +0200
++++ rrdtool-1.2.27/src/rrd_thread_safe.c	2008-10-05 13:32:35.079179542 +0300
+@@ -52,7 +52,7 @@
+ const char *rrd_strerror(int err) {
+     struct rrd_context *ctx = rrd_get_context();
+     if (strerror_r(err, ctx->lib_errstr, ctx->errlen)) 
+-         return "strerror_r faild. sorry!"; 
++         return "strerror_r failed. sorry!"; 
+     else 
+          return ctx->lib_errstr; 
+ }
+--- rrdtool-1.2.27/src/rrd_open.c~	2008-02-17 12:26:32.000000000 +0200
++++ rrdtool-1.2.27/src/rrd_open.c	2008-10-05 13:32:44.647732472 +0300
+@@ -125,7 +125,7 @@
+     MYFREAD(rrd->stat_head, stat_head_t,  1)
+     /* lets see if the first read worked */
+     if (ferror( *in_file ) || feof(*in_file)) {
+-        rrd_set_error("reading the cookie off %s faild",file_name);
++        rrd_set_error("reading the cookie off %s failed",file_name);
+         fclose(*in_file);
+         return(-1);
+     }        
+--- rrdtool-1.2.27/CHANGES~	2008-02-17 12:26:34.000000000 +0200
++++ rrdtool-1.2.27/CHANGES	2008-10-05 13:32:52.488185544 +0300
+@@ -967,7 +967,7 @@
+ 
+ 2006-09-18 05:45  oetiker
+ 
+-	* netware/Makefile: fix faild netware makefile merge -- Guenter
++	* netware/Makefile: fix failed netware makefile merge -- Guenter
+ 	  Knauf
+ 
+ 2006-09-17 21:08  oetiker
