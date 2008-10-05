@@ -1,0 +1,2 @@
+- added automake, autoconf to BuildRequires,
+- added using %{_examplesdir} macro in %install.
