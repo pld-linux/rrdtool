@@ -11,13 +11,14 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.2.27
-Release:	1
+Release:	2
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	841ca303c88f7184cf0aaab07e52dec4
 Patch0:		%{name}-tcl-path.patch
-URL:		http://oss.oetiker.ch/rrdtool/	
+Patch1:		%{name}-spelling.patch
+URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	freetype-devel >= 2.1.7
@@ -27,8 +28,8 @@ BuildRequires:	libtool
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
 %if %{with python}
-BuildRequires:	python >= 1:2.5
-BuildRequires:	python-devel >= 1:2.5
+BuildRequires:	python
+BuildRequires:	python-devel
 %endif
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
@@ -203,6 +204,7 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -282,7 +284,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/rrdtoolmodule.so
+%if "%{py_ver}" > "2.4"
 %{py_sitedir}/py_rrdtool-*.egg-info
+%endif
 %endif
 
 %files -n tcl-rrdtool
