@@ -21,10 +21,10 @@ URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	cairo-devel
-BuildRequires:	pango-devel
-BuildRequires:	libxml2-devel
 BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	libtool
+BuildRequires:	libxml2-devel
+BuildRequires:	pango-devel
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
 %if %{with python}
