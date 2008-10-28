@@ -10,19 +10,19 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.2.27
-Release:	3
+Version:	1.3.4
+Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	841ca303c88f7184cf0aaab07e52dec4
+# Source0-md5:	7db3bffc3f3b24e828a88fe02165266f
 Patch0:		%{name}-tcl-path.patch
-Patch1:		%{name}-spelling.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	freetype-devel >= 2.1.7
-BuildRequires:	libart_lgpl-devel >= 2.3.17
+BuildRequires:	cairo-devel
+BuildRequires:	pango-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	libtool
 BuildRequires:	perl-devel >= 1:5.8.0
@@ -35,7 +35,6 @@ BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel >= 1.2.1
-Requires:	libart_lgpl >= 2.3.17
 Requires:	libpng >= 1.2.8
 Requires:	zlib >= 1.2.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -98,8 +97,6 @@ Summary(uk.UTF-8):	RRDtool - бібліотечні лінки та файли �
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	cgilibc-devel >= 0.5
-Requires:	freetype-devel >= 2.1.7
-Requires:	libart_lgpl-devel >= 2.3.17
 Requires:	libpng-devel >= 2:1.2.8
 Requires:	zlib-devel >= 1.2.1
 
@@ -204,7 +201,8 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+
+sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 
 %build
 %{__libtoolize}
@@ -213,8 +211,6 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-latin2 \
-	--with-perl=%{__perl} \
 	--with-perl-options="INSTALLDIRS=vendor"
 
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
@@ -247,10 +243,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGES CONTRIBUTORS NEWS README THREADS TODO doc/*.html
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librrd.so.2
+%attr(755,root,root) %ghost %{_libdir}/librrd.so.[0-9]
 %attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librrd_th.so.2
-%{_datadir}/rrdtool
+%attr(755,root,root) %ghost %{_libdir}/librrd_th.so.[0-9]
 %{_mandir}/man1/bin_dec_hex.1*
 %{_mandir}/man1/cdeftutorial.1*
 %{_mandir}/man1/rpntutorial.1*
@@ -262,7 +257,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/librrd_th.so
 %{_libdir}/librrd.la
 %{_libdir}/librrd_th.la
-%{_includedir}/rrd.h
+%{_includedir}/rrd*.h
+%{_pkgconfigdir}/*.pc
 %{_examplesdir}/%{name}-%{version}
 
 %files static
