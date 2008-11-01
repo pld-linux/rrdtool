@@ -33,6 +33,8 @@ BuildRequires:	python-devel
 %endif
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.272
+BuildRequires:	ruby-devel
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel >= 1.2.1
 Requires:	libpng >= 1.2.8
@@ -185,6 +187,20 @@ Python interface to RRDtool, the graphing and logging utility.
 Interfejs Pythona do RRDtoola - narzędzia do tworzenia wykresów i
 logowania.
 
+%package -n ruby-rrdtool
+Summary:	Ruby interface to RRDtool
+Summary(pl.UTF-8):	Interfejs języka Ruby do RRDtoola
+Group:		Development/Languages/Python
+Requires:	%{name} = %{version}-%{release}
+%{?ruby_mod_ver_requires_eq}
+
+%description -n ruby-rrdtool
+Ruby interface to RRDtool, the graphing and logging utility.
+
+%description -n ruby-rrdtool -l pl.UTF-8
+Interfejs języka Ruby do RRDtoola - narzędzia do tworzenia wykresów i
+logowania.
+
 %package -n tcl-rrdtool
 Summary:	Tcl extension to access the RRD library
 Summary(pl.UTF-8):	Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl
@@ -243,9 +259,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGES CONTRIBUTORS NEWS README THREADS TODO doc/*.html
 %attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librrd.so.[0-9]
+%attr(755,root,root) %ghost %{_libdir}/librrd.so.4
 %attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librrd_th.so.[0-9]
+%attr(755,root,root) %ghost %{_libdir}/librrd_th.so.4
 %{_mandir}/man1/bin_dec_hex.1*
 %{_mandir}/man1/cdeftutorial.1*
 %{_mandir}/man1/rpntutorial.1*
@@ -284,6 +300,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/py_rrdtool-*.egg-info
 %endif
 %endif
+
+%files -n ruby-rrdtool
+%defattr(644,root,root,755)
+%attr(755,root,root) %{ruby_archdir}/RRD.so
 
 %files -n tcl-rrdtool
 %defattr(644,root,root,755)
