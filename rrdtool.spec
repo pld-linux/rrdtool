@@ -39,6 +39,7 @@ BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel >= 1.2.1
 Requires:	libpng >= 1.2.8
 Requires:	zlib >= 1.2.1
+Suggests:	fonts-TTF-RedHat-liberation
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
