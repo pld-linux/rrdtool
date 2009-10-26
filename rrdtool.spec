@@ -17,6 +17,7 @@ Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	0de79494ab969cebfbfae3d237de18fe
 Patch0:		%{name}-tcl-path.patch
+Patch1:		autoconf264.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -218,6 +219,7 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 
