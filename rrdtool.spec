@@ -22,6 +22,8 @@ URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	cairo-devel
+BuildRequires:	gettext-devel
+BuildRequires:	intltool
 BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
