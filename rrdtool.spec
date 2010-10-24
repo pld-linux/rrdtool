@@ -18,29 +18,31 @@ Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	93ad2fc2e9ddcd7d99c611fe30284a54
 Patch0:		%{name}-tcl-path.patch
 URL:		http://oss.oetiker.ch/rrdtool/
-BuildRequires:	autoconf >= 2.59
+BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
-BuildRequires:	cairo-devel
-BuildRequires:	gettext-devel
+BuildRequires:	cairo-devel >= 1.4.6
+BuildRequires:	gettext-devel >= 0.18
+BuildRequires:	glib2-devel >= 1:2.12.12
 BuildRequires:	intltool
-BuildRequires:	libpng-devel >= 2:1.2.8
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel
-BuildRequires:	pango-devel
+BuildRequires:	libxml2-devel >= 2.6.31
+BuildRequires:	lua51-devel >= 5.1
+BuildRequires:	pango-devel >= 1:1.17
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
 %if %{with python}
-BuildRequires:	python
-BuildRequires:	python-devel
+BuildRequires:	python >= 2.3
+BuildRequires:	python-devel >= 2.3
 %endif
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.272
 BuildRequires:	ruby-devel
 BuildRequires:	tcl-devel
-BuildRequires:	zlib-devel >= 1.2.1
-Requires:	libpng >= 1.2.8
-Requires:	zlib >= 1.2.1
+Requires:	cairo >= 1.4.6
+Requires:	glib2 >= 1:2.12.12
+Requires:	libxml2 >= 2.6.31
+Requires:	pango >= 1:1.17
 Suggests:	fonts-TTF-DejaVu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -101,9 +103,10 @@ Summary(ru.UTF-8):	RRDtool - Заголовки, необходимые для �
 Summary(uk.UTF-8):	RRDtool - бібліотечні лінки та файли хедерів
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	cgilibc-devel >= 0.5
-Requires:	libpng-devel >= 2:1.2.8
-Requires:	zlib-devel >= 1.2.1
+Requires:	cairo-devel >= 1.4.6
+Requires:	glib2-devel >= 1:2.12.12
+Requires:	libxml2-devel >= 2.6.31
+Requires:	pango-devel >= 1:1.17
 
 %description devel
 RRDtool development files.
@@ -160,6 +163,19 @@ RRD - соращение для "Round Robin Database" (база данных с
 
 %description static -l uk.UTF-8
 Статичні бібліотеки для розробки програм, що використовують RRDtool.
+
+%package -n lua-rrdtool
+Summary:	RRD module for Lua
+Summary(pl.UTF-8):	Moduł RRD dla języka Lua
+Group:		Development/Languages
+Requires:	%{name} = %{version}-%{release}
+Requires:	lua51
+
+%description -n lua-rrdtool
+Lua interface to RRDtool.
+
+%description -n lua-rrdtool -l pl.UTF-8
+Interfejs języka Lua do RRDtoola.
 
 %package -n perl-rrdtool
 Summary:	Access RRDtool from Perl
@@ -230,12 +246,15 @@ sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 %{__autoheader}
 %{__automake}
 %configure \
+	LUA=/usr/bin/lua51 \
+	--disable-silent-rules \
 	--with-perl-options="INSTALLDIRS=vendor"
 
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
 # (tried to install without DESTDIR on plain make)
 %{__make} \
-	RUBY_MAKE_OPTIONS=
+	RUBY_MAKE_OPTIONS= \
+	LUA_CFLAGS=-I/usr/include/lua51
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -248,8 +267,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	examplesdir=%{_examplesdir}/%{name}-%{version} \
 	RUBYARCHDIR=$RPM_BUILD_ROOT%{ruby_archdir}
 
-rm -rf $RPM_BUILD_ROOT%{_prefix}/{doc,html}
-rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/ntmake.pl
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.1/*.{la,a}
 rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
 
 %clean
@@ -278,7 +296,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/librrd.la
 %{_libdir}/librrd_th.la
 %{_includedir}/rrd*.h
-%{_pkgconfigdir}/*.pc
+%{_pkgconfigdir}/librrd.pc
 %{_examplesdir}/%{name}-%{version}
 %{_mandir}/man3/librrd.3*
 
@@ -286,6 +304,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/librrd.a
 %{_libdir}/librrd_th.a
+
+%files -n lua-rrdtool
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lua/5.1/rrd.so*
 
 %files -n perl-rrdtool
 %defattr(644,root,root,755)
