@@ -24,6 +24,7 @@ BuildRequires:	cairo-devel >= 1.4.6
 BuildRequires:	gettext-devel >= 0.18
 BuildRequires:	glib2-devel >= 1:2.12.12
 BuildRequires:	intltool
+BuildRequires:	libdbi-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.31
 BuildRequires:	lua51-devel >= 5.1
@@ -105,6 +106,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	cairo-devel >= 1.4.6
 Requires:	glib2-devel >= 1:2.12.12
+Requires:	libdbi-devel
 Requires:	libxml2-devel >= 2.6.31
 Requires:	pango-devel >= 1:1.17
 
