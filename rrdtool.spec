@@ -11,7 +11,7 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.4.4
-Release:	4
+Release:	5
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -240,6 +240,7 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %patch0 -p1
 
 sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
+sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 
 %build
 %{__libtoolize}
