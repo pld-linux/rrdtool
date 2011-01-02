@@ -12,7 +12,7 @@
 @@ -843,7 +843,7 @@
  	fi
    fi
-   AC_ARG_ENABLE(tcl,AS_HELP_STRING([--enable-tcl-site],[install the tcl extension in the tcl tree]),
+   AC_ARG_ENABLE(tcl-site,AS_HELP_STRING([--enable-tcl-site],[install the tcl extension in the tcl tree]),
 -  [],[enable_tcl_site=yes])
 +  [enable_tcl_site="$enable_tcl"],[enable_tcl_site=yes])
  
