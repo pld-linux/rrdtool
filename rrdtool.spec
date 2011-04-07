@@ -29,6 +29,7 @@ BuildRequires:	intltool
 BuildRequires:	libdbi-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.6.31
+BuildRequires:	lua51 >= 5.1
 BuildRequires:	lua51-devel >= 5.1
 BuildRequires:	pango-devel >= 1:1.17
 BuildRequires:	perl-devel >= 1:5.8.0
