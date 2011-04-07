@@ -1,6 +1,8 @@
 #
 # Conditional build:
 %bcond_without	python	# Python binding
+%bcond_without	tcl	# Tcl binding
+%bcond_without	ruby	# Ruby binding
 #
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	RRDp
@@ -38,8 +40,8 @@ BuildRequires:	python-devel >= 2.3
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.272
-BuildRequires:	ruby-devel
-BuildRequires:	tcl-devel
+%{?with_ruby:BuildRequires:	ruby-devel}
+%{?with_tcl:BuildRequires:	tcl-devel}
 Requires:	cairo >= 1.4.6
 Requires:	glib2 >= 1:2.12.12
 Requires:	libxml2 >= 2.6.31
@@ -251,6 +253,8 @@ sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 %configure \
 	LUA=/usr/bin/lua51 \
 	--disable-silent-rules \
+	%{!?with_tcl:--disable-tcl} \
+	%{!?with_ruby:--disable-ruby} \
 	--with-perl-options="INSTALLDIRS=vendor"
 
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
@@ -331,11 +335,15 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %endif
 
+%if %{with ruby}
 %files -n ruby-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{ruby_archdir}/RRD.so
+%endif
 
+%if %{with tcl}
 %files -n tcl-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/tclrrd%{version}.so
 %{_prefix}/lib/tclrrd%{version}
+%endif
