@@ -276,7 +276,9 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	RUBYARCHDIR=$RPM_BUILD_ROOT%{ruby_archdir}
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.1/*.{la,a}
-rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
+%{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
+
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/librrd.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -301,7 +303,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/librrd.so
 %attr(755,root,root) %{_libdir}/librrd_th.so
-%{_libdir}/librrd.la
 %{_libdir}/librrd_th.la
 %{_includedir}/rrd*.h
 %{_pkgconfigdir}/librrd.pc
