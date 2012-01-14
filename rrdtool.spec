@@ -1,4 +1,7 @@
 #
+## TODO:
+# - separate package with rrdcached (init script, systemd file, etc)
+#
 # Conditional build:
 %bcond_without	python	# Python binding
 %bcond_without	tcl	# Tcl binding
