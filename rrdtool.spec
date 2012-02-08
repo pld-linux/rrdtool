@@ -16,18 +16,20 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.4.5
-Release:	4
+Release:	5
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	4d116dba9a0888d8aaac179e35d3980a
 Patch0:		%{name}-tcl-path.patch
+Patch1:		%{name}-am.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
 BuildRequires:	cairo-devel >= 1.4.6
 BuildRequires:	gettext-devel >= 0.18
 BuildRequires:	glib2-devel >= 1:2.12.12
+BuildRequires:	groff
 BuildRequires:	intltool
 BuildRequires:	libdbi-devel
 BuildRequires:	libtool
@@ -244,6 +246,7 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
