@@ -26,17 +26,18 @@ Patch1:		%{name}-am.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
-BuildRequires:	cairo-devel >= 1.4.6
+BuildRequires:	cairo-devel >= 1.10.2
 BuildRequires:	gettext-devel >= 0.18
-BuildRequires:	glib2-devel >= 1:2.12.12
+BuildRequires:	glib2-devel >= 1:2.28.7
 BuildRequires:	groff
 BuildRequires:	intltool
 BuildRequires:	libdbi-devel
 BuildRequires:	libtool
-BuildRequires:	libxml2-devel >= 2.6.31
+BuildRequires:	libwrap-devel
+BuildRequires:	libxml2-devel >= 1:2.7.8
 BuildRequires:	lua51 >= 5.1
 BuildRequires:	lua51-devel >= 5.1
-BuildRequires:	pango-devel >= 1:1.17
+BuildRequires:	pango-devel >= 1:1.28.4
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
 %if %{with python}
@@ -48,10 +49,10 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.272
 %{?with_ruby:BuildRequires:	ruby-devel}
 %{?with_tcl:BuildRequires:	tcl-devel}
-Requires:	cairo >= 1.4.6
-Requires:	glib2 >= 1:2.12.12
-Requires:	libxml2 >= 2.6.31
-Requires:	pango >= 1:1.17
+Requires:	cairo >= 1.10.2
+Requires:	glib2 >= 1:2.28.7
+Requires:	libxml2 >= 1:2.7.8
+Requires:	pango >= 1:1.28.4
 Suggests:	fonts-TTF-DejaVu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -112,11 +113,12 @@ Summary(ru.UTF-8):	RRDtool - Заголовки, необходимые для �
 Summary(uk.UTF-8):	RRDtool - бібліотечні лінки та файли хедерів
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	cairo-devel >= 1.4.6
-Requires:	glib2-devel >= 1:2.12.12
+Requires:	cairo-devel >= 1.10.2
+Requires:	glib2-devel >= 1:2.28.7
 Requires:	libdbi-devel
-Requires:	libxml2-devel >= 2.6.31
-Requires:	pango-devel >= 1:1.17
+Requires:	libwrap-devel
+Requires:	libxml2-devel >= 1:2.7.8
+Requires:	pango-devel >= 1:1.28.4
 
 %description devel
 RRDtool development files.
