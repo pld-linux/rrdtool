@@ -15,14 +15,13 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.4.7
-Release:	2
+Version:	1.4.8
+Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	ffe369d8921b4dfdeaaf43812100c38f
+# Source0-md5:	dbe59386db97fd2f2216729facd74ca8
 Patch0:		%{name}-tcl-path.patch
-Patch1:		%{name}-am.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
@@ -248,7 +247,6 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
@@ -287,6 +285,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/librrd.la
+
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
