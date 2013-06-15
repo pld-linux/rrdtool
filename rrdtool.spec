@@ -36,7 +36,7 @@ BuildRequires:	libwrap-devel
 BuildRequires:	libxml2-devel >= 1:2.7.8
 BuildRequires:	lua51 >= 5.1
 BuildRequires:	lua51-devel >= 5.1
-BuildRequires:	pango-devel >= 1:1.28.4
+BuildRequires:	pango-devel >= 1:1.28.7
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
 %if %{with python}
@@ -51,7 +51,7 @@ BuildRequires:	rpmbuild(macros) >= 1.272
 Requires:	cairo >= 1.10.2
 Requires:	glib2 >= 1:2.28.7
 Requires:	libxml2 >= 1:2.7.8
-Requires:	pango >= 1:1.28.4
+Requires:	pango >= 1:1.28.7
 Suggests:	fonts-TTF-DejaVu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -117,7 +117,7 @@ Requires:	glib2-devel >= 1:2.28.7
 Requires:	libdbi-devel
 Requires:	libwrap-devel
 Requires:	libxml2-devel >= 1:2.7.8
-Requires:	pango-devel >= 1:1.28.4
+Requires:	pango-devel >= 1:1.28.7
 
 %description devel
 RRDtool development files.
