@@ -331,7 +331,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RRDp.pm
 %{perl_vendorarch}/RRDs.pm
 %dir %{perl_vendorarch}/auto/RRDs
-%{perl_vendorarch}/auto/RRDs/RRDs.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
 %{_mandir}/man3/RRDp.3*
 %{_mandir}/man3/RRDs.3*
