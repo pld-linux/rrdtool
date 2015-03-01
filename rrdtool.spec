@@ -16,7 +16,7 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.4.8
-Release:	5
+Release:	9
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -258,7 +258,7 @@ sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 %{__autoheader}
 %{__automake}
 %configure \
-	LUA=/usr/bin/lua51 \
+	LUA=/usr/bin/lua5.1 \
 	--disable-silent-rules \
 	%{!?with_tcl:--disable-tcl} \
 	%{!?with_ruby:--disable-ruby} \
