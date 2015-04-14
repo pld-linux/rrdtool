@@ -6,21 +6,21 @@
 %bcond_without	python	# Python binding
 %bcond_without	tcl	# Tcl binding
 %bcond_without	ruby	# Ruby binding
-#
-%include	/usr/lib/rpm/macros.perl
+
 %define	pdir	RRDp
+%include	/usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Summary(pl.UTF-8):	RRDtool - baza danych typu round-robin
 Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de gráficos
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.4.8
-Release:	7
+Version:	1.4.9
+Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	dbe59386db97fd2f2216729facd74ca8
+# Source0-md5:	1cea5a9efd6a48ac4035b0f9c7e336cf
 Patch0:		%{name}-tcl-path.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
