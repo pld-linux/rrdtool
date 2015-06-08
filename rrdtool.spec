@@ -1,4 +1,3 @@
-#
 ## TODO:
 # - separate package with rrdcached (init script, systemd file, etc)
 #
@@ -193,6 +192,21 @@ RRD - соращение для "Round Robin Database" (база данных с
 %description static -l uk.UTF-8
 Статичні бібліотеки для розробки програм, що використовують RRDtool.
 
+%package doc
+Summary:	RRDtool documentation
+Group:		Documentation
+# noarch subpackages only when building with rpm5
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description doc
+RRD is the Acronym for Round Robin Database. RRD is a system to store
+and display time-series data (i.e. network bandwidth, machine-room
+temperature, server load average).
+
+This package contains documentation on using RRD.
+
 %package -n lua-rrdtool
 Summary:	RRD module for Lua
 Summary(pl.UTF-8):	Moduł RRD dla języka Lua
@@ -268,6 +282,15 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 
+# We only want .txt and .html files for the main documentation
+install -d docs/{html,/txt}
+mv doc/*.txt docs/txt
+mv doc/*.html docs/html
+
+# Put Perl docs in Perl package
+install -d perl-docs/html
+mv docs/html/RRD*.html perl-docs/html
+
 %build
 %{__libtoolize}
 %{__aclocal} -I m4
@@ -322,7 +345,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES CONTRIBUTORS NEWS README THREADS TODO doc/*.html
+%doc CHANGES CONTRIBUTORS NEWS README THREADS TODO
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librrd.so.4
 %attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
@@ -345,13 +368,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/librrd_th.la
 %{_includedir}/rrd*.h
 %{_pkgconfigdir}/librrd.pc
-%{_examplesdir}/%{name}-%{version}
 %{_mandir}/man3/librrd.3*
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/librrd.a
 %{_libdir}/librrd_th.a
+
+%files doc
+%defattr(644,root,root,755)
+%doc docs/html docs/txt
+%{_examplesdir}/%{name}-%{version}
 
 %if %{with lua}
 %files -n lua-rrdtool
@@ -362,6 +389,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with perl}
 %files -n perl-rrdtool
 %defattr(644,root,root,755)
+%doc perl-docs/html/*
 %{perl_vendorlib}/RRDp.pm
 %{perl_vendorarch}/RRDs.pm
 %dir %{perl_vendorarch}/auto/RRDs
