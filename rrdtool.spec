@@ -3,10 +3,11 @@
 # - separate package with rrdcached (init script, systemd file, etc)
 #
 # Conditional build:
-%bcond_without	python	# Python binding
-%bcond_without	tcl	# Tcl binding
-%bcond_without	ruby	# Ruby binding
 %bcond_without	lua	# LUA binding
+%bcond_without	perl	# Perl binding
+%bcond_without	python	# Python binding
+%bcond_without	ruby	# Ruby binding
+%bcond_without	tcl	# Tcl binding
 
 %define	pdir	RRDp
 %include	/usr/lib/rpm/macros.perl
@@ -36,14 +37,16 @@ BuildRequires:	libtool
 BuildRequires:	libwrap-devel
 BuildRequires:	libxml2-devel >= 1:2.7.8
 BuildRequires:	pango-devel >= 1:1.28.7
-BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
-BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.272
 %if %{with lua}
 BuildRequires:	lua51 >= 5.1
 BuildRequires:	lua51-devel >= 5.1
+%endif
+%if %{with perl}
+BuildRequires:	perl-devel >= 1:5.8.0
+BuildRequires:	rpm-perlprov
 %endif
 %if %{with python}
 BuildRequires:	python >= 2.3
@@ -78,7 +81,7 @@ składowanie i wyświetlanie czasowych serii danych (np. przepustowość
 sieci, temperatura w pomieszczeniu, obciążenie serwera). Składuje dane
 w "skondensowanej" postaci, która nie rozrasta się z biegiem czasu
 oraz pozwala na produkowanie wykresów z użytecznymi danymi. Może być
-używane poprzez prosty skrypcik (shell lub perl), frontendy czy inne
+używane poprzez prosty skrypcik (shell lub Perl), frontendy czy inne
 interfejsy użytkownika.
 
 %description -l pt_BR.UTF-8
@@ -97,7 +100,7 @@ RRD - соращение для "Round Robin Database" (база данных с
 сохраняет данные в очень компактной форме, так что данные не будут
 занимать все больше и больше места с течением времени и предоставляет
 разумное графическое представление информации. Может быть использована
-как из простых скриптов (shell, perl, etc) или встроена в программы,
+как из простых скриптов (shell, Perl, etc) или встроена в программы,
 которые опрашивают сетевые устройства и показывают данные в удобном
 для пользователя виде.
 
@@ -270,6 +273,7 @@ sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 	%{!?with_python:--disable-python} \
 	%{!?with_ruby:--disable-ruby} \
 	%{!?with_tcl:--disable-tcl} \
+	%{!?with_perl:--disable-perl} \
 	--with-perl-options="INSTALLDIRS=vendor"
 
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
@@ -296,7 +300,9 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.1/*.{la,a}
 %endif
 
+%if %{with perl}
 %{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -338,6 +344,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lua/5.1/rrd.so*
 %endif
 
+%if %{with perl}
 %files -n perl-rrdtool
 %defattr(644,root,root,755)
 %{perl_vendorlib}/RRDp.pm
@@ -346,6 +353,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
 %{_mandir}/man3/RRDp.3*
 %{_mandir}/man3/RRDs.3*
+%endif
 
 %if %{with python}
 %files -n python-rrdtool
