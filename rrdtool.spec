@@ -9,6 +9,11 @@
 %bcond_without	ruby	# Ruby binding
 %bcond_without	tcl	# Tcl binding
 %bcond_without	rrd_graph	# disable all rrd_graph functions
+%bcond_without	rrdcgi	# disable building of rrdcgi
+
+%if %{without rrd_graph}
+%undefine	with_rrdcgi
+%endif
 
 %define	pdir	RRDp
 %include	/usr/lib/rpm/macros.perl
@@ -273,6 +278,7 @@ sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 	LUA=/usr/bin/lua5.1 \
 	--disable-silent-rules \
 	%{!?with_rrd_graph:--disable-rrd_graph} \
+	%{!?with_rrdcgi:--disable-rrdcgi} \
 	%{!?with_lua:--disable-lua} \
 	%{!?with_python:--disable-python} \
 	%{!?with_ruby:--disable-ruby} \
