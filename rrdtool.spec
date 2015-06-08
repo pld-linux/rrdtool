@@ -6,6 +6,7 @@
 %bcond_without	python	# Python binding
 %bcond_without	tcl	# Tcl binding
 %bcond_without	ruby	# Ruby binding
+%bcond_without	lua	# LUA binding
 
 %define	pdir	RRDp
 %include	/usr/lib/rpm/macros.perl
@@ -34,20 +35,26 @@ BuildRequires:	libdbi-devel
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
 BuildRequires:	libxml2-devel >= 1:2.7.8
-BuildRequires:	lua51 >= 5.1
-BuildRequires:	lua51-devel >= 5.1
 BuildRequires:	pango-devel >= 1:1.28.7
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-perlprov
+BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.272
+%if %{with lua}
+BuildRequires:	lua51 >= 5.1
+BuildRequires:	lua51-devel >= 5.1
+%endif
 %if %{with python}
 BuildRequires:	python >= 2.3
 BuildRequires:	python-devel >= 2.3
 %endif
-BuildRequires:	rpm-perlprov
-BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.272
-%{?with_ruby:BuildRequires:	ruby-devel}
-%{?with_tcl:BuildRequires:	tcl-devel}
+%if %{with ruby}
+BuildRequires:	ruby-devel
+%endif
+%if %{with tcl}
+BuildRequires:	tcl-devel}
+%endif
 Requires:	cairo >= 1.10.2
 Requires:	glib2 >= 1:2.28.7
 Requires:	libxml2 >= 1:2.7.8
@@ -208,7 +215,7 @@ Summary:	Python interface to RRDtool
 Summary(pl.UTF-8):	Pythonowy interfejs do RRDtoola
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
-%pyrequires_eq	python-libs
+Requires:	python-libs
 
 %description -n python-rrdtool
 Python interface to RRDtool, the graphing and logging utility.
@@ -222,7 +229,6 @@ Summary:	Ruby interface to RRDtool
 Summary(pl.UTF-8):	Interfejs języka Ruby do RRDtoola
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
-%{?ruby_mod_ver_requires_eq}
 
 %description -n ruby-rrdtool
 Ruby interface to RRDtool, the graphing and logging utility.
@@ -260,8 +266,10 @@ sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 %configure \
 	LUA=/usr/bin/lua5.1 \
 	--disable-silent-rules \
-	%{!?with_tcl:--disable-tcl} \
+	%{!?with_lua:--disable-lua} \
+	%{!?with_python:--disable-python} \
 	%{!?with_ruby:--disable-ruby} \
+	%{!?with_tcl:--disable-tcl} \
 	--with-perl-options="INSTALLDIRS=vendor"
 
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
@@ -281,12 +289,14 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	examplesdir=%{_examplesdir}/%{name}-%{version} \
 	RUBYARCHDIR=$RPM_BUILD_ROOT%{ruby_archdir}
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.1/*.{la,a}
-%{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
-
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/librrd.la
-
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}
+
+%if %{with lua}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.1/*.{la,a}
+%endif
+
+%{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -322,9 +332,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/librrd.a
 %{_libdir}/librrd_th.a
 
+%if %{with lua}
 %files -n lua-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lua/5.1/rrd.so*
+%endif
 
 %files -n perl-rrdtool
 %defattr(644,root,root,755)
