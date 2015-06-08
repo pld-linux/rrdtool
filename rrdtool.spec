@@ -60,6 +60,7 @@ BuildRequires:	python >= 2.3
 BuildRequires:	python-devel >= 2.3
 %endif
 %if %{with ruby}
+BuildRequires:	rpm-rubyprov
 BuildRequires:	ruby-devel
 %endif
 %if %{with tcl}
