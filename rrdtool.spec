@@ -64,7 +64,7 @@ BuildRequires:	python-devel >= 2.3
 BuildRequires:	ruby-devel
 %endif
 %if %{with tcl}
-BuildRequires:	tcl-devel}
+BuildRequires:	tcl-devel
 %endif
 %{?with_rrd_graph:Requires:	cairo >= 1.10.2}
 Requires:	glib2 >= 1:2.28.7
@@ -323,11 +323,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES CONTRIBUTORS NEWS README THREADS TODO doc/*.html
-%attr(755,root,root) %{_bindir}/rrd*
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librrd.so.4
 %attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librrd_th.so.4
+%attr(755,root,root) %{_bindir}/rrdcached
+%{?with_rrdcgi:%attr(755,root,root) %{_bindir}/rrdcgi}
+%attr(755,root,root) %{_bindir}/rrdcreate
+%attr(755,root,root) %{_bindir}/rrdinfo
+%attr(755,root,root) %{_bindir}/rrdtool
+%attr(755,root,root) %{_bindir}/rrdupdate
 %{_mandir}/man1/bin_dec_hex.1*
 %{_mandir}/man1/cdeftutorial.1*
 %{_mandir}/man1/rpntutorial.1*
