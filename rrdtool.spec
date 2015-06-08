@@ -8,6 +8,7 @@
 %bcond_without	python	# Python binding
 %bcond_without	ruby	# Ruby binding
 %bcond_without	tcl	# Tcl binding
+%bcond_without	rrd_graph	# disable all rrd_graph functions
 
 %define	pdir	RRDp
 %include	/usr/lib/rpm/macros.perl
@@ -27,7 +28,6 @@ Patch0:		%{name}-tcl-path.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
-BuildRequires:	cairo-devel >= 1.10.2
 BuildRequires:	gettext-tools >= 0.18
 BuildRequires:	glib2-devel >= 1:2.28.7
 BuildRequires:	groff
@@ -36,10 +36,13 @@ BuildRequires:	libdbi-devel
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
 BuildRequires:	libxml2-devel >= 1:2.7.8
-BuildRequires:	pango-devel >= 1:1.28.7
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.272
+%if %{with rrd_graph}
+BuildRequires:	cairo-devel >= 1.10.2
+BuildRequires:	pango-devel >= 1:1.28.7
+%endif
 %if %{with lua}
 BuildRequires:	lua51 >= 5.1
 BuildRequires:	lua51-devel >= 5.1
@@ -58,10 +61,10 @@ BuildRequires:	ruby-devel
 %if %{with tcl}
 BuildRequires:	tcl-devel}
 %endif
-Requires:	cairo >= 1.10.2
+%{?with_rrd_graph:Requires:	cairo >= 1.10.2}
 Requires:	glib2 >= 1:2.28.7
 Requires:	libxml2 >= 1:2.7.8
-Requires:	pango >= 1:1.28.7
+%{?with_rrd_graph:Requires:	pango >= 1:1.28.7}
 Suggests:	fonts-TTF-DejaVu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -122,12 +125,12 @@ Summary(ru.UTF-8):	RRDtool - Заголовки, необходимые для �
 Summary(uk.UTF-8):	RRDtool - бібліотечні лінки та файли хедерів
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	cairo-devel >= 1.10.2
+%{?with_rrd_graph:Requires:	cairo-devel >= 1.10.2}
 Requires:	glib2-devel >= 1:2.28.7
 Requires:	libdbi-devel
 Requires:	libwrap-devel
 Requires:	libxml2-devel >= 1:2.7.8
-Requires:	pango-devel >= 1:1.28.7
+%{?with_rrd_graph:Requires:	pango-devel >= 1:1.28.7}
 
 %description devel
 RRDtool development files.
@@ -269,6 +272,7 @@ sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 %configure \
 	LUA=/usr/bin/lua5.1 \
 	--disable-silent-rules \
+	%{!?with_rrd_graph:--disable-rrd_graph} \
 	%{!?with_lua:--disable-lua} \
 	%{!?with_python:--disable-python} \
 	%{!?with_ruby:--disable-ruby} \
