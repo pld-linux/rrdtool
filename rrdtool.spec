@@ -56,8 +56,8 @@ BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov
 %endif
 %if %{with python}
-BuildRequires:	python >= 2.3
-BuildRequires:	python-devel >= 2.3
+BuildRequires:	python >= 1:2.3
+BuildRequires:	python-devel >= 1:2.3
 %endif
 %if %{with ruby}
 BuildRequires:	rpm-rubyprov
@@ -195,6 +195,7 @@ RRD - соращение для "Round Robin Database" (база данных с
 
 %package doc
 Summary:	RRDtool documentation
+Summary(pl.UTF-8):	Dokumentacja do RRDtoola
 Group:		Documentation
 # noarch subpackages only when building with rpm5
 %if "%{_rpmversion}" >= "5"
@@ -207,6 +208,13 @@ and display time-series data (i.e. network bandwidth, machine-room
 temperature, server load average).
 
 This package contains documentation on using RRD.
+
+%description doc -l pl.UTF-8
+RRD jest akronimem Round Robin Database. Jest to system pozwalający na
+składowanie i wyświetlanie czasowych serii danych (np. przepustowość
+sieci, temperatura w pomieszczeniu, obciążenie serwera).
+
+Ten pakiet zawiera dokumentację użytkownika dla RRD.
 
 %package -n lua-rrdtool
 Summary:	RRD module for Lua
