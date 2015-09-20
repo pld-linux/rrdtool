@@ -1,14 +1,15 @@
-## TODO:
-# - separate package with rrdcached (init script, systemd file, etc)
+# TODO:
+# - SysV init script for rrdcached, post/postun/etc.
 #
 # Conditional build:
-%bcond_without	lua	# LUA binding
-%bcond_without	perl	# Perl binding
-%bcond_without	python	# Python binding
-%bcond_without	ruby	# Ruby binding
-%bcond_without	tcl	# Tcl binding
-%bcond_without	rrd_graph	# disable all rrd_graph functions
-%bcond_without	rrdcgi	# disable building of rrdcgi
+%bcond_without	lua		# LUA binding
+%bcond_without	perl		# Perl binding
+%bcond_without	python		# Python binding
+%bcond_without	ruby		# Ruby binding
+%bcond_without	tcl		# Tcl binding
+%bcond_without	ceph		# Ceph (RADOS) storage support
+%bcond_without	rrd_graph	# all rrd_graph functions (depend on cairo+pango)
+%bcond_without	rrdcgi		# building of rrdcgi (depends on rrd_graph)
 
 %if %{without rrd_graph}
 %undefine	with_rrdcgi
@@ -22,20 +23,21 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.4.9
+Version:	1.5.4
 Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	1cea5a9efd6a48ac4035b0f9c7e336cf
+# Source0-md5:	4daea1e628e1c70d91800d6a06427dc1
 Patch0:		%{name}-tcl-path.patch
+Patch1:		%{name}-missing.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
+%{?with_ceph:BuildRequires:	ceph-devel}
 BuildRequires:	gettext-tools >= 0.18
 BuildRequires:	glib2-devel >= 1:2.28.7
 BuildRequires:	groff
-BuildRequires:	intltool
 BuildRequires:	libdbi-devel
 BuildRequires:	libtool
 BuildRequires:	libwrap-devel
@@ -45,6 +47,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.272
 %if %{with rrd_graph}
 BuildRequires:	cairo-devel >= 1.10.2
+BuildRequires:	libpng-devel
 BuildRequires:	pango-devel >= 1:1.28.7
 %endif
 %if %{with lua}
@@ -121,6 +124,18 @@ RRD - соращение для "Round Robin Database" (база данных с
 потрібну щільність вибірки в часі. RRD можна використовувати як через
 прості wrapper-скрипти, так і через фронтенди, що опитують мережеві
 пристрої та надають дружній інтерфейс користувача.
+
+%package cached
+Summary:	Data caching daemon for RRDtool
+Summary(pl.UTF-8):	Demon pamięci podręcznej danych dla RRDtoola
+Group:		Daemons
+Requires:	%{name} = %{version}-%{release}
+
+%description cached
+Data caching daemon for RRDtool.
+
+%description cached -l pl.UTF-8
+Demon pamięci podręcznej danych dla RRDtoola.
 
 %package devel
 Summary:	RRDtool development
@@ -287,6 +302,7 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
@@ -309,13 +325,14 @@ mv docs/html/RRD*.html perl-docs/html
 %configure \
 	LUA=/usr/bin/lua5.1 \
 	--disable-silent-rules \
+	%{!?with_ceph:--disable-librados} \
 	%{!?with_rrd_graph:--disable-rrd_graph} \
 	%{!?with_rrdcgi:--disable-rrdcgi} \
 	%{!?with_lua:--disable-lua} \
+	%{!?with_perl:--disable-perl} \
 	%{!?with_python:--disable-python} \
 	%{!?with_ruby:--disable-ruby} \
 	%{!?with_tcl:--disable-tcl} \
-	%{!?with_perl:--disable-perl} \
 	--with-perl-options="INSTALLDIRS=vendor"
 
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
@@ -354,12 +371,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES CONTRIBUTORS NEWS README THREADS TODO
+%doc CHANGES CONTRIBUTORS NEWS THREADS TODO
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librrd.so.4
 %attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librrd_th.so.4
-%attr(755,root,root) %{_bindir}/rrdcached
 %{?with_rrdcgi:%attr(755,root,root) %{_bindir}/rrdcgi}
 %attr(755,root,root) %{_bindir}/rrdcreate
 %attr(755,root,root) %{_bindir}/rrdinfo
@@ -368,7 +384,34 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/bin_dec_hex.1*
 %{_mandir}/man1/cdeftutorial.1*
 %{_mandir}/man1/rpntutorial.1*
-%{_mandir}/man1/rrd*.1*
+%{_mandir}/man1/rrd-beginners.1*
+%{_mandir}/man1/rrdbuild.1*
+%{?with_rrdcgi:%{_mandir}/man1/rrdcgi.1*}
+%{_mandir}/man1/rrdcreate.1*
+%{_mandir}/man1/rrddump.1*
+%{_mandir}/man1/rrdfetch.1*
+%{_mandir}/man1/rrdfirst.1*
+%{_mandir}/man1/rrdgraph*.1*
+%{_mandir}/man1/rrdinfo.1*
+%{_mandir}/man1/rrdlast.1*
+%{_mandir}/man1/rrdlastupdate.1*
+%{?with_ceph:%{_mandir}/man1/rrdrados.1*}
+%{_mandir}/man1/rrdresize.1*
+%{_mandir}/man1/rrdrestore.1*
+%{_mandir}/man1/rrdthreads.1*
+%{_mandir}/man1/rrdtool.1*
+%{_mandir}/man1/rrdtune.1*
+%{_mandir}/man1/rrdtutorial.1*
+%{_mandir}/man1/rrdupdate.1*
+%{_mandir}/man1/rrdxport.1*
+
+%files cached
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/rrdcached
+%{_mandir}/man1/rrdcached.1*
+%{_mandir}/man1/rrdflushcached.1*
+%{systemdunitdir}/rrdcached.service
+%{systemdunitdir}/rrdcached.socket
 
 %files devel
 %defattr(644,root,root,755)
@@ -393,6 +436,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n lua-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lua/5.1/rrd.so*
+%{_mandir}/man1/rrdlua.1*
 %endif
 
 %if %{with perl}
@@ -410,7 +454,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python}
 %files -n python-rrdtool
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/rrdtoolmodule.so
+%attr(755,root,root) %{py_sitedir}/rrdtool.so
 %if "%{py_ver}" > "2.4"
 %{py_sitedir}/py_rrdtool-*.egg-info
 %endif
