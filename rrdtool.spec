@@ -7,7 +7,7 @@
 %bcond_without	python		# Python binding
 %bcond_without	ruby		# Ruby binding
 %bcond_without	tcl		# Tcl binding
-%bcond_without	ceph		# Ceph (RADOS) storage support
+%bcond_with	ceph		# Ceph (RADOS) storage support
 %bcond_without	rrd_graph	# all rrd_graph functions (depend on cairo+pango)
 %bcond_without	rrdcgi		# building of rrdcgi (depends on rrd_graph)
 
@@ -24,7 +24,7 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.5.4
-Release:	5
+Release:	6
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
