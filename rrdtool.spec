@@ -23,12 +23,12 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.5.4
-Release:	10
+Version:	1.7.0
+Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	4daea1e628e1c70d91800d6a06427dc1
+# Source0-md5:	2f37eeb613bed11077470c9e2057010e
 Patch0:		%{name}-tcl-path.patch
 Patch1:		%{name}-missing.patch
 URL:		http://oss.oetiker.ch/rrdtool/
@@ -373,9 +373,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES CONTRIBUTORS NEWS THREADS TODO
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librrd.so.4
-%attr(755,root,root) %{_libdir}/librrd_th.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librrd_th.so.4
+%attr(755,root,root) %ghost %{_libdir}/librrd.so.8
 %{?with_rrdcgi:%attr(755,root,root) %{_bindir}/rrdcgi}
 %attr(755,root,root) %{_bindir}/rrdcreate
 %attr(755,root,root) %{_bindir}/rrdinfo
@@ -395,6 +393,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/rrdinfo.1*
 %{_mandir}/man1/rrdlast.1*
 %{_mandir}/man1/rrdlastupdate.1*
+%{_mandir}/man1/rrdlist.1*
 %{?with_ceph:%{_mandir}/man1/rrdrados.1*}
 %{_mandir}/man1/rrdresize.1*
 %{_mandir}/man1/rrdrestore.1*
@@ -416,8 +415,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/librrd.so
-%attr(755,root,root) %{_libdir}/librrd_th.so
-%{_libdir}/librrd_th.la
 %{_includedir}/rrd*.h
 %{_pkgconfigdir}/librrd.pc
 %{_mandir}/man3/librrd.3*
@@ -425,7 +422,6 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/librrd.a
-%{_libdir}/librrd_th.a
 
 %files doc
 %defattr(644,root,root,755)
@@ -456,7 +452,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/rrdtool.so
 %if "%{py_ver}" > "2.4"
-%{py_sitedir}/py_rrdtool-*.egg-info
+%{py_sitedir}/rrdtool-*.egg-info
 %endif
 %endif
 
