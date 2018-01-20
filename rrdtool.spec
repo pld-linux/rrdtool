@@ -27,7 +27,7 @@ Version:	1.7.0
 Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
-Source0:	http://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
+Source0:	https://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	2f37eeb613bed11077470c9e2057010e
 Patch0:		%{name}-tcl-path.patch
 Patch1:		%{name}-missing.patch
