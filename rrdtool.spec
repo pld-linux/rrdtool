@@ -24,7 +24,7 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.7.0
-Release:	1
+Release:	2
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	https://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
