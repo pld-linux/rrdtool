@@ -1,0 +1,12 @@
+diff -ur rrdtool-1.7.2.org/doc/Makefile.am rrdtool-1.7.2/doc/Makefile.am
+--- rrdtool-1.7.2.org/doc/Makefile.am	2019-02-04 14:54:27.000000000 +0100
++++ rrdtool-1.7.2/doc/Makefile.am	2019-09-26 12:54:12.423554850 +0200
+@@ -62,7 +62,7 @@
+ 	$(AM_V_GEN)@POD2MAN@ --release=$(VERSION) --center=rrdtool --section=3 $< > $@
+ 
+ .1.txt .3.txt:
+-	$(AM_V_GEN)GROFF_NO_SGR=1 @NROFF@ -man -Tlp -Wbreak $< > $@
++	$(AM_V_GEN)GROFF_NO_SGR=1 @NROFF@ -man -Tlp $< > $@
+ 
+ .1.pdf .3.pdf:
+ 	$(AM_V_GEN)@TROFF@ -man $< | ps2pdf - $@
