@@ -16,7 +16,6 @@
 %endif
 
 %define	pdir	RRDp
-%include	/usr/lib/rpm/macros.perl
 Summary:	RRDtool - round robin database
 Summary(pl.UTF-8):	RRDtool - baza danych typu round-robin
 Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de gráficos
