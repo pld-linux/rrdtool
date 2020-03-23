@@ -23,7 +23,7 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.7.2
-Release:	2
+Release:	3
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	https://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -305,8 +305,14 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %patch1 -p1
 %patch2 -p1
 
-sed -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
-sed -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
+%{__sed} -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
+%{__sed} -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
+
+%{__sed} -E -i -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
+      examples/stripes.py
+
+%{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+tclsh@TCL_VERSION@(\s|$),#!%{__tclsh}\1,' \
+      bindings/tcl/ifOctets.tcl.in
 
 # We only want .txt and .html files for the main documentation
 install -d docs/{html,/txt}
