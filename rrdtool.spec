@@ -44,10 +44,10 @@ BuildRequires:	libwrap-devel
 BuildRequires:	libxml2-devel >= 1:2.7.8
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.272
+BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with rrd_graph}
-BuildRequires:	cairo-devel >= 1.10.2
-BuildRequires:	libpng-devel
+BuildRequires:	glib2-devel >= 1:2.58.1
+BuildRequires:	libpng-devel >= 2:1.4.8
 BuildRequires:	pango-devel >= 1:1.28.7
 %endif
 %if %{with lua}
@@ -69,8 +69,12 @@ BuildRequires:	ruby-devel
 %if %{with tcl}
 BuildRequires:	tcl-devel
 %endif
-%{?with_rrd_graph:Requires:	cairo >= 1.10.2}
+%if %{with rrd_graph}
+Requires:	glib2 >= 1:2.58.1
+%else
 Requires:	glib2 >= 1:2.28.7
+%endif
+%{?with_rrd_graph:Requires:	libpng >= 2:1.4.8}
 Requires:	libxml2 >= 1:2.7.8
 %{?with_rrd_graph:Requires:	pango >= 1:1.28.7}
 Suggests:	fonts-TTF-DejaVu
@@ -145,8 +149,11 @@ Summary(ru.UTF-8):	RRDtool - Заголовки, необходимые для �
 Summary(uk.UTF-8):	RRDtool - бібліотечні лінки та файли хедерів
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-%{?with_rrd_graph:Requires:	cairo-devel >= 1.10.2}
+%if %{with rrd_graph}
+Requires:	glib2-devel >= 1:2.58.1
+%else
 Requires:	glib2-devel >= 1:2.28.7
+%endif
 Requires:	libdbi-devel
 Requires:	libwrap-devel
 Requires:	libxml2-devel >= 1:2.7.8
@@ -212,8 +219,7 @@ RRD - соращение для "Round Robin Database" (база данных с
 Summary:	RRDtool documentation
 Summary(pl.UTF-8):	Dokumentacja do RRDtoola
 Group:		Documentation
-# noarch subpackages only when building with rpm5
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -316,12 +322,12 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 
 # We only want .txt and .html files for the main documentation
 install -d docs/{html,/txt}
-mv doc/*.txt docs/txt
-mv doc/*.html docs/html
+%{__mv} doc/*.txt docs/txt
+%{__mv} doc/*.html docs/html
 
 # Put Perl docs in Perl package
 install -d perl-docs/html
-mv docs/html/RRD*.html perl-docs/html
+%{__mv} docs/html/RRD*.html perl-docs/html
 
 %build
 %{__libtoolize}
@@ -378,7 +384,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES CONTRIBUTORS NEWS THREADS TODO
+%doc CHANGES CONTRIBUTORS COPYRIGHT NEWS THREADS TODO
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librrd.so.8
 %{?with_rrdcgi:%attr(755,root,root) %{_bindir}/rrdcgi}
@@ -390,6 +396,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/cdeftutorial.1*
 %{_mandir}/man1/rpntutorial.1*
 %{_mandir}/man1/rrd-beginners.1*
+%{_mandir}/man1/rrd_pdpcalc.1*
 %{_mandir}/man1/rrdbuild.1*
 %{?with_rrdcgi:%{_mandir}/man1/rrdcgi.1*}
 %{_mandir}/man1/rrdcreate.1*
