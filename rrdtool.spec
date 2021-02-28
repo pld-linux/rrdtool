@@ -219,9 +219,7 @@ RRD - соращение для "Round Robin Database" (база данных с
 Summary:	RRDtool documentation
 Summary(pl.UTF-8):	Dokumentacja do RRDtoola
 Group:		Documentation
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description doc
 RRD is the Acronym for Round Robin Database. RRD is a system to store
