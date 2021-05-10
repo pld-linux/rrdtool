@@ -23,7 +23,7 @@ Summary(ru.UTF-8):	RRDtool - база данных с "циклическим о
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
 Version:	1.7.2
-Release:	3
+Release:	4
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	https://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
@@ -51,16 +51,16 @@ BuildRequires:	libpng-devel >= 2:1.4.8
 BuildRequires:	pango-devel >= 1:1.28.7
 %endif
 %if %{with lua}
-BuildRequires:	lua51 >= 5.1
-BuildRequires:	lua51-devel >= 5.1
+BuildRequires:	lua >= 5.1
+BuildRequires:	lua-devel >= 5.1
 %endif
 %if %{with perl}
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov
 %endif
 %if %{with python}
-BuildRequires:	python >= 1:2.3
-BuildRequires:	python-devel >= 1:2.3
+BuildRequires:	python3
+BuildRequires:	python3-devel
 %endif
 %if %{with ruby}
 BuildRequires:	rpm-rubyprov
@@ -240,7 +240,7 @@ Summary:	RRD module for Lua
 Summary(pl.UTF-8):	Moduł RRD dla języka Lua
 Group:		Development/Languages
 Requires:	%{name} = %{version}-%{release}
-Requires:	lua51
+Requires:	lua
 
 %description -n lua-rrdtool
 Lua interface to RRDtool.
@@ -263,24 +263,25 @@ Moduły Perla pozwalające na dostęp do RRDtoola: RRDs do dostępu do
 RRDtoola jako modułu dzielonego oraz RRDp do dostępu poprzez zestaw
 potoków.
 
-%package -n python-rrdtool
-Summary:	Python interface to RRDtool
+%package -n python3-rrdtool
+Summary:	Python 3 interface to RRDtool
 Summary(pl.UTF-8):	Pythonowy interfejs do RRDtoola
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-libs
+Requires:	python3-libs
+Obsoletes:	python-rrdtool
 
-%description -n python-rrdtool
-Python interface to RRDtool, the graphing and logging utility.
+%description -n python3-rrdtool
+Python 3 interface to RRDtool, the graphing and logging utility.
 
-%description -n python-rrdtool -l pl.UTF-8
-Interfejs Pythona do RRDtoola - narzędzia do tworzenia wykresów i
+%description -n python3-rrdtool -l pl.UTF-8
+Interfejs Pythona 3 do RRDtoola - narzędzia do tworzenia wykresów i
 logowania.
 
 %package -n ruby-rrdtool
 Summary:	Ruby interface to RRDtool
 Summary(pl.UTF-8):	Interfejs języka Ruby do RRDtoola
-Group:		Development/Languages/Python
+Group:		Development/Languages/Ruby
 Requires:	%{name} = %{version}-%{release}
 
 %description -n ruby-rrdtool
@@ -312,7 +313,7 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %{__sed} -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 %{__sed} -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 
-%{__sed} -E -i -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
+%{__sed} -E -i -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python3}\1,' \
       examples/stripes.py
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+tclsh@TCL_VERSION@(\s|$),#!%{__tclsh}\1,' \
@@ -334,7 +335,7 @@ install -d perl-docs/html
 %{__autoheader}
 %{__automake}
 %configure \
-	LUA=/usr/bin/lua5.1 \
+	PYTHON=%{__python3} \
 	--disable-silent-rules \
 	%{!?with_ceph:--disable-librados} \
 	%{!?with_rrd_graph:--disable-rrd_graph} \
@@ -349,8 +350,7 @@ install -d perl-docs/html
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
 # (tried to install without DESTDIR on plain make)
 %{__make} \
-	RUBY_MAKE_OPTIONS= \
-	LUA_CFLAGS=-I/usr/include/lua51
+	RUBY_MAKE_OPTIONS=
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -359,7 +359,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	perl_sitearch=%{perl_vendorarch} \
-	pythondir=%{py_sitedir} \
+	pythondir=%{py3_sitedir} \
 	examplesdir=%{_examplesdir}/%{name}-%{version} \
 	RUBYARCHDIR=$RPM_BUILD_ROOT%{ruby_archdir}
 
@@ -367,7 +367,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}
 
 %if %{with lua}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.1/*.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.*/*.{la,a}
 %endif
 
 %if %{with perl}
@@ -443,7 +443,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with lua}
 %files -n lua-rrdtool
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lua/5.1/rrd.so*
+%attr(755,root,root) %{_libdir}/lua/5.*/rrd.so*
 %{_mandir}/man1/rrdlua.1*
 %endif
 
@@ -460,12 +460,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %if %{with python}
-%files -n python-rrdtool
+%files -n python3-rrdtool
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/rrdtool.so
-%if "%{py_ver}" > "2.4"
-%{py_sitedir}/rrdtool-*.egg-info
-%endif
+%attr(755,root,root) %{py3_sitedir}/rrdtool*.so
+%{py3_sitedir}/rrdtool-*.egg-info
 %endif
 
 %if %{with ruby}
