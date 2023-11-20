@@ -22,15 +22,14 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.7.2
-Release:	8
+Version:	1.8.0
+Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	638e3a0a1609d97e9f82e8832759dcd2
+# Source0-md5:	852754364cbd0703a099b5eb32932851
 Patch0:		%{name}-tcl-path.patch
-Patch1:		%{name}-missing.patch
-Patch2:		%{name}-build.patch
+Patch1:		%{name}-build.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
@@ -308,16 +307,15 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %{__sed} -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 %{__sed} -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python3}\1,' \
-      examples/stripes.py
+	examples/stripes.py
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+tclsh@TCL_VERSION@(\s|$),#!%{__tclsh}\1,' \
-      bindings/tcl/ifOctets.tcl.in
+	bindings/tcl/ifOctets.tcl.in
 
 # We only want .txt and .html files for the main documentation
 install -d docs/{html,/txt}
@@ -464,12 +462,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py3_sitedir}/rrdtool*.so
 %{py3_sitedir}/rrdtool-*.egg-info
+%{_mandir}/man1/rrdpython.1*
 %endif
 
 %if %{with ruby}
 %files -n ruby-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{ruby_archdir}/RRD.so
+%{_mandir}/man1/rrdruby.1*
 %endif
 
 %if %{with tcl}
