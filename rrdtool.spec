@@ -10,6 +10,7 @@
 %bcond_without	ceph		# Ceph (RADOS) storage support
 %bcond_without	rrd_graph	# all rrd_graph functions (depend on cairo+pango)
 %bcond_without	rrdcgi		# building of rrdcgi (depends on rrd_graph)
+%bcond_without	static_libs	# static library
 
 %if %{without rrd_graph}
 %undefine	with_rrdcgi
@@ -336,6 +337,7 @@ install -d perl-docs/html
 %configure \
 	PYTHON=%{__python3} \
 	--disable-silent-rules \
+	%{__enable_disable static_libs static} \
 	%{!?with_ceph:--disable-librados} \
 	%{!?with_rrd_graph:--disable-rrd_graph} \
 	%{!?with_rrdcgi:--disable-rrdcgi} \
@@ -366,7 +368,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}
 
 %if %{with lua}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.*/*.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.*/*.la
+%{?with_static_libs:%{__rm} $RPM_BUILD_ROOT%{_libdir}/lua/5.*/*.a}
 %endif
 
 %if %{with perl}
@@ -430,9 +433,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/librrd.pc
 %{_mandir}/man3/librrd.3*
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/librrd.a
+%endif
 
 %files doc
 %defattr(644,root,root,755)
