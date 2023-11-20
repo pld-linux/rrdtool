@@ -270,7 +270,7 @@ Summary(pl.UTF-8):	Pythonowy interfejs do RRDtoola
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python3-libs
-Obsoletes:	python-rrdtool
+Obsoletes:	python-rrdtool < 1.7.2-4
 
 %description -n python3-rrdtool
 Python 3 interface to RRDtool, the graphing and logging utility.
