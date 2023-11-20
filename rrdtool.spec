@@ -26,7 +26,7 @@ Version:	1.7.2
 Release:	8
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
-Source0:	https://oss.oetiker.ch/rrdtool/pub/%{name}-%{version}.tar.gz
+Source0:	https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	638e3a0a1609d97e9f82e8832759dcd2
 Patch0:		%{name}-tcl-path.patch
 Patch1:		%{name}-missing.patch
