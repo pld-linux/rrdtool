@@ -42,6 +42,7 @@ BuildRequires:	libtool
 BuildRequires:	libwrap-devel
 BuildRequires:	libxml2-devel >= 1:2.7.8
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with rrd_graph}
