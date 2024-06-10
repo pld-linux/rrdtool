@@ -31,6 +31,7 @@ Source0:	https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{
 # Source0-md5:	852754364cbd0703a099b5eb32932851
 Patch0:		%{name}-tcl-path.patch
 Patch1:		%{name}-build.patch
+Patch2:		gcc14.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
@@ -309,6 +310,7 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %{__sed} -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 %{__sed} -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
