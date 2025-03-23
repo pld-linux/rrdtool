@@ -1,0 +1,11 @@
+--- rrdtool-1.8.0/src/rrd_fetch_libdbi.c~	2022-03-14 15:30:12.000000000 +0100
++++ rrdtool-1.8.0/src/rrd_fetch_libdbi.c	2025-03-23 15:07:12.926649274 +0100
+@@ -410,7 +410,7 @@
+   int isunixtime=1;
+   long gmt_offset=0;
+   /* the result-set */
+-  long r_timestamp,l_timestamp,d_timestamp;
++  time_t r_timestamp,l_timestamp,d_timestamp;
+   double r_value,l_value,d_value;
+   int r_status;
+   int rows;
