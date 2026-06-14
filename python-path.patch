@@ -1,0 +1,12 @@
+diff -up rrdtool-1.10.3/bindings/Makefile.am._orig rrdtool-1.10.3/bindings/Makefile.am
+--- rrdtool-1.10.3/bindings/Makefile.am._orig	2026-05-25 11:10:59.000000000 +0200
++++ rrdtool-1.10.3/bindings/Makefile.am	2026-06-11 12:32:09.174709061 +0200
+@@ -41,7 +41,7 @@ install-data-local:
+ 	$(AM_V_GEN)test -f ${builddir}/python/dist/*.whl \
+            && ( $(PYTHON) -m pip install --upgrade --no-index --no-deps \
+                   --no-cache-dir --disable-pip-version-check \
+-                  --target=$(DESTDIR)$(libdir)/python3/site-packages \
++                  --target=$(DESTDIR)$(pyexecdir) \
+                   ${builddir}/python/dist/*.whl ) \
+            || true
+ 

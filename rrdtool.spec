@@ -23,16 +23,15 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.8.0
-Release:	8
+Version:	1.10.3
+Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	852754364cbd0703a099b5eb32932851
+# Source0-md5:	6d8d2e1fd7d2abe1a71169e6fd5587c4
 Patch0:		%{name}-tcl-path.patch
 Patch1:		%{name}-build.patch
-Patch2:		gcc14.patch
-Patch3:		time_t.patch
+Patch2:		python-path.patch
 URL:		http://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
@@ -64,6 +63,7 @@ BuildRequires:	rpm-perlprov
 %if %{with python}
 BuildRequires:	python3
 BuildRequires:	python3-devel
+BuildRequires:	python3-pip
 %endif
 %if %{with ruby}
 BuildRequires:	rpm-rubyprov
@@ -312,7 +312,6 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %patch -P 0 -p1
 %patch -P 1 -p1
 %patch -P 2 -p1
-%patch -P 3 -p1
 
 %{__sed} -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 %{__sed} -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
@@ -360,6 +359,7 @@ install -d perl-docs/html
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+install -d $RPM_BUILD_ROOT%{ruby_archdir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -380,13 +380,15 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/auto/RRDs/.packlist
 %endif
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files
+%files  -f %{name}.lang
 %defattr(644,root,root,755)
 %doc CHANGES CONTRIBUTORS COPYRIGHT NEWS THREADS TODO
 %attr(755,root,root) %{_libdir}/librrd.so.*.*.*
@@ -471,7 +473,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-rrdtool
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py3_sitedir}/rrdtool*.so
-%{py3_sitedir}/rrdtool-*.egg-info
+%{py3_sitedir}/rrdtool-*.dist-info
 %{_mandir}/man1/rrdpython.1*
 %endif
 
