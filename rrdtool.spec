@@ -33,14 +33,14 @@ Patch0:		%{name}-tcl-path.patch
 Patch1:		%{name}-build.patch
 Patch2:		python-path.patch
 URL:		http://oss.oetiker.ch/rrdtool/
-BuildRequires:	autoconf >= 2.60
+BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
 %{?with_ceph:BuildRequires:	ceph-devel}
 BuildRequires:	gettext-tools >= 0.18
 BuildRequires:	glib2-devel >= 1:2.28.7
 BuildRequires:	groff
 BuildRequires:	libdbi-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
 BuildRequires:	libwrap-devel
 BuildRequires:	libxml2-devel >= 1:2.7.8
 BuildRequires:	pkgconfig
@@ -391,8 +391,8 @@ rm -rf $RPM_BUILD_ROOT
 %files  -f %{name}.lang
 %defattr(644,root,root,755)
 %doc CHANGES CONTRIBUTORS COPYRIGHT NEWS THREADS TODO
-%attr(755,root,root) %{_libdir}/librrd.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/librrd.so.8
+%{_libdir}/librrd.so.*.*.*
+%ghost %{_libdir}/librrd.so.8
 %{?with_rrdcgi:%attr(755,root,root) %{_bindir}/rrdcgi}
 %attr(755,root,root) %{_bindir}/rrdcreate
 %attr(755,root,root) %{_bindir}/rrdinfo
@@ -434,7 +434,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/librrd.so
+%{_libdir}/librrd.so
 %{_includedir}/rrd*.h
 %{_pkgconfigdir}/librrd.pc
 %{_mandir}/man3/librrd.3*
@@ -453,7 +453,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with lua}
 %files -n lua-rrdtool
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lua/5.*/rrd.so*
+%{_libdir}/lua/5.*/rrd.so*
 %{_mandir}/man1/rrdlua.1*
 %endif
 
@@ -464,7 +464,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RRDp.pm
 %{perl_vendorarch}/RRDs.pm
 %dir %{perl_vendorarch}/auto/RRDs
-%attr(755,root,root) %{perl_vendorarch}/auto/RRDs/RRDs.so
+%{perl_vendorarch}/auto/RRDs/RRDs.so
 %{_mandir}/man3/RRDp.3*
 %{_mandir}/man3/RRDs.3*
 %endif
@@ -472,7 +472,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python}
 %files -n python3-rrdtool
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py3_sitedir}/rrdtool*.so
+%{py3_sitedir}/rrdtool*.so
 %{py3_sitedir}/rrdtool-*.dist-info
 %{_mandir}/man1/rrdpython.1*
 %endif
@@ -480,13 +480,13 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with ruby}
 %files -n ruby-rrdtool
 %defattr(644,root,root,755)
-%attr(755,root,root) %{ruby_archdir}/RRD.so
+%{ruby_archdir}/RRD.so
 %{_mandir}/man1/rrdruby.1*
 %endif
 
 %if %{with tcl}
 %files -n tcl-rrdtool
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/tclrrd%{version}.so
+%{_libdir}/tclrrd%{version}.so
 %{_prefix}/lib/tclrrd%{version}
 %endif
