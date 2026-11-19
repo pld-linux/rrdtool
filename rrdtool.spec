@@ -11,6 +11,7 @@
 %bcond_without	rrd_graph	# all rrd_graph functions (depend on cairo+pango)
 %bcond_without	rrdcgi		# building of rrdcgi (depends on rrd_graph)
 %bcond_without	static_libs	# static library
+%bcond_without	tests		# unit tests
 
 %if %{without rrd_graph}
 %undefine	with_rrdcgi
@@ -23,16 +24,17 @@ Summary(pt_BR.UTF-8):	Round Robin Database, uma ferramenta para construção de 
 Summary(ru.UTF-8):	RRDtool - база данных с "циклическим обновлением"
 Summary(uk.UTF-8):	RRDtool - це система зберігання та показу серійних даних
 Name:		rrdtool
-Version:	1.10.3
-Release:	2
+Version:	1.11.0
+Release:	1
 License:	GPL v2+ + FLOSS exception
 Group:		Applications/Databases
 Source0:	https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	6d8d2e1fd7d2abe1a71169e6fd5587c4
+# Source0-md5:	289fa4c8f31db4626deddb6603ee117e
 Patch0:		%{name}-tcl-path.patch
-Patch1:		%{name}-build.patch
 Patch2:		python-path.patch
-URL:		http://oss.oetiker.ch/rrdtool/
+Patch3:		rrdcached-systemd-listen-fds.patch
+Patch4:		lua-info-counter.patch
+URL:		https://oss.oetiker.ch/rrdtool/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
 %{?with_ceph:BuildRequires:	ceph-devel}
@@ -64,6 +66,7 @@ BuildRequires:	rpm-perlprov
 BuildRequires:	python3
 BuildRequires:	python3-devel
 BuildRequires:	python3-pip
+BuildRequires:	python3-setuptools >= 1:70.1
 %endif
 %if %{with ruby}
 BuildRequires:	rpm-rubyprov
@@ -310,8 +313,9 @@ Rozszerzenie Tcl-a pozwalające na dostęp do biblioteki Tcl.
 %prep
 %setup -q
 %patch -P 0 -p1
-%patch -P 1 -p1
 %patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 %{__sed} -i -e 's#\$TCL_PACKAGE_PATH#%{_prefix}/lib#g' configure.ac
 %{__sed} -i -e 's#/lib/lua/#/%{_lib}/lua/#g' configure.ac
@@ -349,12 +353,15 @@ install -d perl-docs/html
 	%{!?with_python:--disable-python} \
 	%{!?with_ruby:--disable-ruby} \
 	%{!?with_tcl:--disable-tcl} \
-	--with-perl-options="INSTALLDIRS=vendor"
+	--with-perl-options="INSTALLDIRS=vendor" \
+	--with-systemdsystemunitdir=%{systemdunitdir}
 
 # empty RUBY_MAKE_OPTIONS as workaround for some make weirdness
 # (tried to install without DESTDIR on plain make)
 %{__make} \
 	RUBY_MAKE_OPTIONS=
+
+%{?with_tests:%{__make} check}
 
 %install
 rm -rf $RPM_BUILD_ROOT

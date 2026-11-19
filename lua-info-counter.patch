@@ -1,0 +1,18 @@
+Lua info() reads RD_I_CNT values (step, rra[].rows, ...) from u_val instead of
+u_cnt, so they come back as garbage such as 2.96e-322.
+
+--- rrdtool-1.11.0.org/bindings/lua/rrdlua.c	2026-11-19 21:53:30.312771467 +0100
++++ rrdtool-1.11.0/bindings/lua/rrdlua.c	2026-11-19 21:53:30.542268923 +0100
+@@ -114,11 +114,7 @@
+     lua_pushstring(L, data->key);
+     switch (data->type) {
+       case RD_I_CNT:
+-        if (isnan(data->value.u_val)) {
+-          lua_pushnil(L); 
+-        } else {
+-          lua_pushnumber(L, (lua_Number) data->value.u_val);
+-        }
++        lua_pushnumber(L, (lua_Number) data->value.u_cnt);
+         lua_rawset(L, -3);
+         break;
+       case RD_I_VAL:

@@ -1,0 +1,28 @@
+From 131287b18ada968bc186ef06b88f438477890cfd Mon Sep 17 00:00:00 2001
+From: emwgit <emw-github-2026@nocabal.de>
+Date: Wed, 21 Oct 2026 00:39:39 +0200
+Subject: [PATCH] rrdcached: zero-initialise listen_fds entry for systemd
+ sockets
+
+open_listen_sockets_systemd() left addr and other fields of the realloc()ed entry uninitialised, so listen_thread_main() called strdup() on a garbage pointer on the first connection. Fixes #1387.
+---
+ CHANGES          | 4 ++++
+ src/rrd_daemon.c | 5 ++---
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/rrd_daemon.c b/src/rrd_daemon.c
+index c1ee1f04e..0f48d686b 100644
+--- a/src/rrd_daemon.c
++++ b/src/rrd_daemon.c
+@@ -4254,9 +4254,8 @@ static int open_listen_sockets_systemd(
+             return i;
+         }
+ 
+-        listen_fds[listen_fds_num].wbuf_data = NULL;
+-        listen_fds[listen_fds_num].wbuf_size = 0;
+-        listen_fds[listen_fds_num].wbuf_capacity = 0;
++        /* realloc() memory is uninitialized; addr must be NULL, not garbage */
++        memset(&listen_fds[listen_fds_num], 0, sizeof(listen_fds[0]));
+         listen_fds[listen_fds_num].fd = sd_fd;
+         listen_fds[listen_fds_num].family = sa.sun_family;
+         /* Add permissions to the socket */
